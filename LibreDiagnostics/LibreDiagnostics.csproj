@@ -7,13 +7,17 @@
     <ApplicationManifest>app.manifest</ApplicationManifest>
 	<Copyright>Florian K.</Copyright>
 	<ApplicationIcon>../LibreDiagnostics.UI/Assets/Icon.ico</ApplicationIcon>
-    <AssemblyVersion>1.0.0</AssemblyVersion>
-    <FileVersion>1.0.0</FileVersion>
+    <AssemblyVersion>1.0.1</AssemblyVersion>
+    <FileVersion>1.0.1</FileVersion>
     <Version>$(AssemblyVersion)</Version>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LibreDiagnostics.UI\LibreDiagnostics.UI.csproj" />
   </ItemGroup>
+
+  <!--<Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <Exec Command="for %25%25i in (&quot;$(SolutionDir).&quot;) do set Solution=%25%25~nxi&#xD;&#xA;set DEST=&quot;V:\%Solution%\$(ProjectName)\bin\$(ConfigurationName)\$(TargetFramework)\\&quot;&#xD;&#xA;robocopy &quot;$(TargetDir)\&quot; %25DEST%25 /E /XO /XD &quot;ref&quot; &quot;obj&quot; &gt; nul&#xD;&#xA;if %25ERRORLEVEL%25 LEQ 7 exit /b 0" />
+  </Target>-->
 
 </Project>

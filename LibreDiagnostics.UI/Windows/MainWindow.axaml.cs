@@ -212,8 +212,8 @@ namespace LibreDiagnostics.UI.Windows
                         _AppBarTask = null;
                     }
 
-                    //Update layout, which also updates positioning
-                    UpdateLayout();
+                    //Update position
+                    SetWindowPosition();
 
                     //Enable AppBar, if setting says so
                     if (e.NewSettings.IsAppBar)
