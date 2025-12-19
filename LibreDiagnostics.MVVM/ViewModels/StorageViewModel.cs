@@ -9,7 +9,6 @@
 
 using BlackSharp.MVVM.ComponentModel;
 using DiskInfoToolkit;
-using LibreDiagnostics.Models.Helper;
 using LibreHardwareMonitor.Hardware.Storage;
 
 namespace LibreDiagnostics.MVVM.ViewModels
@@ -36,7 +35,7 @@ namespace LibreDiagnostics.MVVM.ViewModels
         public StorageDevice StorageDevice
         {
             get { return _StorageDevice; }
-            set { SetField(ref _StorageDevice, value); Storage = LHMReflection.GetStoragePropertyFromStorageDevice(_StorageDevice); }
+            set { SetField(ref _StorageDevice, value); Storage = _StorageDevice.Storage; }
         }
 
         Storage _Storage;

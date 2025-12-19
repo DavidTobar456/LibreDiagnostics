@@ -17,7 +17,6 @@ using LibreDiagnostics.Models.Enums;
 using LibreDiagnostics.Models.Events;
 using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.Models.Hardware.Metrics;
-using LibreDiagnostics.Models.Helper;
 using LibreHardwareMonitor.Hardware;
 using LibreHardwareMonitor.Hardware.Storage;
 
@@ -32,7 +31,7 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
         {
             //Get underlying Storage object via reflection
             var sd = Hardware as StorageDevice;
-            _Storage = LHMReflection.GetStoragePropertyFromStorageDevice(sd);
+            _Storage = sd.Storage;
 
             Initialize();
 
