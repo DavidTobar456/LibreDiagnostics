@@ -14,6 +14,7 @@ using Avalonia.Data.Core.Plugins;
 using Avalonia.Markup.Xaml;
 using Avalonia.Platform;
 using Avalonia.Styling;
+using LibreDiagnostics.Models.Configuration;
 using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.UI.Models;
 using LibreDiagnostics.UI.Utilities;
@@ -37,26 +38,24 @@ namespace LibreDiagnostics.UI
         {
             AvaloniaXamlLoader.Load(this);
 
+            if (Design.IsDesignMode)
+            {
+                Global.Settings = Settings.GetMock();
+            }
+
+            //Set font manager
+            Global.FontManager = new FontManagerImplementation();
+
+            RuntimeHelpers.RunClassConstructor(typeof(NavigationResolver).TypeHandle);
+
             if (!Design.IsDesignMode)
             {
-                //Set font manager
-                Global.FontManager = new FontManagerImplementation();
-
-                RuntimeHelpers.RunClassConstructor(typeof(NavigationResolver).TypeHandle);
-
                 Global.TrayIcon = new TrayIconImplementation(Global.Settings);
             }
         }
 
         public override void OnFrameworkInitializationCompleted()
         {
-            //Skip creating MainWindow when in design mode to avoid ghost/invisible windows
-            if (Design.IsDesignMode)
-            {
-                base.OnFrameworkInitializationCompleted();
-                return;
-            }
-
             if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
             {
                 // Avoid duplicate validations from both Avalonia and the CommunityToolkit. 

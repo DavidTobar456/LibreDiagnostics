@@ -7,6 +7,7 @@
 *
 */
 
+using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using BlackSharp.MVVM.Dialogs.Enums;
 using BlackSharp.UI.Avalonia.Windows.Dialogs;
@@ -84,6 +85,14 @@ namespace LibreDiagnostics.UI.Utilities
         static List<TextValuePair<int>> GetScreens()
         {
             var list = new List<TextValuePair<int>>();
+
+            if (Design.IsDesignMode)
+            {
+                list.Add(new() { Text = "Display 1 (#0)", Value = 0 });
+                list.Add(new() { Text = "Display 2 (#1)", Value = 1 });
+
+                return list;
+            }
 
             if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime wnd
              && wnd.MainWindow != null)

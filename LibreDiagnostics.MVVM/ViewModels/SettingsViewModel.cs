@@ -30,9 +30,6 @@ namespace LibreDiagnostics.MVVM.ViewModels
         protected SettingsViewModel(object o)
         {
             //Design time
-
-            Global.Settings = Settings.GetMock();
-
             CommonInit();
         }
 

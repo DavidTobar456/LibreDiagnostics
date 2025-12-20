@@ -11,7 +11,6 @@ using LibreDiagnostics.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 
 namespace LibreDiagnostics
 {
@@ -23,15 +22,6 @@ namespace LibreDiagnostics
         }
 
         //For Avalonia Designer; do not remove, even if it shows "unused"
-        static object BuildAvaloniaApp()
-        {
-            return typeof(Client).GetMethod(
-                "StartApp",
-                BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.FlattenHierarchy,
-                null,
-                [ typeof(List<>).MakeGenericType(typeof(string)) ],
-                null)?
-                .Invoke(null, [ Environment.GetCommandLineArgs().ToList() ]);
-        }
+        static object BuildAvaloniaApp() => App.BuildAvaloniaApp();
     }
 }
