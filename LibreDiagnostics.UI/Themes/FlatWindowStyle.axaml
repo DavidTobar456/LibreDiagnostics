@@ -32,87 +32,89 @@
 					<Border x:Name="PART_BORDER"
                             Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
-                        <Grid>
-							<DockPanel LastChildFill="True">
-								<Border x:Name="PART_TITLEBAR" DockPanel.Dock="Top" Margin="0" Height="30"
-                                        Background="Transparent" BorderBrush="Transparent" BorderThickness="0"
-                                        IsVisible="{TemplateBinding ShowTitleBar}">
-									<DockPanel LastChildFill="False">
-										<Image x:Name="PART_ICON" DockPanel.Dock="Left"
-                                               Source="{Binding TitleIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConverter}}"
-                                               Width="16" Height="16"
-                                               Margin="10,0,0,0" VerticalAlignment="Center"
-                                               IsVisible="{TemplateBinding ShowIcon}"/>
+                        <VisualLayerManager>
+                            <Grid>
+							    <DockPanel LastChildFill="True">
+								    <Border x:Name="PART_TITLEBAR" DockPanel.Dock="Top" Margin="0" Height="30"
+                                            Background="Transparent" BorderBrush="Transparent" BorderThickness="0"
+                                            IsVisible="{TemplateBinding ShowTitleBar}">
+									    <DockPanel LastChildFill="False">
+										    <Image x:Name="PART_ICON" DockPanel.Dock="Left"
+                                                   Source="{Binding TitleIcon, RelativeSource={RelativeSource TemplatedParent}, Converter={StaticResource StringToImageConverter}}"
+                                                   Width="16" Height="16"
+                                                   Margin="10,0,0,0" VerticalAlignment="Center"
+                                                   IsVisible="{TemplateBinding ShowIcon}"/>
 
-                                        <TextBlock x:Name="PART_TITLE" DockPanel.Dock="Left"
-                                                   Text="{TemplateBinding Title}" Margin="8,0,0,1" Padding="0"
-                                                   VerticalAlignment="Center"
-                                                   IsVisible="{TemplateBinding ShowTitle}"/>
+                                            <TextBlock x:Name="PART_TITLE" DockPanel.Dock="Left"
+                                                       Text="{TemplateBinding Title}" Margin="8,0,0,1" Padding="0"
+                                                       VerticalAlignment="Center"
+                                                       IsVisible="{TemplateBinding ShowTitle}"/>
 
-                                        <Button x:Name="PART_CLOSE" DockPanel.Dock="Right" MaxWidth="40"
-                                                Command="{Binding CloseCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                                IsVisible="{TemplateBinding ShowClose}">
-                                            <Path Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"
-                                                  Width="16" Height="16" Stretch="Uniform"
-                                                  Data="M176.662 817.173c-8.19 8.471-7.96 21.977 0.51 30.165 8.472 8.19 21.978 7.96 30.166-0.51l618.667-640c8.189-8.472 7.96-21.978-0.511-30.166-8.471-8.19-21.977-7.96-30.166 0.51l-618.666 640z M795.328 846.827c8.19 8.471 21.695 8.7 30.166 0.511 8.471-8.188 8.7-21.694 0.511-30.165l-618.667-640c-8.188-8.471-21.694-8.7-30.165-0.511-8.471 8.188-8.7 21.694-0.511 30.165l618.666 640z"/>
-                                        </Button>
+                                            <Button x:Name="PART_CLOSE" DockPanel.Dock="Right" MaxWidth="40"
+                                                    Command="{Binding CloseCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    IsVisible="{TemplateBinding ShowClose}">
+                                                <Path Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"
+                                                      Width="16" Height="16" Stretch="Uniform"
+                                                      Data="M176.662 817.173c-8.19 8.471-7.96 21.977 0.51 30.165 8.472 8.19 21.978 7.96 30.166-0.51l618.667-640c8.189-8.472 7.96-21.978-0.511-30.166-8.471-8.19-21.977-7.96-30.166 0.51l-618.666 640z M795.328 846.827c8.19 8.471 21.695 8.7 30.166 0.511 8.471-8.188 8.7-21.694 0.511-30.165l-618.667-640c-8.188-8.471-21.694-8.7-30.165-0.511-8.471 8.188-8.7 21.694-0.511 30.165l618.666 640z"/>
+                                            </Button>
 
-                                        <Button x:Name="PART_MAXIMIZE" DockPanel.Dock="Right" MaxWidth="40"
-                                                Command="{Binding MaximizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                                IsVisible="{TemplateBinding ShowMaximize}">
-                                            <Path Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"
-                                                  Width="16" Height="16" Stretch="Uniform"
-                                                  Data="M187.884,132.6l33.66-33.66c2.856-2.856,3.876-7.344,2.244-11.016c-1.632-3.876-5.304-6.324-9.384-6.324H91.8 c-5.712,0-10.2,4.488-10.2,10.2v122.4c0,4.08,2.448,7.752,6.324,9.384s8.16,0.612,11.016-2.244l33.66-33.456l74.46,74.46 c2.04,2.04,4.692,3.06,7.14,3.06s5.304-1.02,7.14-3.06l40.8-40.8c4.08-4.08,4.08-10.404,0-14.484L187.884,132.6z M214.2,240.516 l-74.46-74.256c-2.04-2.04-4.692-3.06-7.14-3.06c-2.448,0-5.304,1.02-7.14,3.06L102,189.516V102h87.516l-23.256,23.46 c-4.08,4.08-4.08,10.404,0,14.484l74.46,74.46L214.2,240.516z M499.596,81.6h-122.4c-4.08,0-7.752,2.448-9.384,6.324c-1.632,3.876-0.612,8.16,2.244,11.016l33.66,33.66l-74.256,74.46 c-4.08,4.08-3.876,10.404,0,14.484l40.8,40.8c1.836,1.836,4.488,3.06,7.14,3.06l0,0c2.652,0,5.304-1.02,7.14-3.06l74.46-74.46 l33.66,33.66c2.856,2.856,7.344,3.876,11.016,2.244c3.876-1.632,6.324-5.304,6.324-9.384V91.8 C509.796,86.088,505.308,81.6,499.596,81.6z M489.396,189.516l-23.46-23.46c-1.836-1.836-4.488-3.06-7.14-3.06l0,0 c-2.652,0-5.304,1.02-7.14,3.06l-74.256,74.46L351.084,214.2l74.256-74.46c4.08-4.08,3.876-10.404,0-14.484L401.88,102h87.516 V189.516z M221.34,329.46c-4.08-4.08-10.404-4.08-14.484,0L132.6,403.716l-33.66-33.66c-2.856-2.856-7.344-3.876-11.016-2.244 c-3.876,1.632-6.324,5.304-6.324,9.384v122.4c0,5.712,4.488,10.2,10.2,10.2h122.4l0,0c5.712,0,10.2-4.488,10.2-10.2 c0-3.06-1.428-5.916-3.468-7.752L187.884,459l74.46-74.46c4.08-4.08,4.08-10.404,0-14.484L221.34,329.46z M166.26,451.86 c-4.08,4.08-4.08,10.404,0,14.484l23.256,23.256H102v-87.516l23.46,23.46c4.08,4.08,10.404,4.08,14.484,0l74.46-74.46 L240.72,377.4L166.26,451.86z M503.676,368.016c-3.876-1.632-8.16-0.612-11.016,2.244L459,403.716l-74.256-74.46c-1.836-1.836-4.488-3.06-7.14-3.06l0,0 c-2.652,0-5.304,1.02-7.14,3.06l-40.8,40.8c-4.08,4.08-4.08,10.404,0,14.484L403.92,459l-33.66,33.66 c-2.856,2.856-3.876,7.344-2.244,11.016c1.632,3.876,5.304,6.324,9.384,6.324h122.4c5.712,0,10.2-4.488,10.2-10.2V377.4 C509.796,373.32,507.348,369.648,503.676,368.016z M489.396,489.6H401.88l23.46-23.46c4.08-4.08,4.08-10.404,0-14.484 L351.084,377.4l26.316-26.316l74.256,74.46c1.836,1.836,4.488,3.06,7.14,3.06l0,0c2.652,0,5.304-1.02,7.14-3.06l23.46-23.46V489.6 z M540.6,0H51C22.848,0,0,22.848,0,51v489.6c0,28.152,22.848,51,51,51h489.6c28.152,0,51-22.848,51-51V51 C591.6,22.848,568.752,0,540.6,0z M571.2,540.6c0,16.932-13.668,30.6-30.6,30.6H51c-16.932,0-30.6-13.668-30.6-30.6V51 c0-16.932,13.668-30.6,30.6-30.6h489.6c16.932,0,30.6,13.668,30.6,30.6V540.6z"/>
-                                        </Button>
+                                            <Button x:Name="PART_MAXIMIZE" DockPanel.Dock="Right" MaxWidth="40"
+                                                    Command="{Binding MaximizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    IsVisible="{TemplateBinding ShowMaximize}">
+                                                <Path Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"
+                                                      Width="16" Height="16" Stretch="Uniform"
+                                                      Data="M187.884,132.6l33.66-33.66c2.856-2.856,3.876-7.344,2.244-11.016c-1.632-3.876-5.304-6.324-9.384-6.324H91.8 c-5.712,0-10.2,4.488-10.2,10.2v122.4c0,4.08,2.448,7.752,6.324,9.384s8.16,0.612,11.016-2.244l33.66-33.456l74.46,74.46 c2.04,2.04,4.692,3.06,7.14,3.06s5.304-1.02,7.14-3.06l40.8-40.8c4.08-4.08,4.08-10.404,0-14.484L187.884,132.6z M214.2,240.516 l-74.46-74.256c-2.04-2.04-4.692-3.06-7.14-3.06c-2.448,0-5.304,1.02-7.14,3.06L102,189.516V102h87.516l-23.256,23.46 c-4.08,4.08-4.08,10.404,0,14.484l74.46,74.46L214.2,240.516z M499.596,81.6h-122.4c-4.08,0-7.752,2.448-9.384,6.324c-1.632,3.876-0.612,8.16,2.244,11.016l33.66,33.66l-74.256,74.46 c-4.08,4.08-3.876,10.404,0,14.484l40.8,40.8c1.836,1.836,4.488,3.06,7.14,3.06l0,0c2.652,0,5.304-1.02,7.14-3.06l74.46-74.46 l33.66,33.66c2.856,2.856,7.344,3.876,11.016,2.244c3.876-1.632,6.324-5.304,6.324-9.384V91.8 C509.796,86.088,505.308,81.6,499.596,81.6z M489.396,189.516l-23.46-23.46c-1.836-1.836-4.488-3.06-7.14-3.06l0,0 c-2.652,0-5.304,1.02-7.14,3.06l-74.256,74.46L351.084,214.2l74.256-74.46c4.08-4.08,3.876-10.404,0-14.484L401.88,102h87.516 V189.516z M221.34,329.46c-4.08-4.08-10.404-4.08-14.484,0L132.6,403.716l-33.66-33.66c-2.856-2.856-7.344-3.876-11.016-2.244 c-3.876,1.632-6.324,5.304-6.324,9.384v122.4c0,5.712,4.488,10.2,10.2,10.2h122.4l0,0c5.712,0,10.2-4.488,10.2-10.2 c0-3.06-1.428-5.916-3.468-7.752L187.884,459l74.46-74.46c4.08-4.08,4.08-10.404,0-14.484L221.34,329.46z M166.26,451.86 c-4.08,4.08-4.08,10.404,0,14.484l23.256,23.256H102v-87.516l23.46,23.46c4.08,4.08,10.404,4.08,14.484,0l74.46-74.46 L240.72,377.4L166.26,451.86z M503.676,368.016c-3.876-1.632-8.16-0.612-11.016,2.244L459,403.716l-74.256-74.46c-1.836-1.836-4.488-3.06-7.14-3.06l0,0 c-2.652,0-5.304,1.02-7.14,3.06l-40.8,40.8c-4.08,4.08-4.08,10.404,0,14.484L403.92,459l-33.66,33.66 c-2.856,2.856-3.876,7.344-2.244,11.016c1.632,3.876,5.304,6.324,9.384,6.324h122.4c5.712,0,10.2-4.488,10.2-10.2V377.4 C509.796,373.32,507.348,369.648,503.676,368.016z M489.396,489.6H401.88l23.46-23.46c4.08-4.08,4.08-10.404,0-14.484 L351.084,377.4l26.316-26.316l74.256,74.46c1.836,1.836,4.488,3.06,7.14,3.06l0,0c2.652,0,5.304-1.02,7.14-3.06l23.46-23.46V489.6 z M540.6,0H51C22.848,0,0,22.848,0,51v489.6c0,28.152,22.848,51,51,51h489.6c28.152,0,51-22.848,51-51V51 C591.6,22.848,568.752,0,540.6,0z M571.2,540.6c0,16.932-13.668,30.6-30.6,30.6H51c-16.932,0-30.6-13.668-30.6-30.6V51 c0-16.932,13.668-30.6,30.6-30.6h489.6c16.932,0,30.6,13.668,30.6,30.6V540.6z"/>
+                                            </Button>
 
-                                        <Button x:Name="PART_RESTORE" DockPanel.Dock="Right" MaxWidth="40"
-                                                Command="{Binding RestoreCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                                IsVisible="{TemplateBinding ShowMaximize}">
-                                            <Path Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"
-                                                  Width="16" Height="16" Stretch="Uniform"
-                                                  Data="M 44.3333,19L 57,19L 57,31.6667L 52.25,36.4167L 52.25,27.7083L 34.8333,45.125L 30.875,41.1667L 48.2917,23.75L 39.5833,23.75L 44.3333,19 Z M 19,25.3333L 42.75,25.3333L 38,30.0833L 23.75,30.0833L 23.75,52.25L 45.9167,52.25L 45.9167,38L 50.6667,33.25L 50.6667,57L 19,57L 19,25.3333 Z"/>
-                                        </Button>
+                                            <Button x:Name="PART_RESTORE" DockPanel.Dock="Right" MaxWidth="40"
+                                                    Command="{Binding RestoreCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    IsVisible="{TemplateBinding ShowMaximize}">
+                                                <Path Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"
+                                                      Width="16" Height="16" Stretch="Uniform"
+                                                      Data="M 44.3333,19L 57,19L 57,31.6667L 52.25,36.4167L 52.25,27.7083L 34.8333,45.125L 30.875,41.1667L 48.2917,23.75L 39.5833,23.75L 44.3333,19 Z M 19,25.3333L 42.75,25.3333L 38,30.0833L 23.75,30.0833L 23.75,52.25L 45.9167,52.25L 45.9167,38L 50.6667,33.25L 50.6667,57L 19,57L 19,25.3333 Z"/>
+                                            </Button>
 
-                                        <Button x:Name="PART_MINIMIZE" DockPanel.Dock="Right" MaxWidth="40"
-                                                Command="{Binding MinimizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
-                                                IsVisible="{TemplateBinding ShowMinimize}">
-                                            <Path Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"
-                                                  Width="16" Height="16" Stretch="Uniform"
-                                                  Data="M0.05,12.3v222.8c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3V24.5h440.2v440.2h-211.9c-6.8,0-12.3,5.5-12.3,12.3 s5.5,12.3,12.3,12.3h224c6.8,0,12.3-5.5,12.3-12.3V12.3c0-6.8-5.5-12.3-12.3-12.3H12.35C5.55,0,0.05,5.5,0.05,12.3z M0.05,476.9c0,6.8,5.5,12.3,12.3,12.3h170.3c6.8,0,12.3-5.5,12.3-12.3V306.6c0-6.8-5.5-12.3-12.3-12.3H12.35 c-6.8,0-12.3,5.5-12.3,12.3C0.05,306.6,0.05,476.9,0.05,476.9z M24.55,318.8h145.9v145.9H24.55V318.8z M231.55,135.9c-6.8,0-12.3,5.5-12.3,12.3v109.5c0,6.8,5.5,12.3,12.3,12.3h109.5c6.8,0,12.3-5.5,12.3-12.3 s-5.5-12.3-12.3-12.3h-79.9l138.7-138.7c4.8-4.8,4.8-12.5,0-17.3s-12.5-4.8-17.3,0l-138.7,138.7v-79.9 C243.85,141.4,238.35,135.9,231.55,135.9z"/>
-                                        </Button>
-                                    </DockPanel>
-                                </Border>
+                                            <Button x:Name="PART_MINIMIZE" DockPanel.Dock="Right" MaxWidth="40"
+                                                    Command="{Binding MinimizeCommand, RelativeSource={RelativeSource TemplatedParent}}"
+                                                    IsVisible="{TemplateBinding ShowMinimize}">
+                                                <Path Fill="{Binding Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}"
+                                                      Width="16" Height="16" Stretch="Uniform"
+                                                      Data="M0.05,12.3v222.8c0,6.8,5.5,12.3,12.3,12.3s12.3-5.5,12.3-12.3V24.5h440.2v440.2h-211.9c-6.8,0-12.3,5.5-12.3,12.3 s5.5,12.3,12.3,12.3h224c6.8,0,12.3-5.5,12.3-12.3V12.3c0-6.8-5.5-12.3-12.3-12.3H12.35C5.55,0,0.05,5.5,0.05,12.3z M0.05,476.9c0,6.8,5.5,12.3,12.3,12.3h170.3c6.8,0,12.3-5.5,12.3-12.3V306.6c0-6.8-5.5-12.3-12.3-12.3H12.35 c-6.8,0-12.3,5.5-12.3,12.3C0.05,306.6,0.05,476.9,0.05,476.9z M24.55,318.8h145.9v145.9H24.55V318.8z M231.55,135.9c-6.8,0-12.3,5.5-12.3,12.3v109.5c0,6.8,5.5,12.3,12.3,12.3h109.5c6.8,0,12.3-5.5,12.3-12.3 s-5.5-12.3-12.3-12.3h-79.9l138.7-138.7c4.8-4.8,4.8-12.5,0-17.3s-12.5-4.8-17.3,0l-138.7,138.7v-79.9 C243.85,141.4,238.35,135.9,231.55,135.9z"/>
+                                            </Button>
+                                        </DockPanel>
+                                    </Border>
 
-                                <ContentPresenter Margin="0"
-                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
-                                                  Content="{TemplateBinding Content}"/>
-                            </DockPanel>
-                            <Thumb x:Name="PART_RESIZE_BOTRIGHT"
-                                    HorizontalAlignment="Right" VerticalAlignment="Bottom"
-                                    Cursor="BottomRightCorner"
-                                    IsVisible="{TemplateBinding CanResize}">
-                                <Thumb.Theme>
-									<ControlTheme TargetType="Thumb">
-		                                <Setter Property="Width" Value="10"/>
-		                                <Setter Property="Height" Value="10"/>
-		                                <Setter Property="Background" Value="Transparent"/>
-		                                <Setter Property="BorderBrush" Value="Transparent"/>
-                                        <Setter Property="Template">
-											<Setter.Value>
-												<ControlTemplate TargetType="Thumb">
-													<Border Background="{TemplateBinding Background}"
-                                                            BorderBrush="{TemplateBinding BorderBrush}"
-                                                            Width="{TemplateBinding Width}"
-                                                            Height="{TemplateBinding Height}">
-														<Polygon Points="6,6 6,0 0,6" Fill="#95A5A6"/>
-                                                    </Border>
-                                                </ControlTemplate>
-                                            </Setter.Value>
-                                        </Setter>
-                                    </ControlTheme>
-                                </Thumb.Theme>
-                            </Thumb>
-                        </Grid>
+                                    <ContentPresenter Margin="0"
+                                                      ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                      Content="{TemplateBinding Content}"/>
+                                </DockPanel>
+                                <Thumb x:Name="PART_RESIZE_BOTRIGHT"
+                                        HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                                        Cursor="BottomRightCorner"
+                                        IsVisible="{TemplateBinding CanResize}">
+                                    <Thumb.Theme>
+									    <ControlTheme TargetType="Thumb">
+		                                    <Setter Property="Width" Value="10"/>
+		                                    <Setter Property="Height" Value="10"/>
+		                                    <Setter Property="Background" Value="Transparent"/>
+		                                    <Setter Property="BorderBrush" Value="Transparent"/>
+                                            <Setter Property="Template">
+											    <Setter.Value>
+												    <ControlTemplate TargetType="Thumb">
+													    <Border Background="{TemplateBinding Background}"
+                                                                BorderBrush="{TemplateBinding BorderBrush}"
+                                                                Width="{TemplateBinding Width}"
+                                                                Height="{TemplateBinding Height}">
+														    <Polygon Points="6,6 6,0 0,6" Fill="#95A5A6"/>
+                                                        </Border>
+                                                    </ControlTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </ControlTheme>
+                                    </Thumb.Theme>
+                                </Thumb>
+                            </Grid>
+                        </VisualLayerManager>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
