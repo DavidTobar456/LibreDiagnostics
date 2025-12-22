@@ -1249,6 +1249,15 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Hotkeys.
+        /// </summary>
+        public static string SettingsHotkeysTab {
+            get {
+                return ResourceManager.GetString("SettingsHotkeysTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Appbar.
         /// </summary>
         public static string SettingsIsAppBar {

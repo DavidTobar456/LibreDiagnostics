@@ -9,6 +9,7 @@
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
 		        <ResourceInclude Source="avares://BlackSharp.UI.Avalonia/Themes/Themes.axaml"/>
+				<ResourceInclude Source="avares://LibreDiagnostics.UI/Design/Design.axaml"/>
 				<ResourceInclude Source="avares://LibreDiagnostics.UI/Themes/MainWindowStyle.axaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

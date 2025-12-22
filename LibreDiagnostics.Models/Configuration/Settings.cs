@@ -253,6 +253,18 @@ namespace LibreDiagnostics.Models.Configuration
 
         #endregion
 
+        #region Hotkeys
+
+        Hotkey _HotkeyToggleAppBar = new();
+        [JsonIgnore] //TODO: remove when supported
+        public Hotkey HotkeyToggleAppBar
+        {
+            get { return _HotkeyToggleAppBar; }
+            set { SetField(ref _HotkeyToggleAppBar, value); }
+        }
+
+        #endregion
+
         #endregion
 
         #region ICloneable

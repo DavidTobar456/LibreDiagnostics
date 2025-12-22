@@ -1,0 +1,8 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:global="clr-namespace:LibreDiagnostics.Models.Globals;assembly=LibreDiagnostics.Models"
+					xmlns:ctrl="clr-namespace:LibreDiagnostics.UI.Controls">
+
+	<ControlTheme x:Key="{x:Type ctrl:TextBoxHotKey}" TargetType="{x:Type ctrl:TextBoxHotKey}" BasedOn="{StaticResource {x:Type TextBox}}"/>
+
+</ResourceDictionary>

@@ -9,10 +9,12 @@
 
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
 using BlackSharp.Core.Extensions;
 using BlackSharp.UI.Avalonia.Media;
+using CommunityToolkit.Mvvm.Input;
 using LibreDiagnostics.Models.Configuration;
 using LibreDiagnostics.Models.Enums;
 using LibreDiagnostics.Models.Globals;
@@ -190,6 +192,8 @@ namespace LibreDiagnostics.UI.Windows
             {
                 SetWindowPosition();
             }
+
+            UpdateHotkeys(settings);
         }
 
         void ProcessAppBarRelevantChanges(SettingsChangedEventArgs e)
@@ -259,6 +263,24 @@ namespace LibreDiagnostics.UI.Windows
                 {
                     settings.BackgroundColor = b.Color.ToString();
                 }
+            }
+        }
+
+        void UpdateHotkeys(Settings settings)
+        {
+            //For now only within the application itself
+            KeyBindings.Clear();
+
+            if (settings.HotkeyToggleAppBar?.IsValid == true)
+            {
+                KeyBindings.Add(new()
+                {
+                    Gesture = new((Key)settings.HotkeyToggleAppBar.Key, (KeyModifiers)settings.HotkeyToggleAppBar.Modifiers),
+                    Command = new RelayCommand(() =>
+                    {
+                        //TODO
+                    })
+                });
             }
         }
 

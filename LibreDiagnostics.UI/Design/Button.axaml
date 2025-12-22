@@ -34,7 +34,7 @@
 			<Setter.Value>
 				<BehaviorCollectionTemplate>
 					<BehaviorCollection>
-						<DataTriggerBehavior Binding="{Binding IsPointerOver, RelativeSource={RelativeSource FindAncestor, AncestorType=Button}}" ComparisonCondition="Equal" Value="True">
+						<DataTriggerBehavior Binding="{Binding $parent[Button].IsPointerOver}" ComparisonCondition="Equal" Value="True">
 							<ChangePropertyAction PropertyName="Opacity" Value="0.75"/>
 						</DataTriggerBehavior>
 					</BehaviorCollection>

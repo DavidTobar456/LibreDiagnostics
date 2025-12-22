@@ -11,6 +11,7 @@
 				  xmlns:cfg="using:LibreDiagnostics.Models.Configuration"
 				  xmlns:dt="using:LibreDiagnostics.UI.Controls.Templates"
 				  xmlns:enums="clr-namespace:LibreDiagnostics.Models.Enums;assembly=LibreDiagnostics.Models"
+				  xmlns:ctrlLocal="using:LibreDiagnostics.UI.Controls"
                   mc:Ignorable="d" d:DesignWidth="420" d:DesignHeight="650"
                   x:Class="LibreDiagnostics.UI.Windows.SettingsWindow"
                   x:DataType="vm:SettingsViewModel"
@@ -411,6 +412,14 @@
                         </DataGrid>
                     </StackPanel>
                 </TabItem>
+                <!-- Hotkeys -->
+                <!--<TabItem Header="{x:Static lang:Resources.SettingsHotkeysTab}">
+					<ctrl:GridEx ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Toggle App Bar"/>
+						<ctrlLocal:TextBoxHotKey Grid.Row="0" Grid.Column="1" Text="{Binding Settings.HotkeyToggleAppBar}"
+                                                  IsReadOnly="True"/>
+                    </ctrl:GridEx>
+                </TabItem>-->
             </TabControl>
         </DockPanel>
     </Grid>

@@ -17,14 +17,6 @@
 				  Icon="avares://LibreDiagnostics.UI/Assets/Icon.ico"
 				  Theme="{StaticResource SBWindowStyle}">
 
-	<Window.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceInclude Source="avares://LibreDiagnostics.UI/Design/Design.axaml"/>
-			</ResourceDictionary.MergedDictionaries>
-		</ResourceDictionary>
-	</Window.Resources>
-
     <Design.DataContext>
         <!-- This only sets the DataContext for the previewer in an IDE,
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
