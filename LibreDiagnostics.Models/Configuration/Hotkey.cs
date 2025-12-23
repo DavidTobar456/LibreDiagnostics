@@ -31,7 +31,9 @@ namespace LibreDiagnostics.Models.Configuration
         public bool IsEmpty => Key == 0 && Modifiers == 0;
 
         [JsonIgnore]
-        public bool IsValid => Key != 0 && Modifiers != 0;
+        public bool IsValid => 
+            (Key != 0 && Modifiers != 0)
+         || (Key != 0);
 
         HotKeyID _ID;
         [JsonProperty]
