@@ -413,13 +413,13 @@
                     </StackPanel>
                 </TabItem>
                 <!-- Hotkeys -->
-                <!--<TabItem Header="{x:Static lang:Resources.SettingsHotkeysTab}">
+                <TabItem Header="{x:Static lang:Resources.SettingsHotkeysTab}">
 					<ctrl:GridEx ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="Toggle App Bar"/>
 						<ctrlLocal:TextBoxHotKey Grid.Row="0" Grid.Column="1" Text="{Binding Settings.HotkeyToggleAppBar}"
-                                                  IsReadOnly="True"/>
+                                                 IsReadOnly="True"/>
                     </ctrl:GridEx>
-                </TabItem>-->
+                </TabItem>
             </TabControl>
         </DockPanel>
     </Grid>

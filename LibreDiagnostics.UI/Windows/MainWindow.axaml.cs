@@ -204,7 +204,7 @@ namespace LibreDiagnostics.UI.Windows
                 if (e.OldSettings.IsAppBar         != e.NewSettings.IsAppBar
                  || e.OldSettings.DockingPosition  != e.NewSettings.DockingPosition
                  || e.OldSettings.ScreenIndex      != e.NewSettings.ScreenIndex
-                 || e.OldSettings.AppWidth     != e.NewSettings.AppWidth
+                 || e.OldSettings.AppWidth         != e.NewSettings.AppWidth
                  || e.OldSettings.HorizontalOffset != e.NewSettings.HorizontalOffset
                  || e.OldSettings.VerticalOffset   != e.NewSettings.VerticalOffset
                     )
@@ -273,12 +273,18 @@ namespace LibreDiagnostics.UI.Windows
 
             if (settings.HotkeyToggleAppBar?.IsValid == true)
             {
+                //Toggle AppBar Hotkey
                 KeyBindings.Add(new()
                 {
                     Gesture = new((Key)settings.HotkeyToggleAppBar.Key, (KeyModifiers)settings.HotkeyToggleAppBar.Modifiers),
                     Command = new RelayCommand(() =>
                     {
-                        //TODO
+                        var old = Global.Settings.Clone();
+
+                        Global.Settings.IsAppBar = !Global.Settings.IsAppBar;
+                        Global.Settings.Save();
+
+                        ProcessAppBarRelevantChanges(new(old, Global.Settings));
                     })
                 });
             }
