@@ -30,8 +30,8 @@ namespace LibreDiagnostics.UI.Controls
 
         #region XAML Properties
 
-        public static readonly new StyledProperty<Hotkey> TextProperty =
-            AvaloniaProperty.Register<TextBoxHotKey, Hotkey>(
+        public static readonly new StyledProperty<HotKey> TextProperty =
+            AvaloniaProperty.Register<TextBoxHotKey, HotKey>(
                 nameof(Text),
                 defaultBindingMode: Avalonia.Data.BindingMode.TwoWay);
 
@@ -39,7 +39,7 @@ namespace LibreDiagnostics.UI.Controls
 
         #region Properties
 
-        public new Hotkey Text
+        public new HotKey Text
         {
             get => GetValue(TextProperty);
             set => SetValue(TextProperty, value);
@@ -57,12 +57,12 @@ namespace LibreDiagnostics.UI.Controls
             {
                 UpdateDisplayedText();
 
-                if (change.OldValue is Hotkey oldHotkey)
+                if (change.OldValue is HotKey oldHotkey)
                 {
                     oldHotkey.PropertyChanged -= HotkeyPropertyChanged;
                 }
 
-                if (change.NewValue is Hotkey newHotkey)
+                if (change.NewValue is HotKey newHotkey)
                 {
                     newHotkey.PropertyChanged += HotkeyPropertyChanged;
                 }
@@ -131,11 +131,6 @@ namespace LibreDiagnostics.UI.Controls
                 var modifiers = (KeyModifiers)Text.Modifiers;
                 var key = (Key)Text.Key;
 
-                if (modifiers.HasFlag(KeyModifiers.Alt))
-                {
-                    keys.Add(KeyModifiers.Alt.ToString());
-                }
-
                 if (modifiers.HasFlag(KeyModifiers.Control))
                 {
                     keys.Add(KeyModifiers.Control.ToString());
@@ -144,6 +139,11 @@ namespace LibreDiagnostics.UI.Controls
                 if (modifiers.HasFlag(KeyModifiers.Shift))
                 {
                     keys.Add(KeyModifiers.Shift.ToString());
+                }
+
+                if (modifiers.HasFlag(KeyModifiers.Alt))
+                {
+                    keys.Add(KeyModifiers.Alt.ToString());
                 }
 
                 if (modifiers.HasFlag(KeyModifiers.Meta))

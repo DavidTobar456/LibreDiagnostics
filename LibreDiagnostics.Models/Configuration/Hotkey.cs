@@ -8,12 +8,23 @@
 */
 
 using BlackSharp.MVVM.ComponentModel;
+using LibreDiagnostics.Models.Enums;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace LibreDiagnostics.Models.Configuration
 {
-    public class Hotkey : ViewModelBase
+    public class HotKey : ViewModelBase
     {
+        #region Constructor
+
+        public HotKey(HotKeyID id)
+        {
+            ID = id;
+        }
+
+        #endregion
+
         #region Properties
 
         [JsonIgnore]
@@ -21,6 +32,15 @@ namespace LibreDiagnostics.Models.Configuration
 
         [JsonIgnore]
         public bool IsValid => Key != 0 && Modifiers != 0;
+
+        HotKeyID _ID;
+        [JsonProperty]
+        [JsonConverter(typeof(StringEnumConverter))]
+        public HotKeyID ID
+        {
+            get { return _ID; }
+            set { SetField(ref _ID, value); }
+        }
 
         int _Key;
         [JsonProperty]

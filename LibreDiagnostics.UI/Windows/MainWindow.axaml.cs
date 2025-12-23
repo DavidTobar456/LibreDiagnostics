@@ -9,7 +9,6 @@
 
 using Avalonia;
 using Avalonia.Controls;
-using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
 using BlackSharp.Core.Extensions;
@@ -20,7 +19,12 @@ using LibreDiagnostics.Models.Enums;
 using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.MVVM.Utilities;
 using LibreDiagnostics.MVVM.ViewModels;
+using LibreDiagnostics.UI.Platform.Interfaces;
 using LibreDiagnostics.UI.Platform.Windows;
+using LibreDiagnostics.UI.Platform.Windows.Interop;
+using System.Windows.Input;
+
+using OS = BlackSharp.Core.Platform.OperatingSystem;
 
 namespace LibreDiagnostics.UI.Windows
 {
@@ -59,6 +63,7 @@ namespace LibreDiagnostics.UI.Windows
         #region Fields
 
         AppBarTask _AppBarTask;
+        IHotKeyManager _HotKeyManager;
 
         #endregion
 
@@ -80,6 +85,12 @@ namespace LibreDiagnostics.UI.Windows
                 MessageBro.DoOpenSettings();
             }
 
+            if (OS.IsWindows() && !Design.IsDesignMode)
+            {
+                _HotKeyManager = new Win32HotKeyManager();
+                _HotKeyManager.EnableHotKeyHandling(this);
+            }
+
             ApplySettings(this, new(Global.Settings));
         }
 
@@ -87,6 +98,9 @@ namespace LibreDiagnostics.UI.Windows
         {
             if (_AppBarTask != null)
             {
+                _HotKeyManager.ClearHotKeys();
+                _HotKeyManager.DisableHotKeyHandling(this);
+
                 _AppBarTask.DisableAppBar();
             }
         }
@@ -193,7 +207,7 @@ namespace LibreDiagnostics.UI.Windows
                 SetWindowPosition();
             }
 
-            UpdateHotkeys(settings);
+            UpdateHotKeys(settings);
         }
 
         void ProcessAppBarRelevantChanges(SettingsChangedEventArgs e)
@@ -266,27 +280,34 @@ namespace LibreDiagnostics.UI.Windows
             }
         }
 
-        void UpdateHotkeys(Settings settings)
+        void UpdateHotKeys(Settings settings)
         {
-            //For now only within the application itself
-            KeyBindings.Clear();
-
-            if (settings.HotkeyToggleAppBar?.IsValid == true)
+            if (_HotKeyManager == null)
             {
-                //Toggle AppBar Hotkey
-                KeyBindings.Add(new()
-                {
-                    Gesture = new((Key)settings.HotkeyToggleAppBar.Key, (KeyModifiers)settings.HotkeyToggleAppBar.Modifiers),
-                    Command = new RelayCommand(() =>
-                    {
-                        var old = Global.Settings.Clone();
+                return;
+            }
 
-                        Global.Settings.IsAppBar = !Global.Settings.IsAppBar;
-                        Global.Settings.Save();
+            //Toggle AppBar HotKey
+            UpdateHotKey(settings.HotkeyToggleAppBar, new RelayCommand(() =>
+            {
+                var old = Global.Settings.Clone();
 
-                        ProcessAppBarRelevantChanges(new(old, Global.Settings));
-                    })
-                });
+                Global.Settings.IsAppBar = !Global.Settings.IsAppBar;
+                Global.Settings.Save();
+
+                ProcessAppBarRelevantChanges(new(old, Global.Settings));
+            }));
+        }
+
+        void UpdateHotKey(HotKey hotKey, ICommand command)
+        {
+            if (hotKey.IsValid)
+            {
+                _HotKeyManager.RegisterHotKey(hotKey, command);
+            }
+            else
+            {
+                _HotKeyManager.UnregisterHotKey(hotKey);
             }
         }
 

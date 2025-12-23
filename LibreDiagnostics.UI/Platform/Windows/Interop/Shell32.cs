@@ -39,6 +39,7 @@ namespace LibreDiagnostics.UI.Platform.Windows.Interop
         public const int WM_ACTIVATE          = 0x0006;
         public const int WM_WINDOWPOSCHANGING = 0x0046;
         public const int WM_WINDOWPOSCHANGED  = 0x0047;
+        public const int WM_HOTKEY            = 0x0312;
 
         [DllImport(DLL_NAME)]
         public static extern UIntPtr SHAppBarMessage(int dwMessage, ref APPBARDATA pData);

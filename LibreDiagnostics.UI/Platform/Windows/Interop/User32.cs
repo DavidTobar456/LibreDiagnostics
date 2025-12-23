@@ -46,5 +46,11 @@ namespace LibreDiagnostics.UI.Platform.Windows.Interop
 
         [DllImport(DLL_NAME)]
         public static extern int RegisterWindowMessage(string msg);
+
+        [DllImport(DLL_NAME)]
+        public static extern bool RegisterHotKey(IntPtr hwnd, int id, uint fsModifiers, uint vk);
+
+        [DllImport(DLL_NAME)]
+        public static extern bool UnregisterHotKey(IntPtr hwnd, int id);
     }
 }

@@ -255,9 +255,9 @@ namespace LibreDiagnostics.Models.Configuration
 
         #region Hotkeys
 
-        Hotkey _HotkeyToggleAppBar = new();
-        [JsonIgnore] //TODO: remove when supported
-        public Hotkey HotkeyToggleAppBar
+        HotKey _HotkeyToggleAppBar = new(HotKeyID.ToggleAppBar);
+        [JsonProperty]
+        public HotKey HotkeyToggleAppBar
         {
             get { return _HotkeyToggleAppBar; }
             set { SetField(ref _HotkeyToggleAppBar, value); }
