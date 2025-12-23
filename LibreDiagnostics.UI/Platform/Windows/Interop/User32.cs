@@ -15,6 +15,8 @@ namespace LibreDiagnostics.UI.Platform.Windows.Interop
     {
         const string DLL_NAME = "user32.dll";
 
+        public const int VK_F12 = 0x7B;
+
         public const int GWL_EXSTYLE = -20;
 
         public const long WS_EX_TRANSPARENT = 0x00000020L;

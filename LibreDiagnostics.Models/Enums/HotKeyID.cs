@@ -11,6 +11,8 @@ namespace LibreDiagnostics.Models.Enums
 {
     public enum HotKeyID
     {
-        ToggleAppBar = 1,
+        CloseApp = 1,
+        RestartApp,
+        ToggleAppBar,
     }
 }

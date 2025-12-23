@@ -255,12 +255,28 @@ namespace LibreDiagnostics.Models.Configuration
 
         #region Hotkeys
 
-        HotKey _HotkeyToggleAppBar = new(HotKeyID.ToggleAppBar);
+        HotKey _HotKeyCloseApp = new(HotKeyID.CloseApp);
         [JsonProperty]
-        public HotKey HotkeyToggleAppBar
+        public HotKey HotKeyCloseApp
         {
-            get { return _HotkeyToggleAppBar; }
-            set { SetField(ref _HotkeyToggleAppBar, value); }
+            get { return _HotKeyCloseApp; }
+            set { SetField(ref _HotKeyCloseApp, value); }
+        }
+
+        HotKey _HotKeyRestartApp = new(HotKeyID.RestartApp);
+        [JsonProperty]
+        public HotKey HotKeyRestartApp
+        {
+            get { return _HotKeyRestartApp; }
+            set { SetField(ref _HotKeyRestartApp, value); }
+        }
+
+        HotKey _HotKeyToggleAppBar = new(HotKeyID.ToggleAppBar);
+        [JsonProperty]
+        public HotKey HotKeyToggleAppBar
+        {
+            get { return _HotKeyToggleAppBar; }
+            set { SetField(ref _HotKeyToggleAppBar, value); }
         }
 
         #endregion

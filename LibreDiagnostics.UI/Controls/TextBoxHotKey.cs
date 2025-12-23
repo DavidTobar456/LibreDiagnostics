@@ -10,9 +10,13 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Win32.Input;
 using BlackSharp.Core.Extensions;
 using LibreDiagnostics.Models.Configuration;
+using LibreDiagnostics.UI.Platform.Windows.Interop;
 using System.ComponentModel;
+
+using OS = BlackSharp.Core.Platform.OperatingSystem;
 
 namespace LibreDiagnostics.UI.Controls
 {
@@ -85,6 +89,15 @@ namespace LibreDiagnostics.UI.Controls
                 return;
             }
 
+            //MSDN: The F12 key is reserved for use by the debugger at all times, so it should not be registered as a hot key.
+            //Even when you are not debugging an application, F12 is reserved in case a kernel-mode debugger or a just-in-time debugger is resident.
+            if (OS.IsWindows()
+             && (e.Key == Key.F12 || KeyInterop.VirtualKeyFromKey(e.Key) == User32.VK_F12))
+            {
+                e.Handled = true;
+                return;
+            }
+
             //Backspace = delete
             if (e.Key == Key.Back)
             {
@@ -136,11 +149,6 @@ namespace LibreDiagnostics.UI.Controls
                     keys.Add(KeyModifiers.Control.ToString());
                 }
 
-                if (modifiers.HasFlag(KeyModifiers.Shift))
-                {
-                    keys.Add(KeyModifiers.Shift.ToString());
-                }
-
                 if (modifiers.HasFlag(KeyModifiers.Alt))
                 {
                     keys.Add(KeyModifiers.Alt.ToString());
@@ -149,6 +157,11 @@ namespace LibreDiagnostics.UI.Controls
                 if (modifiers.HasFlag(KeyModifiers.Meta))
                 {
                     keys.Add(KeyModifiers.Meta.ToString());
+                }
+
+                if (modifiers.HasFlag(KeyModifiers.Shift))
+                {
+                    keys.Add(KeyModifiers.Shift.ToString());
                 }
 
                 if (key != Key.None)

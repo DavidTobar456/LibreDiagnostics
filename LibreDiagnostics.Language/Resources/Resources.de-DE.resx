@@ -723,4 +723,22 @@
   <data name="SettingsHotkeysTab" xml:space="preserve">
     <value>Tastenkombinationen</value>
   </data>
+  <data name="SettingsHotKeyCloseApp" xml:space="preserve">
+    <value>Applikation schließen</value>
+  </data>
+  <data name="SettingsHotKeyRestartApp" xml:space="preserve">
+    <value>Applikation neu starten</value>
+  </data>
+  <data name="SettingsHotKeyToggleAppBar" xml:space="preserve">
+    <value>App Bar umschalten</value>
+  </data>
+  <data name="SettingsHotKeyCloseAppTooltip" xml:space="preserve">
+    <value>Schließt die Applikation.</value>
+  </data>
+  <data name="SettingsHotKeyRestartAppTooltip" xml:space="preserve">
+    <value>Startet die Applikation neu.</value>
+  </data>
+  <data name="SettingsHotKeyToggleAppBarTooltip" xml:space="preserve">
+    <value>Ändert den Status der App Bar zu ihrem Gegenteil (aktiviert / deaktiviert).</value>
+  </data>
 </root>

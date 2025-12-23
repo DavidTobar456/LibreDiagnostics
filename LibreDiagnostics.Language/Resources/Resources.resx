@@ -723,4 +723,22 @@
   <data name="SettingsHotkeysTab" xml:space="preserve">
     <value>Hotkeys</value>
   </data>
+  <data name="SettingsHotKeyCloseApp" xml:space="preserve">
+    <value>Close app</value>
+  </data>
+  <data name="SettingsHotKeyRestartApp" xml:space="preserve">
+    <value>Restart app</value>
+  </data>
+  <data name="SettingsHotKeyToggleAppBar" xml:space="preserve">
+    <value>Toggle App Bar</value>
+  </data>
+  <data name="SettingsHotKeyCloseAppTooltip" xml:space="preserve">
+    <value>Closes the application.</value>
+  </data>
+  <data name="SettingsHotKeyRestartAppTooltip" xml:space="preserve">
+    <value>Restarts the application.</value>
+  </data>
+  <data name="SettingsHotKeyToggleAppBarTooltip" xml:space="preserve">
+    <value>Changes App Bar status to its opposite (enable / disable).</value>
+  </data>
 </root>

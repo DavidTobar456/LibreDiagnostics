@@ -1249,11 +1249,65 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close app.
+        /// </summary>
+        public static string SettingsHotKeyCloseApp {
+            get {
+                return ResourceManager.GetString("SettingsHotKeyCloseApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Closes the application..
+        /// </summary>
+        public static string SettingsHotKeyCloseAppTooltip {
+            get {
+                return ResourceManager.GetString("SettingsHotKeyCloseAppTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restart app.
+        /// </summary>
+        public static string SettingsHotKeyRestartApp {
+            get {
+                return ResourceManager.GetString("SettingsHotKeyRestartApp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Restarts the application..
+        /// </summary>
+        public static string SettingsHotKeyRestartAppTooltip {
+            get {
+                return ResourceManager.GetString("SettingsHotKeyRestartAppTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hotkeys.
         /// </summary>
         public static string SettingsHotkeysTab {
             get {
                 return ResourceManager.GetString("SettingsHotkeysTab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Toggle App Bar.
+        /// </summary>
+        public static string SettingsHotKeyToggleAppBar {
+            get {
+                return ResourceManager.GetString("SettingsHotKeyToggleAppBar", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes App Bar status to its opposite (enable / disable)..
+        /// </summary>
+        public static string SettingsHotKeyToggleAppBarTooltip {
+            get {
+                return ResourceManager.GetString("SettingsHotKeyToggleAppBarTooltip", resourceCulture);
             }
         }
         

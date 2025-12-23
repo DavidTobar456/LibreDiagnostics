@@ -414,10 +414,18 @@
                 </TabItem>
                 <!-- Hotkeys -->
                 <TabItem Header="{x:Static lang:Resources.SettingsHotkeysTab}">
-					<ctrl:GridEx ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto">
-                        <TextBlock Grid.Row="0" Grid.Column="0" Text="Toggle App Bar"/>
-						<ctrlLocal:TextBoxHotKey Grid.Row="0" Grid.Column="1" Text="{Binding Settings.HotkeyToggleAppBar}"
-                                                 IsReadOnly="True"/>
+					<ctrl:GridEx ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto">
+                        <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static lang:Resources.SettingsHotKeyCloseApp}"/>
+						<ctrlLocal:TextBoxHotKey Grid.Row="0" Grid.Column="1" Text="{Binding Settings.HotKeyCloseApp}"
+                                                 ToolTip.Tip="{x:Static lang:Resources.SettingsHotKeyCloseAppTooltip}"/>
+
+                        <TextBlock Grid.Row="1" Grid.Column="0" Text="{x:Static lang:Resources.SettingsHotKeyRestartApp}"/>
+						<ctrlLocal:TextBoxHotKey Grid.Row="1" Grid.Column="1" Text="{Binding Settings.HotKeyRestartApp}"
+                                                 ToolTip.Tip="{x:Static lang:Resources.SettingsHotKeyRestartAppTooltip}"/>
+
+                        <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static lang:Resources.SettingsHotKeyToggleAppBar}"/>
+						<ctrlLocal:TextBoxHotKey Grid.Row="2" Grid.Column="1" Text="{Binding Settings.HotKeyToggleAppBar}"
+                                                 ToolTip.Tip="{x:Static lang:Resources.SettingsHotKeyToggleAppBarTooltip}"/>
                     </ctrl:GridEx>
                 </TabItem>
             </TabControl>

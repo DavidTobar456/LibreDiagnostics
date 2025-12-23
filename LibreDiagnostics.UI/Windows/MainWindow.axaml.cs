@@ -287,8 +287,14 @@ namespace LibreDiagnostics.UI.Windows
                 return;
             }
 
-            //Toggle AppBar HotKey
-            UpdateHotKey(settings.HotkeyToggleAppBar, new RelayCommand(() =>
+            //Close app
+            UpdateHotKey(settings.HotKeyCloseApp, Global.TrayIcon.CloseRequestedCommand);
+
+            //Restart app
+            UpdateHotKey(settings.HotKeyCloseApp, Global.TrayIcon.RestartRequestedCommand);
+
+            //Toggle AppBar
+            UpdateHotKey(settings.HotKeyToggleAppBar, new RelayCommand(() =>
             {
                 var old = Global.Settings.Clone();
 
