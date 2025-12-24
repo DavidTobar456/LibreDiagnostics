@@ -135,6 +135,17 @@ args = new string[3] { "--calling-app=\"C:/Code/LibreDiagnostics/LibreDiagnostic
                         UseShellExecute = false
                     });
                 }
+                else if (OperatingSystem.IsLinux())
+                {
+                    //Remove myself with a small delay
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = "/bin/sh",
+                        Arguments = $"-c \"sleep 1 && rm -rf '{currentDirectory}'\"",
+                        CreateNoWindow = true,
+                        UseShellExecute = false
+                    });
+                }
             }
         }
     }

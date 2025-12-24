@@ -20,6 +20,7 @@ using LibreDiagnostics.Tasks.Github;
 using System.Diagnostics;
 using System.Reflection;
 using LDUpdater = LibreDiagnostics.Tasks.Github.Updater;
+using OS = BlackSharp.Core.Platform.OperatingSystem;
 
 namespace LibreDiagnostics.UI
 {
@@ -33,7 +34,8 @@ namespace LibreDiagnostics.UI
         internal const string LogFile = $"AppLog{nameof(LibreDiagnostics)}.txt";
 
         const int UpdateConfirmationTimeoutSeconds = 30;
-        const string Updater = $"{nameof(LibreDiagnostics)}.Updater";
+        const string UpdaterWindows = $"{nameof(LibreDiagnostics)}.Updater.exe";
+        const string UpdaterLinux = $"{nameof(LibreDiagnostics)}.Updater";
 
         #endregion
 
@@ -134,7 +136,19 @@ namespace LibreDiagnostics.UI
                         List<string> args = [$"{LDUpdater.CallingApplicationArg}=\"{Environment.ProcessPath}\"", LDUpdater.StartUpdateArg];
 
                         //Start updater
-                        Process.Start(Updater, args);
+                        if (OS.IsWindows())
+                        {
+                            Process.Start(UpdaterWindows, args);
+                        }
+                        else if (OS.IsLinux())
+                        {
+                            Process.Start(UpdaterLinux, args);
+                        }
+                        else
+                        {
+                            Logger.Instance.Add(LogLevel.Warn, $"{nameof(TryUpdate)}: OS unsupported", DateTime.Now);
+                        }
+
                         Environment.Exit(666);
                     }
                 }
