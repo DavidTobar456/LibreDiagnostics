@@ -745,6 +745,24 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        public static string RAMName {
+            get {
+                return ResourceManager.GetString("RAMName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of RAM module..
+        /// </summary>
+        public static string RAMNameTooltip {
+            get {
+                return ResourceManager.GetString("RAMNameTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Temperature.
         /// </summary>
         public static string RAMTemp {

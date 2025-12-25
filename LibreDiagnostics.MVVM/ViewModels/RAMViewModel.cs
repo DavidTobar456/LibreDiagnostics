@@ -37,6 +37,13 @@ namespace LibreDiagnostics.MVVM.ViewModels
 
         #region Properties
 
+        string _Name;
+        public string Name
+        {
+            get { return _Name; }
+            set { SetField(ref _Name, value); }
+        }
+
         ISensor _Capacity;
         public ISensor Capacity
         {
@@ -58,6 +65,8 @@ namespace LibreDiagnostics.MVVM.ViewModels
         public void SetHardware(IHardware hardware)
         {
             _Hardware = hardware;
+
+            Name = _Hardware.Name;
 
             Capacity = _Hardware.Sensors.Where(s => s.SensorType == SensorType.Data && s.Name.Contains("Capacity", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 

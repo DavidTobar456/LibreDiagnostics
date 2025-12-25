@@ -43,8 +43,12 @@
 		</Grid.Styles>
 
 		<ctrl:GridEx Grid.Row="0" RowDefinitions="Auto,Auto,Auto" ColumnDefinitions="Auto,*,Auto,*">
-			<TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static lang:Resources.RAMCapacity}"/>
-			<TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Capacity.Value}" IsReadOnly="True"
+			<TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static lang:Resources.RAMName}"/>
+			<TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Name}" IsReadOnly="True"
+					 ToolTip.Tip="{x:Static lang:Resources.RAMNameTooltip}"/>
+
+			<TextBlock Grid.Row="0" Grid.Column="2" Text="{x:Static lang:Resources.RAMCapacity}"/>
+			<TextBox Grid.Row="0" Grid.Column="3" Text="{Binding Capacity.Value}" IsReadOnly="True"
 					 ToolTip.Tip="{x:Static lang:Resources.RAMCapacityTooltip}"/>
 		</ctrl:GridEx>
 

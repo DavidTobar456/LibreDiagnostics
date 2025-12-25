@@ -741,4 +741,10 @@
   <data name="SettingsHotKeyToggleAppBarTooltip" xml:space="preserve">
     <value>Changes App Bar status to its opposite (enable / disable).</value>
   </data>
+  <data name="RAMName" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="RAMNameTooltip" xml:space="preserve">
+    <value>Name of RAM module.</value>
+  </data>
 </root>
