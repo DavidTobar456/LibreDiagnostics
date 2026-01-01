@@ -242,6 +242,7 @@ namespace LibreDiagnostics.Models.Hardware
                                 break;
                             case HardwareMonitorType.Fan:
                                 //No specific setting for fans, they are part of Motherboard
+                                addOrRemoveConfig(cfg);
                                 break;
                             default:
                                 break;
