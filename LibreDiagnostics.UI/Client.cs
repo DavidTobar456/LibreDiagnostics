@@ -15,6 +15,7 @@ using BlackSharp.MVVM.Dialogs.Enums;
 using LibreDiagnostics.Language.Resources;
 using LibreDiagnostics.Models.Configuration;
 using LibreDiagnostics.Models.Globals;
+using LibreDiagnostics.Models.Logging;
 using LibreDiagnostics.MVVM.Utilities;
 using LibreDiagnostics.Tasks.Github;
 using System.Diagnostics;
@@ -30,8 +31,6 @@ namespace LibreDiagnostics.UI
     public static class Client
     {
         #region Fields
-
-        internal const string LogFile = $"AppLog{nameof(LibreDiagnostics)}.txt";
 
         const int UpdateConfirmationTimeoutSeconds = 30;
         const string UpdaterWindows = $"{nameof(LibreDiagnostics)}.Updater.exe";
@@ -91,8 +90,9 @@ namespace LibreDiagnostics.UI
             StartApp(args);
 
             //Save log on exit
+            Logger.Instance.Add(LogLevel.Info, $"Exiting {Resources.AppName} {detailedVersion}", DateTime.Now);
             Logger.Instance.Add(LogLevel.Info, string.Empty, DateTime.Now);
-            Logger.Instance.SaveToFile(LogFile);
+            LoggerUtilities.SaveLogFile();
         }
 
         #endregion
@@ -206,7 +206,7 @@ namespace LibreDiagnostics.UI
                 Logger.Instance.Add(LogLevel.Fatal, $"{(e.IsTerminating ? "Fatal error: " : "Error: ")} The application will terminate now.", DateTime.Now);
             }
 
-            Logger.Instance.SaveToFile(LogFile);
+            LoggerUtilities.SaveLogFile();
 
             if (e.IsTerminating)
             {

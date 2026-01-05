@@ -17,6 +17,7 @@ using LibreDiagnostics.Models.Enums;
 using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.Models.Hardware.HardwareMonitor;
 using LibreDiagnostics.Models.Helper;
+using LibreDiagnostics.Models.Logging;
 using LibreHardwareMonitor.Hardware;
 
 namespace LibreDiagnostics.Models.Hardware
@@ -49,6 +50,9 @@ namespace LibreDiagnostics.Models.Hardware
 
         object _HardwarePanelsLock = new();
 
+        DateTime _LastLogWrite = DateTime.MinValue;
+        TimeSpan _LogInterval = TimeSpan.FromSeconds(30);
+
         #endregion
 
         #region Properties
@@ -66,6 +70,12 @@ namespace LibreDiagnostics.Models.Hardware
 
         public void Update()
         {
+            //Save log file periodically
+            if (DateTime.Now - _LastLogWrite >= _LogInterval)
+            {
+                LoggerUtilities.SaveLogFile();
+            }
+
             UpdateBoard();
 
             using (var guard = new LockGuard(_HardwarePanelsLock))
@@ -283,7 +293,10 @@ namespace LibreDiagnostics.Models.Hardware
                                 .Select(CreatePanel)
                                 .ToList();
 
-                HardwarePanels = new ObservableCollectionEx<HardwarePanel>(panels);
+                using (var guard = new LockGuard(_HardwarePanelsLock))
+                {
+                    HardwarePanels = new ObservableCollectionEx<HardwarePanel>(panels);
+                }
 
                 e.NewSettings.HardwareMonitorConfigs.ForEach(ApplyHardwareConfigChanges);
             }
@@ -380,8 +393,18 @@ namespace LibreDiagnostics.Models.Hardware
             {
                 using (var guard = new LockGuard(_HardwarePanelsLock))
                 {
+                    var countBeforeRemove = HardwarePanels.Count(hp => hp.HardwareMonitorType == cfg.HardwareMonitorType);
+
                     //Remove old panel and add new one with updated hardware list
                     HardwarePanels.Remove(hp => hp.HardwareMonitorType == cfg.HardwareMonitorType);
+
+                    var countAfterRemove = HardwarePanels.Count(hp => hp.HardwareMonitorType == cfg.HardwareMonitorType);
+
+                    if (countBeforeRemove != 1 || countAfterRemove != 0)
+                    {
+                        Logger.Instance.Add(LogLevel.Warn, $"{nameof(OnStoragesChanged)}: Unexpected HWP count before/after remove: {countBeforeRemove}/{countAfterRemove}.", DateTime.Now);
+                    }
+
                     HardwarePanels.TryInsert(cfg.Order, CreatePanel(cfg));
                 }
             }
