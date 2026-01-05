@@ -13,15 +13,15 @@ using Avalonia.Interactivity;
 using Avalonia.Platform;
 using BlackSharp.Core.Extensions;
 using BlackSharp.UI.Avalonia.Media;
+using BlackSharp.UI.Avalonia.Platform.Interfaces;
+using BlackSharp.UI.Avalonia.Platform.Windows;
 using CommunityToolkit.Mvvm.Input;
 using LibreDiagnostics.Models.Configuration;
 using LibreDiagnostics.Models.Enums;
 using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.MVVM.Utilities;
 using LibreDiagnostics.MVVM.ViewModels;
-using LibreDiagnostics.UI.Platform.Interfaces;
 using LibreDiagnostics.UI.Platform.Windows;
-using LibreDiagnostics.UI.Platform.Windows.Interop;
 using System.Windows.Input;
 
 using OS = BlackSharp.Core.Platform.OperatingSystem;
@@ -63,7 +63,7 @@ namespace LibreDiagnostics.UI.Windows
         #region Fields
 
         AppBarTask _AppBarTask;
-        IHotKeyManager _HotKeyManager;
+        IHotKeyManager<HotKeyID> _HotKeyManager;
 
         #endregion
 
@@ -87,7 +87,7 @@ namespace LibreDiagnostics.UI.Windows
 
             if (OS.IsWindows() && !Design.IsDesignMode)
             {
-                _HotKeyManager = new Win32HotKeyManager();
+                _HotKeyManager = new Win32HotKeyManager<HotKeyID>();
                 _HotKeyManager.EnableHotKeyHandling(this);
             }
 

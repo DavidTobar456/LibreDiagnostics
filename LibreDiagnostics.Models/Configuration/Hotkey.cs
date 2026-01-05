@@ -8,13 +8,14 @@
 */
 
 using BlackSharp.MVVM.ComponentModel;
+using BlackSharp.MVVM.Platform.Interfaces;
 using LibreDiagnostics.Models.Enums;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 
 namespace LibreDiagnostics.Models.Configuration
 {
-    public class HotKey : ViewModelBase
+    public class HotKey : ViewModelBase, IHotKey<HotKeyID>
     {
         #region Constructor
 
