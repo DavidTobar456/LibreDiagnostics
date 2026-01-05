@@ -169,13 +169,13 @@
     <value>CPU Load</value>
   </data>
   <data name="CPUClockLabel" xml:space="preserve">
-    <value>Clock</value>
+    <value>Clock #{0}</value>
   </data>
   <data name="CPUCoreLoad" xml:space="preserve">
     <value>Core Load</value>
   </data>
   <data name="CPUCoreLoadLabel" xml:space="preserve">
-    <value>Core</value>
+    <value>Core #{0}</value>
   </data>
   <data name="CPUFanLabel" xml:space="preserve">
     <value>Fan</value>

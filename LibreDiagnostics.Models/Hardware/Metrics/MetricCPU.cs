@@ -19,6 +19,14 @@ namespace LibreDiagnostics.Models.Hardware.Metrics
         public MetricCPU(ISensor sensor, HardwareMetricKey key, DataType type)
             : base(sensor, key, type)
         {
+            //Special; add numbering for cores
+            switch (key)
+            {
+                case HardwareMetricKey.CPUClock:
+                case HardwareMetricKey.CPUCoreLoad:
+                    Label = string.Format(Label, sensor.Index);
+                    break;
+            }
         }
 
         #endregion

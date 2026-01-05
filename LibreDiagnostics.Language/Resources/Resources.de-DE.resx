@@ -169,13 +169,13 @@
     <value>CPU Auslastung</value>
   </data>
   <data name="CPUClockLabel" xml:space="preserve">
-    <value>Takt</value>
+    <value>Takt #{0}</value>
   </data>
   <data name="CPUCoreLoad" xml:space="preserve">
     <value>Kern Auslastung</value>
   </data>
   <data name="CPUCoreLoadLabel" xml:space="preserve">
-    <value>Kern</value>
+    <value>Kern #{0}</value>
   </data>
   <data name="CPUFanLabel" xml:space="preserve">
     <value>Lüfter</value>

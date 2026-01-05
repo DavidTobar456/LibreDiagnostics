@@ -160,7 +160,7 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Clock.
+        ///   Looks up a localized string similar to Clock #{0}.
         /// </summary>
         public static string CPUClockLabel {
             get {
@@ -178,7 +178,7 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Core.
+        ///   Looks up a localized string similar to Core #{0}.
         /// </summary>
         public static string CPUCoreLoadLabel {
             get {

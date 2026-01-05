@@ -49,24 +49,13 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
             //CPU Clocks
             {
                 var coreClocks = Hardware.Sensors
-                    .Where(s => s.SensorType == SensorType.Clock)
-                    .Select(s => new
-                    {
-                        Match = _CPURegex.Match(s.Name),
-                        Sensor = s
-                    })
-                    .Where(s => s.Match.Success)
-                    .Select(s => new
-                    {
-                        Index = int.Parse(s.Match.Groups[2].Value),
-                        s.Sensor
-                    })
+                    .Where(s => s.SensorType == SensorType.Clock && _CPURegex.Match(s.Name)?.Success == true)
                     .OrderBy(s => s.Index)
                     .ToList();
 
                 if (coreClocks.Count > 0)
                 {
-                    coreClocks.ForEach(x => sensorList.Add(new MetricCPU(x.Sensor, HardwareMetricKey.CPUClock, DataType.MHz)));
+                    coreClocks.ForEach(s => sensorList.Add(new MetricCPU(s, HardwareMetricKey.CPUClock, DataType.MHz)));
                 }
             }
 
@@ -167,15 +156,12 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
 
                     //CPU Core Loads
                     {
-                        for (int i = 1; i <= loadSensors.Max(s => s.Index); ++i)
-                        {
-                            var coreLoad = loadSensors.Where(s => s.Index == i).FirstOrDefault();
+                        var coreLoadSensors = loadSensors
+                            .Where(s => s.Index > 0 && _CPURegex.Match(s.Name)?.Success == true)
+                            .OrderBy(s => s.Index)
+                            .ToList();
 
-                            if (coreLoad != null)
-                            {
-                                sensorList.Add(new MetricCPU(coreLoad, HardwareMetricKey.CPUCoreLoad, DataType.Percent));
-                            }
-                        }
+                        coreLoadSensors.ForEach(s => sensorList.Add(new MetricCPU(s, HardwareMetricKey.CPUCoreLoad, DataType.Percent)));
                     }
                 }
             }
