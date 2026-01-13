@@ -1,0 +1,762 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AppName" xml:space="preserve">
+    <value>LibreDiagnostics</value>
+  </data>
+  <data name="CPUClock" xml:space="preserve">
+    <value>CPU 时钟</value>
+  </data>
+  <data name="ButtonClose" xml:space="preserve">
+    <value>关闭</value>
+  </data>
+  <data name="CPU" xml:space="preserve">
+    <value>CPU</value>
+  </data>
+  <data name="ButtonDonate" xml:space="preserve">
+    <value>捐赠</value>
+  </data>
+  <data name="Drives" xml:space="preserve">
+    <value>驱动器</value>
+  </data>
+  <data name="CPUFan" xml:space="preserve">
+    <value>CPU 风扇</value>
+  </data>
+  <data name="GPU" xml:space="preserve">
+    <value>GPU</value>
+  </data>
+  <data name="Network" xml:space="preserve">
+    <value>网络</value>
+  </data>
+  <data name="RAM" xml:space="preserve">
+    <value>内存</value>
+  </data>
+  <data name="ButtonRestart" xml:space="preserve">
+    <value>重启</value>
+  </data>
+  <data name="ButtonSettings" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="CPUTemp" xml:space="preserve">
+    <value>CPU 温度</value>
+  </data>
+  <data name="ButtonUpdate" xml:space="preserve">
+    <value>更新</value>
+  </data>
+  <data name="CPUVoltage" xml:space="preserve">
+    <value>CPU 电压</value>
+  </data>
+  <data name="ButtonGithub" xml:space="preserve">
+    <value>Github</value>
+  </data>
+  <data name="CPULoad" xml:space="preserve">
+    <value>CPU 负载</value>
+  </data>
+  <data name="CPUClockLabel" xml:space="preserve">
+    <value>时钟 #{0}</value>
+  </data>
+  <data name="CPUCoreLoad" xml:space="preserve">
+    <value>核心负载</value>
+  </data>
+  <data name="CPUCoreLoadLabel" xml:space="preserve">
+    <value>核心 #{0}</value>
+  </data>
+  <data name="CPUFanLabel" xml:space="preserve">
+    <value>风扇</value>
+  </data>
+  <data name="CPULoadLabel" xml:space="preserve">
+    <value>负载</value>
+  </data>
+  <data name="CPUTempLabel" xml:space="preserve">
+    <value>温度</value>
+  </data>
+  <data name="CPUVoltageLabel" xml:space="preserve">
+    <value>电压</value>
+  </data>
+  <data name="DriveFree" xml:space="preserve">
+    <value>可用空间</value>
+  </data>
+  <data name="DriveFreeLabel" xml:space="preserve">
+    <value>可用</value>
+  </data>
+  <data name="DriveLoad" xml:space="preserve">
+    <value>负载</value>
+  </data>
+  <data name="DriveLoadBar" xml:space="preserve">
+    <value>负载条</value>
+  </data>
+  <data name="DriveLoadBarLabel" xml:space="preserve">
+    <value>负载</value>
+  </data>
+  <data name="DriveLoadLabel" xml:space="preserve">
+    <value>负载</value>
+  </data>
+  <data name="DriveRead" xml:space="preserve">
+    <value>读取速度</value>
+  </data>
+  <data name="DriveReadLabel" xml:space="preserve">
+    <value>读取</value>
+  </data>
+  <data name="DriveUsed" xml:space="preserve">
+    <value>已用空间</value>
+  </data>
+  <data name="DriveUsedLabel" xml:space="preserve">
+    <value>已用</value>
+  </data>
+  <data name="DriveWrite" xml:space="preserve">
+    <value>写入速度</value>
+  </data>
+  <data name="DriveWriteLabel" xml:space="preserve">
+    <value>写入</value>
+  </data>
+  <data name="GPUCoreClock" xml:space="preserve">
+    <value>核心时钟</value>
+  </data>
+  <data name="GPUCoreClockLabel" xml:space="preserve">
+    <value>时钟</value>
+  </data>
+  <data name="GPUCoreLoad" xml:space="preserve">
+    <value>核心负载</value>
+  </data>
+  <data name="GPUCoreLoadLabel" xml:space="preserve">
+    <value>负载</value>
+  </data>
+  <data name="GPUFan" xml:space="preserve">
+    <value>GPU 风扇</value>
+  </data>
+  <data name="GPUFanLabel" xml:space="preserve">
+    <value>风扇</value>
+  </data>
+  <data name="GPUTemp" xml:space="preserve">
+    <value>温度</value>
+  </data>
+  <data name="GPUTempLabel" xml:space="preserve">
+    <value>温度</value>
+  </data>
+  <data name="GPUVoltage" xml:space="preserve">
+    <value>GPU 电压</value>
+  </data>
+  <data name="GPUVoltageLabel" xml:space="preserve">
+    <value>电压</value>
+  </data>
+  <data name="GPUVRAMClock" xml:space="preserve">
+    <value>显存时钟</value>
+  </data>
+  <data name="GPUVRAMClockLabel" xml:space="preserve">
+    <value>显存</value>
+  </data>
+  <data name="GPUVRAMLoad" xml:space="preserve">
+    <value>显存负载</value>
+  </data>
+  <data name="GPUVRAMLoadLabel" xml:space="preserve">
+    <value>显存</value>
+  </data>
+  <data name="NetworkIn" xml:space="preserve">
+    <value>接收带宽</value>
+  </data>
+  <data name="NetworkInLabel" xml:space="preserve">
+    <value>接收</value>
+  </data>
+  <data name="NetworkOut" xml:space="preserve">
+    <value>发送带宽</value>
+  </data>
+  <data name="NetworkOutLabel" xml:space="preserve">
+    <value>发送</value>
+  </data>
+  <data name="RAMClock" xml:space="preserve">
+    <value>内存时钟</value>
+  </data>
+  <data name="RAMClockLabel" xml:space="preserve">
+    <value>时钟</value>
+  </data>
+  <data name="RAMFree" xml:space="preserve">
+    <value>可用</value>
+  </data>
+  <data name="RAMFreeLabel" xml:space="preserve">
+    <value>可用</value>
+  </data>
+  <data name="RAMLoad" xml:space="preserve">
+    <value>负载</value>
+  </data>
+  <data name="RAMLoadLabel" xml:space="preserve">
+    <value>负载</value>
+  </data>
+  <data name="RAMUsed" xml:space="preserve">
+    <value>已用</value>
+  </data>
+  <data name="RAMUsedLabel" xml:space="preserve">
+    <value>已用</value>
+  </data>
+  <data name="RAMVoltage" xml:space="preserve">
+    <value>内存电压</value>
+  </data>
+  <data name="RAMVoltageLabel" xml:space="preserve">
+    <value>电压</value>
+  </data>
+  <data name="ButtonSave" xml:space="preserve">
+    <value>保存</value>
+  </data>
+  <data name="LanguageChangedText" xml:space="preserve">
+    <value>应用程序将重启以更改语言。</value>
+  </data>
+  <data name="LanguageChangedTitle" xml:space="preserve">
+    <value>语言已更改</value>
+  </data>
+  <data name="SettingsAdvancedTab" xml:space="preserve">
+    <value>高级</value>
+  </data>
+  <data name="SettingsAlertFontColor" xml:space="preserve">
+    <value>警报字体颜色</value>
+  </data>
+  <data name="SettingsAlertFontColorTooltip" xml:space="preserve">
+    <value>处于警报状态的项目文字颜色。</value>
+  </data>
+  <data name="SettingsAllCoreClocks" xml:space="preserve">
+    <value>显示所有核心时钟</value>
+  </data>
+  <data name="SettingsAllCoreClocksTooltip" xml:space="preserve">
+    <value>显示所有核心的时钟频率, 而不仅是第一个。</value>
+  </data>
+  <data name="SettingsIsInAltTab" xml:space="preserve">
+    <value>显示在 Alt + Tab 中</value>
+  </data>
+  <data name="SettingsIsInAltTabTooltip" xml:space="preserve">
+    <value>在 Alt + Tab 中隐藏应用程序。</value>
+  </data>
+  <data name="SettingsAlwaysOnTop" xml:space="preserve">
+    <value>始终置顶</value>
+  </data>
+  <data name="SettingsAlwaysOnTopTooltip" xml:space="preserve">
+    <value>将应用程序始终置于其他窗口之上。</value>
+  </data>
+  <data name="SettingsAutoBackground" xml:space="preserve">
+    <value>自动背景颜色</value>
+  </data>
+  <data name="SettingsAutoBackgroundTooltip" xml:space="preserve">
+    <value>将背景颜色设置为系统颜色设置。</value>
+  </data>
+  <data name="SettingsAutoUpdate" xml:space="preserve">
+    <value>自动更新</value>
+  </data>
+  <data name="SettingsAutoUpdateTooltip" xml:space="preserve">
+    <value>启动应用程序时检查更新并自动更新。</value>
+  </data>
+  <data name="SettingsBackgroundColor" xml:space="preserve">
+    <value>背景颜色</value>
+  </data>
+  <data name="SettingsBackgroundColorTooltip" xml:space="preserve">
+    <value>背景颜色。</value>
+  </data>
+  <data name="SettingsBackgroundOpacity" xml:space="preserve">
+    <value>背景不透明度</value>
+  </data>
+  <data name="SettingsBackgroundOpacityTooltip" xml:space="preserve">
+    <value>背景的不透明度。</value>
+  </data>
+  <data name="SettingsBandwidthInAlert" xml:space="preserve">
+    <value>入站带宽警报</value>
+  </data>
+  <data name="SettingsBandwidthInAlertTooltip" xml:space="preserve">
+    <value>当接收带宽达到该 MBps 阈值时触发警报。 使用 0 禁用。</value>
+  </data>
+  <data name="SettingsBandwidthOutAlert" xml:space="preserve">
+    <value>出站带宽警报</value>
+  </data>
+  <data name="SettingsBandwidthOutAlertTooltip" xml:space="preserve">
+    <value>当发送带宽达到该 MBps 阈值时触发警报。 使用 0 禁用。</value>
+  </data>
+  <data name="SettingsClickThrough" xml:space="preserve">
+    <value>点击穿透</value>
+  </data>
+  <data name="SettingsClickThroughTooltip" xml:space="preserve">
+    <value>所有鼠标事件将穿透窗口。 这将阻止与应用程序的任何交互。</value>
+  </data>
+  <data name="SettingsShowMenuBar" xml:space="preserve">
+    <value>显示菜单栏</value>
+  </data>
+  <data name="SettingsShowMenuBarTooltip" xml:space="preserve">
+    <value>在应用程序顶部显示菜单栏。</value>
+  </data>
+  <data name="SettingsCoreLoads" xml:space="preserve">
+    <value>显示核心负载</value>
+  </data>
+  <data name="SettingsCoreLoadsTooltip" xml:space="preserve">
+    <value>显示所有核心的负载百分比。</value>
+  </data>
+  <data name="SettingsCustomizeTab" xml:space="preserve">
+    <value>自定义</value>
+  </data>
+  <data name="SettingsDock" xml:space="preserve">
+    <value>停靠</value>
+  </data>
+  <data name="SettingsDockLeft" xml:space="preserve">
+    <value>左</value>
+  </data>
+  <data name="SettingsDockRight" xml:space="preserve">
+    <value>右</value>
+  </data>
+  <data name="SettingsDockTooltip" xml:space="preserve">
+    <value>确定应用程序停靠的位置。</value>
+  </data>
+  <data name="SettingsFontColor" xml:space="preserve">
+    <value>字体颜色</value>
+  </data>
+  <data name="SettingsFontColorTooltip" xml:space="preserve">
+    <value>文本和图标的颜色。</value>
+  </data>
+  <data name="SettingsFontSize" xml:space="preserve">
+    <value>字体大小</value>
+  </data>
+  <data name="SettingsFontSizeTooltip" xml:space="preserve">
+    <value>文本和图标的大小。</value>
+  </data>
+  <data name="SettingsGeneralTab" xml:space="preserve">
+    <value>常规</value>
+  </data>
+  <data name="SettingsHardwareEnabledTooltip" xml:space="preserve">
+    <value>启用此硬件。</value>
+  </data>
+  <data name="SettingsHardwareNameTooltip" xml:space="preserve">
+    <value>编辑此硬件的名称。</value>
+  </data>
+  <data name="SettingsHorizontalOffset" xml:space="preserve">
+    <value>水平偏移</value>
+  </data>
+  <data name="SettingsHorizontalOffsetTooltip" xml:space="preserve">
+    <value>应用程序的水平偏移。</value>
+  </data>
+  <data name="SettingsLanguage" xml:space="preserve">
+    <value>语言</value>
+  </data>
+  <data name="SettingsLanguageDefault" xml:space="preserve">
+    <value>默认</value>
+  </data>
+  <data name="SettingsLanguageTooltip" xml:space="preserve">
+    <value>应用程序当前语言。</value>
+  </data>
+  <data name="SettingsMetrics" xml:space="preserve">
+    <value>指标:</value>
+  </data>
+  <data name="SettingsMetricsTooltip" xml:space="preserve">
+    <value>启用或禁用特定指标。</value>
+  </data>
+  <data name="SettingsMonitorEnabledTooltip" xml:space="preserve">
+    <value>启用此显示器。</value>
+  </data>
+  <data name="SettingsMonitorsTab" xml:space="preserve">
+    <value>显示器</value>
+  </data>
+  <data name="SettingsUpdateInterval" xml:space="preserve">
+    <value>更新间隔</value>
+  </data>
+  <data name="SettingsUpdateIntervalTooltip" xml:space="preserve">
+    <value>传感器更新之间的时间 (毫秒)。</value>
+  </data>
+  <data name="SettingsIsAppBar" xml:space="preserve">
+    <value>应用栏</value>
+  </data>
+  <data name="SettingsIsAppBarTooltip" xml:space="preserve">
+    <value>将窗口设置为应用栏, 并相应地在工作区保留空间。</value>
+  </data>
+  <data name="SettingsRoundAllDecimals" xml:space="preserve">
+    <value>四舍五入所有小数</value>
+  </data>
+  <data name="SettingsRoundAllDecimalsTooltip" xml:space="preserve">
+    <value>将所有小数值四舍五入为最接近的整数。</value>
+  </data>
+  <data name="SettingsRunAtStartup" xml:space="preserve">
+    <value>开机启动</value>
+  </data>
+  <data name="SettingsRunAtStartupTooltip" xml:space="preserve">
+    <value>系统启动后, 在首次登录后启动应用程序。</value>
+  </data>
+  <data name="SettingsScreen" xml:space="preserve">
+    <value>屏幕</value>
+  </data>
+  <data name="SettingsScreenTooltip" xml:space="preserve">
+    <value>确定应用程序显示在哪个屏幕上。</value>
+  </data>
+  <data name="SettingsShowHardwareNames" xml:space="preserve">
+    <value>显示硬件名称</value>
+  </data>
+  <data name="SettingsShowHardwareNamesTooltip" xml:space="preserve">
+    <value>显示硬件名称。</value>
+  </data>
+  <data name="SettingsShowTrayIcon" xml:space="preserve">
+    <value>显示托盘图标</value>
+  </data>
+  <data name="SettingsShowTrayIconTooltip" xml:space="preserve">
+    <value>在任务栏显示托盘图标。</value>
+  </data>
+  <data name="SettingsTemperatureAlert" xml:space="preserve">
+    <value>温度警报</value>
+  </data>
+  <data name="SettingsTemperatureAlertTooltip" xml:space="preserve">
+    <value>当温度达到阈值时触发警报。 使用 0 禁用。</value>
+  </data>
+  <data name="SettingsTitle" xml:space="preserve">
+    <value>LibreDiagnostics 设置</value>
+  </data>
+  <data name="SettingsShowInactiveConnections" xml:space="preserve">
+    <value>显示不活动连接</value>
+  </data>
+  <data name="SettingsShowInactiveConnectionsTooltip" xml:space="preserve">
+    <value>显示没有传输数据的网络连接。</value>
+  </data>
+  <data name="SettingsUsedSpaceAlert" xml:space="preserve">
+    <value>已用空间警报</value>
+  </data>
+  <data name="SettingsUsedSpaceAlertTooltip" xml:space="preserve">
+    <value>当已用空间达到该百分比阈值时触发警报。 使用 0 禁用。</value>
+  </data>
+  <data name="SettingsUseFahrenheit" xml:space="preserve">
+    <value>使用华氏度</value>
+  </data>
+  <data name="SettingsUseFahrenheitTooltip" xml:space="preserve">
+    <value>传感器和警报的温度将使用华氏度而不是摄氏度。</value>
+  </data>
+  <data name="SettingsVerticalOffset" xml:space="preserve">
+    <value>垂直偏移</value>
+  </data>
+  <data name="SettingsVerticalOffsetTooltip" xml:space="preserve">
+    <value>应用程序的垂直偏移。</value>
+  </data>
+  <data name="NetworkIP" xml:space="preserve">
+    <value>IP 地址</value>
+  </data>
+  <data name="NetworkIPLabel" xml:space="preserve">
+    <value>IP</value>
+  </data>
+  <data name="NetworkExtIP" xml:space="preserve">
+    <value>外部 IP 地址</value>
+  </data>
+  <data name="NetworkExtIPLabel" xml:space="preserve">
+    <value>外部</value>
+  </data>
+  <data name="DriveTemperature" xml:space="preserve">
+    <value>温度</value>
+  </data>
+  <data name="DriveTemperatureLabel" xml:space="preserve">
+    <value>温度</value>
+  </data>
+  <data name="RAMTempLabel" xml:space="preserve">
+    <value>温度</value>
+  </data>
+  <data name="RAMTemp" xml:space="preserve">
+    <value>温度</value>
+  </data>
+  <data name="Fan" xml:space="preserve">
+    <value>风扇</value>
+  </data>
+  <data name="FanSpeed" xml:space="preserve">
+    <value>风扇转速</value>
+  </data>
+  <data name="FanSpeedLabel" xml:space="preserve">
+    <value>转速</value>
+  </data>
+  <data name="SettingsAutoFontColor" xml:space="preserve">
+    <value>自动字体颜色</value>
+  </data>
+  <data name="SettingsAutoFontColorTooltip" xml:space="preserve">
+    <value>将字体颜色设置为系统颜色设置。</value>
+  </data>
+  <data name="SettingsShowInactiveFans" xml:space="preserve">
+    <value>显示不活动风扇</value>
+  </data>
+  <data name="SettingsShowInactiveFansTooltip" xml:space="preserve">
+    <value>显示 RPM 为 0 的风扇。 每个更新周期都会重新检查风扇 RPM。</value>
+  </data>
+  <data name="SettingsHardwareEnabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="SettingsHardwareName" xml:space="preserve">
+    <value>硬件</value>
+  </data>
+  <data name="SettingsMonitorsEnabled" xml:space="preserve">
+    <value>启用</value>
+  </data>
+  <data name="SettingsMonitorsMonitor" xml:space="preserve">
+    <value>显示器</value>
+  </data>
+  <data name="SettingsMonitorsDragDropTitle1" xml:space="preserve">
+    <value>单击行以编辑其设置。</value>
+  </data>
+  <data name="SettingsMonitorsDragDropTitle2" xml:space="preserve">
+    <value>拖动行以更改其顺序。</value>
+  </data>
+  <data name="SettingsAppWidth" xml:space="preserve">
+    <value>应用宽度</value>
+  </data>
+  <data name="SettingsAppWidthTooltip" xml:space="preserve">
+    <value>应用程序的宽度。</value>
+  </data>
+  <data name="SettingsTextAlignment" xml:space="preserve">
+    <value>文本对齐</value>
+  </data>
+  <data name="SettingsTextAlignmentLeft" xml:space="preserve">
+    <value>左对齐</value>
+  </data>
+  <data name="SettingsTextAlignmentRight" xml:space="preserve">
+    <value>右对齐</value>
+  </data>
+  <data name="SettingsTextAlignmentTooltip" xml:space="preserve">
+    <value>文本的对齐方式。</value>
+  </data>
+  <data name="StorageTitle" xml:space="preserve">
+    <value>存储详情</value>
+  </data>
+  <data name="StorageHealth" xml:space="preserve">
+    <value>健康</value>
+  </data>
+  <data name="StorageHealthTooltip" xml:space="preserve">
+    <value>存储设备的健康状态。</value>
+  </data>
+  <data name="StorageAttributeHeader" xml:space="preserve">
+    <value>S.M.A.R.T. 属性</value>
+  </data>
+  <data name="StorageAttributeHeaderTooltip" xml:space="preserve">
+    <value>自我监测、分析与报告技术 (SMART / S.M.A.R.T.)</value>
+  </data>
+  <data name="StorageAttributeID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="StorageAttributeName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="StorageAttributeValue" xml:space="preserve">
+    <value>值</value>
+  </data>
+  <data name="StorageAttributeValueHex" xml:space="preserve">
+    <value>值 (十六进制)</value>
+  </data>
+  <data name="StorageName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="StorageNameTooltip" xml:space="preserve">
+    <value>存储设备名称。</value>
+  </data>
+  <data name="UpdateAvailableTitle" xml:space="preserve">
+    <value>有新版本可用</value>
+  </data>
+  <data name="UpdateAvailableMessage" xml:space="preserve">
+    <value>有新版本可供下载。\n是否继续更新?\n\n更新说明:\n{0}</value>
+  </data>
+  <data name="ButtonApply" xml:space="preserve">
+    <value>应用</value>
+  </data>
+  <data name="SettingsThrottleInterval" xml:space="preserve">
+    <value>更新节流</value>
+  </data>
+  <data name="SettingsThrottleIntervalTooltip" xml:space="preserve">
+    <value>按输入的毫秒数对存储设备的传感器更新进行节流。 使用 0 禁用更新节流。</value>
+  </data>
+  <data name="NoSensorValue" xml:space="preserve">
+    <value>无数据</value>
+  </data>
+  <data name="SettingsFontFamily" xml:space="preserve">
+    <value>字体系列</value>
+  </data>
+  <data name="SettingsFontFamilyTooltip" xml:space="preserve">
+    <value>文本的字体系列。</value>
+  </data>
+  <data name="StorageTotalReads" xml:space="preserve">
+    <value>总读取量 (GB)</value>
+  </data>
+  <data name="StorageTotalReadsTooltip" xml:space="preserve">
+    <value>存储设备的总读取量 (GB)。</value>
+  </data>
+  <data name="StorageTotalWrites" xml:space="preserve">
+    <value>总写入量 (GB)</value>
+  </data>
+  <data name="StorageTotalWritesTooltip" xml:space="preserve">
+    <value>存储设备的总写入量 (GB)。</value>
+  </data>
+  <data name="StoragePowerOnCount" xml:space="preserve">
+    <value>通电次数</value>
+  </data>
+  <data name="StoragePowerOnCountTooltip" xml:space="preserve">
+    <value>存储设备的通电次数。</value>
+  </data>
+  <data name="StoragePowerOnHours" xml:space="preserve">
+    <value>通电小时数</value>
+  </data>
+  <data name="StoragePowerOnHoursTooltip" xml:space="preserve">
+    <value>存储设备的通电小时数。</value>
+  </data>
+  <data name="RAMWindowTitle" xml:space="preserve">
+    <value>内存详情</value>
+  </data>
+  <data name="RAMTimingsHeader" xml:space="preserve">
+    <value>内存时序</value>
+  </data>
+  <data name="RAMTimingsHeaderTooltip" xml:space="preserve">
+    <value>此内存模组的时序。</value>
+  </data>
+  <data name="RAMTimingsName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="RAMTimingsValue" xml:space="preserve">
+    <value>值 (纳秒)</value>
+  </data>
+  <data name="RAMCapacity" xml:space="preserve">
+    <value>容量 (GB)</value>
+  </data>
+  <data name="RAMCapacityTooltip" xml:space="preserve">
+    <value>内存模组的容量 (GB)。</value>
+  </data>
+  <data name="SettingsHotkeysTab" xml:space="preserve">
+    <value>快捷键</value>
+  </data>
+  <data name="SettingsHotKeyCloseApp" xml:space="preserve">
+    <value>关闭应用</value>
+  </data>
+  <data name="SettingsHotKeyRestartApp" xml:space="preserve">
+    <value>重启应用</value>
+  </data>
+  <data name="SettingsHotKeyToggleAppBar" xml:space="preserve">
+    <value>切换应用栏</value>
+  </data>
+  <data name="SettingsHotKeyCloseAppTooltip" xml:space="preserve">
+    <value>关闭应用程序。</value>
+  </data>
+  <data name="SettingsHotKeyRestartAppTooltip" xml:space="preserve">
+    <value>重启应用程序。</value>
+  </data>
+  <data name="SettingsHotKeyToggleAppBarTooltip" xml:space="preserve">
+    <value>将应用栏状态切换为相反 (启用/禁用)。</value>
+  </data>
+  <data name="RAMName" xml:space="preserve">
+    <value>名称</value>
+  </data>
+  <data name="RAMNameTooltip" xml:space="preserve">
+    <value>内存模组名称。</value>
+  </data>
+  <data name="StorageTemperatureWarning" xml:space="preserve">
+    <value>温度警告</value>
+  </data>
+  <data name="StorageTemperatureWarningTooltip" xml:space="preserve">
+    <value>存储设备的温度警告阈值。</value>
+  </data>
+  <data name="StorageTemperatureCritical" xml:space="preserve">
+    <value>温度临界</value>
+  </data>
+  <data name="StorageTemperatureCriticalTooltip" xml:space="preserve">
+    <value>存储设备的临界温度阈值。</value>
+  </data>
+</root>
