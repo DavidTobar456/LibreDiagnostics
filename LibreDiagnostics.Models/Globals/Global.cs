@@ -104,7 +104,7 @@ namespace LibreDiagnostics.Models.Globals
                 return;
             }
 
-            Culture.SetCurrent(new System.Globalization.CultureInfo(e.NewSettings.Language));
+            Culture.SetCurrent(e.NewSettings.Language);
 
             //FontManager may have not been initialized yet
             FontManager?.GlobalFontSize   = e.NewSettings.FontSize  ;

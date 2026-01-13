@@ -17,6 +17,12 @@ namespace LibreDiagnostics.Language
 
         public const string DEFAULT = "en-US";
 
+        static readonly IReadOnlyDictionary<string, string> _LanguageAliases = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
+        {
+            { "zh-Hans-CN", "zh-CN" },
+            { "zh-Hant-TW", "zh-TW" },
+        };
+
         #endregion
 
         #region Properties
@@ -36,6 +42,7 @@ namespace LibreDiagnostics.Language
                     "ja-JP",
                     "ru-RU",
                     "zh-Hans-CN",
+                    "zh-Hant-TW",
                 ];
             }
         }
@@ -44,8 +51,11 @@ namespace LibreDiagnostics.Language
 
         #region Public
 
-        public static void SetCurrent(CultureInfo culture)
+        public static void SetCurrent(string language)
         {
+            language = TryGetCultureAlias(language);
+            var culture = new CultureInfo(language);
+
             Resources.Resources.Culture = culture;
 
             Thread.CurrentThread.CurrentCulture   = culture;
@@ -54,12 +64,48 @@ namespace LibreDiagnostics.Language
 
         public static List<CultureItem> GetAll()
         {
-            var cultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures)
-                .Where(ci => Languages.Any(l => string.Equals(ci.Name, l, StringComparison.OrdinalIgnoreCase)))
+            var cultures = GetCultures()
                 .OrderBy(ci => ci.DisplayName)
                 .Select(ci => new CultureItem { Text = ci.DisplayName, Value = ci.Name });
 
             return cultures.ToList();
+        }
+
+        #endregion
+
+        #region Private
+
+        static IEnumerable<CultureInfo> GetCultures()
+        {
+            return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+                .Where(ci =>
+                {
+                    //Check default list first
+                    if (Languages.Any(l => string.Equals(ci.Name, l, StringComparison.OrdinalIgnoreCase)))
+                    {
+                        return true;
+                    }
+
+                    //Check aliases
+                    if (_LanguageAliases.TryGetValue(ci.Name, out var alias))
+                    {
+                        return true;
+                    }
+
+                    return false;
+                });
+        }
+
+        static string TryGetCultureAlias(string cultureName)
+        {
+            //Return alias if exists
+            if (_LanguageAliases.TryGetValue(cultureName, out var alias))
+            {
+                return alias;
+            }
+
+            //Return original if no alias exists
+            return cultureName;
         }
 
         #endregion
