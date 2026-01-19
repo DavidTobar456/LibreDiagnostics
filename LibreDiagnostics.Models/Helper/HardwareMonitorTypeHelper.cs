@@ -30,6 +30,7 @@ namespace LibreDiagnostics.Models.Helper
                 case HardwareMonitorType.GPU:
                     yield return HardwareType.GpuNvidia;
                     yield return HardwareType.GpuAmd;
+                    yield return HardwareType.GpuIntel;
                     break;
                 case HardwareMonitorType.Storage:
                     yield return HardwareType.Storage;
