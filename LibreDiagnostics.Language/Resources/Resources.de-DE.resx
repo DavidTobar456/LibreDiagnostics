@@ -759,4 +759,13 @@
   <data name="StorageTemperatureCriticalTooltip" xml:space="preserve">
     <value>Kritische Temperaturgrenze für die Festplatte.</value>
   </data>
+  <data name="Clock" xml:space="preserve">
+    <value>Uhrzeit</value>
+  </data>
+  <data name="SettingsShowClock" xml:space="preserve">
+    <value>Uhrzeit anzeigen</value>
+  </data>
+  <data name="SettingsShowClockTooltip" xml:space="preserve">
+    <value>Zeigt das Datum und die Uhrzeit an.</value>
+  </data>
 </root>

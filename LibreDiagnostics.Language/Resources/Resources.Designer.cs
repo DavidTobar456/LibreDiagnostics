@@ -142,6 +142,15 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Time.
+        /// </summary>
+        public static string Clock {
+            get {
+                return ResourceManager.GetString("Clock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CPU.
         /// </summary>
         public static string CPU {
@@ -1515,6 +1524,24 @@ namespace LibreDiagnostics.Language.Resources {
         public static string SettingsScreenTooltip {
             get {
                 return ResourceManager.GetString("SettingsScreenTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show clock.
+        /// </summary>
+        public static string SettingsShowClock {
+            get {
+                return ResourceManager.GetString("SettingsShowClock", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shows date and time..
+        /// </summary>
+        public static string SettingsShowClockTooltip {
+            get {
+                return ResourceManager.GetString("SettingsShowClockTooltip", resourceCulture);
             }
         }
         

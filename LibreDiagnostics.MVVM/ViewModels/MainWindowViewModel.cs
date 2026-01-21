@@ -13,6 +13,7 @@ using LibreDiagnostics.Models.Configuration;
 using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.Models.Hardware;
 using LibreDiagnostics.Models.Interfaces;
+using LibreDiagnostics.Models.Software;
 using LibreDiagnostics.MVVM.Utilities;
 using LibreDiagnostics.Tasks.Platform.Windows;
 using System.Diagnostics;
@@ -32,6 +33,11 @@ namespace LibreDiagnostics.MVVM.ViewModels
         public MainWindowViewModel()
         {
             //Run time
+
+            Clock = new Clock()
+            {
+                IconData = IconData.Clock
+            };
 
             Global.HardwareMonitorManager = this;
 
@@ -53,6 +59,13 @@ namespace LibreDiagnostics.MVVM.ViewModels
         #endregion
 
         #region Properties
+
+        Clock _Clock;
+        public Clock Clock
+        {
+            get { return _Clock; }
+            set { SetField(ref _Clock, value); }
+        }
 
         HardwareManager _HardwareManager;
         public HardwareManager HardwareManager
@@ -172,6 +185,7 @@ namespace LibreDiagnostics.MVVM.ViewModels
                 TimeSpan updateInterval = TimeSpan.FromMilliseconds(Global.Settings.UpdateInterval);
 
                 lastUpdate = DateTime.Now;
+                Clock.Update();
 
                 HardwareManager.Update();
 

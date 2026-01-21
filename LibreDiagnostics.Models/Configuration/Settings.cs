@@ -187,6 +187,14 @@ namespace LibreDiagnostics.Models.Configuration
             set { SetField(ref _ShowMenuBar, value); }
         }
 
+        bool _ShowClock = false;
+        [JsonProperty]
+        public bool ShowClock
+        {
+            get { return _ShowClock; }
+            set { SetField(ref _ShowClock, value); }
+        }
+
         #endregion
 
         #region Customize

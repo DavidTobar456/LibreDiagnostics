@@ -759,4 +759,13 @@
   <data name="StorageTemperatureCriticalTooltip" xml:space="preserve">
     <value>Critical temperature threshold for storage device.</value>
   </data>
+  <data name="Clock" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="SettingsShowClock" xml:space="preserve">
+    <value>Show clock</value>
+  </data>
+  <data name="SettingsShowClockTooltip" xml:space="preserve">
+    <value>Shows date and time.</value>
+  </data>
 </root>

@@ -144,7 +144,7 @@
                 </TabItem>
                 <!-- Advanced Tab -->
 				<TabItem Header="{x:Static lang:Resources.SettingsAdvancedTab}">
-                    <ctrl:GridEx ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
+                    <ctrl:GridEx ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto,Auto">
 						<TextBlock Grid.Column="0" Grid.Row="0" Text="{x:Static lang:Resources.SettingsAppWidth}"/>
                         <DockPanel Grid.Column="1" Grid.Row="0">
                             <ctrl:TextBoxNumber NumberType="Double" AllowNegative="False"
@@ -240,6 +240,11 @@
                         <CheckBox Grid.Column="1" Grid.Row="9"
                                   IsChecked="{Binding Settings.ShowMenuBar, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                   ToolTip.Tip="{x:Static lang:Resources.SettingsShowMenuBarTooltip}"/>
+
+						<TextBlock Grid.Column="0" Grid.Row="10" Text="{x:Static lang:Resources.SettingsShowClock}"/>
+                        <CheckBox Grid.Column="1" Grid.Row="10"
+                                  IsChecked="{Binding Settings.ShowClock, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  ToolTip.Tip="{x:Static lang:Resources.SettingsShowClockTooltip}"/>
                     </ctrl:GridEx>
                 </TabItem>
                 <!-- Customize Tab -->

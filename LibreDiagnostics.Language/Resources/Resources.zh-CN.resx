@@ -759,4 +759,13 @@
   <data name="StorageTemperatureCriticalTooltip" xml:space="preserve">
     <value>存储设备的临界温度阈值。</value>
   </data>
+  <data name="Clock" xml:space="preserve">
+    <value>时间</value>
+  </data>
+  <data name="SettingsShowClock" xml:space="preserve">
+    <value>开演时间</value>
+  </data>
+  <data name="SettingsShowClockTooltip" xml:space="preserve">
+    <value>显示日期和时间。</value>
+  </data>
 </root>

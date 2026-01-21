@@ -14,7 +14,7 @@ using LibreDiagnostics.Models.Interfaces;
 
 namespace LibreDiagnostics.Models.Hardware
 {
-    public class HardwarePanel : ViewModelBase
+    public class HardwarePanel : ViewModelBase, IIcon
     {
         #region Constructor
 

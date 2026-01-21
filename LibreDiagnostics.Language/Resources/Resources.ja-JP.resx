@@ -759,4 +759,13 @@
   <data name="StorageTemperatureCriticalTooltip" xml:space="preserve">
     <value>ストレージデバイスの臨界温度しきい値。</value>
   </data>
+  <data name="Clock" xml:space="preserve">
+    <value>時間</value>
+  </data>
+  <data name="SettingsShowClock" xml:space="preserve">
+    <value>ショータイム</value>
+  </data>
+  <data name="SettingsShowClockTooltip" xml:space="preserve">
+    <value>日付と時刻を表示します。</value>
+  </data>
 </root>
