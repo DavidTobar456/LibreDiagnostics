@@ -36,5 +36,6 @@ namespace LibreDiagnostics.Models.Enums
         Celcius,
         Fahrenheit,
         IP,
+        Watt,
     }
 }

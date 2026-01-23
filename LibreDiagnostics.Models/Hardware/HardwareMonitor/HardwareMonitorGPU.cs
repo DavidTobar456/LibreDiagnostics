@@ -120,6 +120,16 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
                 }
             }
 
+            //GPU Power
+            {
+                var powerSensor = Hardware.Sensors.Where(s => s.SensorType == SensorType.Power && s.Name.Contains("Package", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+                if (powerSensor != null)
+                {
+                    sensorList.Add(new MetricGPU(powerSensor, HardwareMetricKey.GPUPower, DataType.Watt));
+                }
+            }
+
             HardwareMetrics.Clear();
             HardwareMetrics.AddRange(sensorList);
         }
@@ -164,6 +174,10 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
             //Set Fan
             var fan = HardwareMetrics.Find(hm => hm.HardwareMetricKey == HardwareMetricKey.GPUFan);
             fan?.Enabled = e.NewSettings.IsConfigEnabled(HardwareMonitorType.GPU, HardwareMetricKey.GPUFan);
+
+            //Set Power
+            var power = HardwareMetrics.Find(hm => hm.HardwareMetricKey == HardwareMetricKey.GPUPower);
+            power?.Enabled = e.NewSettings.IsConfigEnabled(HardwareMonitorType.GPU, HardwareMetricKey.GPUPower);
         }
 
         #endregion

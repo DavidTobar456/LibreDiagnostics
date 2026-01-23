@@ -768,4 +768,16 @@
   <data name="SettingsShowClockTooltip" xml:space="preserve">
     <value>Zeigt das Datum und die Uhrzeit an.</value>
   </data>
+  <data name="CPUPower" xml:space="preserve">
+    <value>CPU Stromverbrauch</value>
+  </data>
+  <data name="CPUPowerLabel" xml:space="preserve">
+    <value>Stromverbrauch</value>
+  </data>
+  <data name="GPUPower" xml:space="preserve">
+    <value>GPU Stromverbrauch</value>
+  </data>
+  <data name="GPUPowerLabel" xml:space="preserve">
+    <value>Stromverbrauch</value>
+  </data>
 </root>

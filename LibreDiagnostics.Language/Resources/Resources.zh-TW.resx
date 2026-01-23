@@ -768,4 +768,16 @@
   <data name="SettingsShowClockTooltip" xml:space="preserve">
     <value>顯示日期和時間。</value>
   </data>
+  <data name="CPUPower" xml:space="preserve">
+    <value>CPU 耗電量</value>
+  </data>
+  <data name="CPUPowerLabel" xml:space="preserve">
+    <value>耗電量</value>
+  </data>
+  <data name="GPUPower" xml:space="preserve">
+    <value>GPU 耗電量</value>
+  </data>
+  <data name="GPUPowerLabel" xml:space="preserve">
+    <value>耗電量</value>
+  </data>
 </root>

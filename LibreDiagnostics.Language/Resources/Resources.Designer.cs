@@ -232,6 +232,24 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to CPU Power draw.
+        /// </summary>
+        public static string CPUPower {
+            get {
+                return ResourceManager.GetString("CPUPower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power draw.
+        /// </summary>
+        public static string CPUPowerLabel {
+            get {
+                return ResourceManager.GetString("CPUPowerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CPU Temperature.
         /// </summary>
         public static string CPUTemp {
@@ -489,6 +507,24 @@ namespace LibreDiagnostics.Language.Resources {
         public static string GPUFanLabel {
             get {
                 return ResourceManager.GetString("GPUFanLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to GPU Power draw.
+        /// </summary>
+        public static string GPUPower {
+            get {
+                return ResourceManager.GetString("GPUPower", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Power draw.
+        /// </summary>
+        public static string GPUPowerLabel {
+            get {
+                return ResourceManager.GetString("GPUPowerLabel", resourceCulture);
             }
         }
         

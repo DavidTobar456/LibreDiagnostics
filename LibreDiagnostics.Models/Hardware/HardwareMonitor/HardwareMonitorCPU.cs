@@ -65,7 +65,7 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
 
                 if (board != null)
                 {
-                    voltage = board.Sensors.Where(s => s.SensorType == SensorType.Voltage && s.Name.Contains("CPU")).FirstOrDefault();
+                    voltage = board.Sensors.Where(s => s.SensorType == SensorType.Voltage && s.Name.Contains("CPU", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
                 }
 
                 if (voltage == null)
@@ -83,17 +83,17 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
             {
                 ISensor tempSensor = null;
 
-                tempSensor = Hardware.Sensors.Where(s => s.SensorType == SensorType.Temperature && s.Name.Contains("CCDs Max (Tdie)")).FirstOrDefault(); // Check for AMD core chiplet dies (CCDs)
+                tempSensor = Hardware.Sensors.Where(s => s.SensorType == SensorType.Temperature && s.Name.Contains("CCDs Max (Tdie)", StringComparison.OrdinalIgnoreCase)).FirstOrDefault(); // Check for AMD core chiplet dies (CCDs)
 
                 if (board != null && tempSensor == null)
                 {
-                    tempSensor = board.Sensors.Where(s => s.SensorType == SensorType.Temperature && s.Name.Contains("CPU")).FirstOrDefault();
+                    tempSensor = board.Sensors.Where(s => s.SensorType == SensorType.Temperature && s.Name.Contains("CPU", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
                 }
 
                 if (tempSensor == null)
                 {
                     tempSensor =
-                        Hardware.Sensors.Where(s => s.SensorType == SensorType.Temperature && (s.Name == "CPU Package" || s.Name.Contains("Tdie"))).FirstOrDefault() ??
+                        Hardware.Sensors.Where(s => s.SensorType == SensorType.Temperature && (s.Name == "CPU Package" || s.Name.Contains("Tdie", StringComparison.OrdinalIgnoreCase))).FirstOrDefault() ??
                         Hardware.Sensors.Where(s => s.SensorType == SensorType.Temperature).FirstOrDefault();
                 }
 
@@ -109,7 +109,7 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
 
                 if (board != null)
                 {
-                    fanSensor = board.Sensors.Where(s => s.SensorType == SensorType.Fan && s.Name.Contains("CPU")).FirstOrDefault();
+                    fanSensor = board.Sensors.Where(s => s.SensorType == SensorType.Fan && s.Name.Contains("CPU", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 
                     if (fanSensor == null && board.SubHardware?.Length > 0)
                     {
@@ -163,6 +163,16 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
 
                         coreLoadSensors.ForEach(s => sensorList.Add(new MetricCPU(s, HardwareMetricKey.CPUCoreLoad, DataType.Percent)));
                     }
+                }
+            }
+
+            //CPU Power
+            {
+                var powerSensor = Hardware.Sensors.Where(s => s.SensorType == SensorType.Power && s.Name.Contains("Package", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+                if (powerSensor != null)
+                {
+                    sensorList.Add(new MetricCPU(powerSensor, HardwareMetricKey.CPUPower, DataType.Watt));
                 }
             }
 
@@ -245,6 +255,10 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
                 bool coreLoadsEnabled = e.NewSettings.IsConfigEnabled(HardwareMonitorType.CPU, HardwareMetricKey.CPUCoreLoad);
                 coreLoads.ForEach(hm => hm.Enabled = coreLoadsEnabled);
             }
+
+            //Set CPUPower
+            var power = HardwareMetrics.Find(hm => hm.HardwareMetricKey == HardwareMetricKey.CPUPower);
+            power?.Enabled = e.NewSettings.IsConfigEnabled(HardwareMonitorType.CPU, HardwareMetricKey.CPUPower);
         }
 
         #endregion

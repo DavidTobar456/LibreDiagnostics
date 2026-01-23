@@ -18,6 +18,7 @@ namespace LibreDiagnostics.Models.Enums
         CPUFan         ,
         CPULoad        ,
         CPUCoreLoad    ,
+        CPUPower       ,
 
         RAMClock   = 10,
         RAMVoltage     ,
@@ -33,6 +34,7 @@ namespace LibreDiagnostics.Models.Enums
         GPUVoltage       ,
         GPUTemp          ,
         GPUFan           ,
+        GPUPower         ,
 
         NetworkIP    = 30,
         NetworkExtIP     ,

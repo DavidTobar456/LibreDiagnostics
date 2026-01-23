@@ -266,22 +266,32 @@ namespace LibreDiagnostics.Models.Configuration
 
             foreach (var hardwareMonitorConfig in hardwareMonitorConfigs)
             {
-                var hmcRecord = hardwareMonitorConfigs.SingleOrDefault(hmc => hmc.HardwareMonitorType == hardwareMonitorConfig.HardwareMonitorType, hardwareMonitorConfig);
+                var defaultRecord = defaultConfig.SingleOrDefault(hmc => hmc.HardwareMonitorType == hardwareMonitorConfig.HardwareMonitorType, hardwareMonitorConfig);
 
                 if (hardwareMonitorConfig.HardwareConfig == null)
                 {
-                    hardwareMonitorConfig.HardwareConfig = hmcRecord.HardwareConfig;
+                    hardwareMonitorConfig.HardwareConfig = defaultRecord.HardwareConfig;
                 }
 
                 if (hardwareMonitorConfig.MetricConfig == null)
                 {
-                    hardwareMonitorConfig.MetricConfig = hmcRecord.MetricConfig;
+                    hardwareMonitorConfig.MetricConfig = defaultRecord.MetricConfig;
                 }
                 else
                 {
+                    //Add missing metrics from defaults (new keys)
+                    foreach (var defaultMetric in defaultRecord.MetricConfig)
+                    {
+                        if (!hardwareMonitorConfig.MetricConfig.Any(m => m.HardwareMetricKey == defaultMetric.HardwareMetricKey))
+                        {
+                            hardwareMonitorConfig.MetricConfig.Add(defaultMetric.Clone());
+                        }
+                    }
+
+                    //Apply default values to existing items
                     foreach (var metricConfig in hardwareMonitorConfig.MetricConfig)
                     {
-                        var mcRecord = hmcRecord.MetricConfig.SingleOrDefault(m => m.HardwareMetricKey == metricConfig.HardwareMetricKey, metricConfig);
+                        var mcRecord = defaultRecord.MetricConfig.SingleOrDefault(m => m.HardwareMetricKey == metricConfig.HardwareMetricKey, metricConfig);
 
                         if (!ReferenceEquals(metricConfig, mcRecord))
                         {
@@ -292,13 +302,13 @@ namespace LibreDiagnostics.Models.Configuration
 
                 if (hardwareMonitorConfig.HardwareConfigOptions == null)
                 {
-                    hardwareMonitorConfig.HardwareConfigOptions = hmcRecord.HardwareConfigOptions;
+                    hardwareMonitorConfig.HardwareConfigOptions = defaultRecord.HardwareConfigOptions;
                 }
                 else
                 {
                     foreach (var hardwareConfigOption in hardwareMonitorConfig.HardwareConfigOptions)
                     {
-                        var hcoRecord = hmcRecord.HardwareConfigOptions.SingleOrDefault(hc => hc.Key == hardwareConfigOption.Key, hardwareConfigOption);
+                        var hcoRecord = defaultRecord.HardwareConfigOptions.SingleOrDefault(hc => hc.Key == hardwareConfigOption.Key, hardwareConfigOption);
 
                         if (!ReferenceEquals(hardwareConfigOption, hcoRecord))
                         {
@@ -329,6 +339,7 @@ namespace LibreDiagnostics.Models.Configuration
                         new() { HardwareMetricKey = HardwareMetricKey.CPUFan     , Enabled = true  },
                         new() { HardwareMetricKey = HardwareMetricKey.CPULoad    , Enabled = true  },
                         new() { HardwareMetricKey = HardwareMetricKey.CPUCoreLoad, Enabled = false },
+                        new() { HardwareMetricKey = HardwareMetricKey.CPUPower   , Enabled = true  },
                     },
                     HardwareConfigOptions = new()
                     {
@@ -377,6 +388,7 @@ namespace LibreDiagnostics.Models.Configuration
                         new() { HardwareMetricKey = HardwareMetricKey.GPUVoltage  , Enabled = true  },
                         new() { HardwareMetricKey = HardwareMetricKey.GPUTemp     , Enabled = true  },
                         new() { HardwareMetricKey = HardwareMetricKey.GPUFan      , Enabled = true  },
+                        new() { HardwareMetricKey = HardwareMetricKey.GPUPower    , Enabled = true  },
                     },
                     HardwareConfigOptions = new()
                     {

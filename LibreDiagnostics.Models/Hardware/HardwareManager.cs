@@ -250,8 +250,14 @@ namespace LibreDiagnostics.Models.Hardware
                             }
                             break;
                         case HardwareMonitorType.Fan:
-                            //No specific setting for fans, they are part of Motherboard
-                            addOrRemoveConfig(cfg);
+                            var cfgOldSettings = e.OldSettings.HardwareMonitorConfigs
+                                .FirstOrDefault(hmc => hmc.HardwareMonitorType == HardwareMonitorType.Fan);
+
+                            //Changed ?
+                            if (cfgOldSettings.Enabled != cfg.Enabled)
+                            {
+                                addOrRemoveConfig(cfg);
+                            }
                             break;
                         default:
                             break;

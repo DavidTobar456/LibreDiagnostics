@@ -63,6 +63,9 @@ namespace LibreDiagnostics.Models.Helper
                 case HardwareMetricKey.CPUCoreLoad:
                     return Resources.CPUCoreLoad;
 
+                case HardwareMetricKey.CPUPower:
+                    return Resources.CPUPower;
+
                 case HardwareMetricKey.RAMClock:
                     return Resources.RAMClock;
 
@@ -101,6 +104,9 @@ namespace LibreDiagnostics.Models.Helper
 
                 case HardwareMetricKey.GPUFan:
                     return Resources.GPUFan;
+
+                case HardwareMetricKey.GPUPower:
+                    return Resources.GPUPower;
 
                 case HardwareMetricKey.NetworkIP:
                     return Resources.NetworkIP;
@@ -165,6 +171,9 @@ namespace LibreDiagnostics.Models.Helper
                 case HardwareMetricKey.CPUCoreLoad:
                     return Resources.CPUCoreLoadLabel;
 
+                case HardwareMetricKey.CPUPower:
+                    return Resources.CPUPowerLabel;
+
                 case HardwareMetricKey.RAMClock:
                     return Resources.RAMClockLabel;
 
@@ -203,6 +212,9 @@ namespace LibreDiagnostics.Models.Helper
 
                 case HardwareMetricKey.GPUFan:
                     return Resources.GPUFanLabel;
+
+                case HardwareMetricKey.GPUPower:
+                    return Resources.GPUPowerLabel;
 
                 case HardwareMetricKey.NetworkIP:
                     return Resources.NetworkIPLabel;
@@ -320,6 +332,9 @@ namespace LibreDiagnostics.Models.Helper
 
                 case DataType.IP:
                     return string.Empty;
+
+                case DataType.Watt:
+                    return " W";
 
                 default:
                     throw new ArgumentException($"Invalid {nameof(DataType)}.");
