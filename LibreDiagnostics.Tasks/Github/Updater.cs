@@ -7,6 +7,7 @@
 *
 */
 
+using BlackSharp.Core.Logging;
 using System.IO.Compression;
 using System.Text.Json;
 
@@ -163,11 +164,42 @@ namespace LibreDiagnostics.Tasks.Github
         /// langword="true"/> to remove the file; otherwise, it will be retained.</param>
         public void ApplyUpdate(string appPath, string updateFilePath, bool removeUpdateFile = true)
         {
-            //Clear original files
-            Directory.Delete(appPath, true);
+            bool success = false;
+            Exception lastException = null;
 
-            //Extract update
-            ZipFile.ExtractToDirectory(updateFilePath, appPath, true);
+            //Retry extraction a few times in case of file locks
+            for (int i = 0; i < 5; ++i)
+            {
+                try
+                {
+                    //Clear original files
+                    Directory.Delete(appPath, true);
+
+                    Logger.Instance.Add(LogLevel.Trace, $"Removed directory '{appPath}'.", DateTime.Now);
+
+                    //Extract update
+                    ZipFile.ExtractToDirectory(updateFilePath, appPath, true);
+                    Logger.Instance.Add(LogLevel.Trace, $"Extracted files from '{updateFilePath}' to directory '{appPath}'.", DateTime.Now);
+
+                    success = true;
+                }
+                catch (Exception e)
+                {
+                    Logger.Instance.Add(LogLevel.Trace, $"Retrying clear of original files and extraction (counter = {i}).", DateTime.Now);
+                    lastException = e;
+
+                    //Wait a bit and retry
+                    Thread.Sleep(500);
+                    continue;
+                }
+
+                break;
+            }
+
+            if (!success && lastException != null)
+            {
+                throw lastException;
+            }
 
             //SharpCompress (for later):
             //using var file = File.OpenRead(updateFilePath);
@@ -177,6 +209,8 @@ namespace LibreDiagnostics.Tasks.Github
 
             if (removeUpdateFile)
             {
+                Logger.Instance.Add(LogLevel.Trace, $"Removing update file '{updateFilePath}'.", DateTime.Now);
+
                 //Remove update file
                 File.Delete(updateFilePath);
             }

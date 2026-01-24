@@ -7,6 +7,8 @@
 *
 */
 
+using BlackSharp.Core.Extensions;
+using BlackSharp.Core.Logging;
 using LibreDiagnostics.Tasks.Github;
 using System.Diagnostics;
 using System.Reflection;
@@ -28,15 +30,39 @@ args = new string[3] { "--calling-app=\"C:/Code/LibreDiagnostics/LibreDiagnostic
 
         #endregion
 
+        static readonly DateTime FileNameDateTime = DateTime.Now;
+
+        static void LogTrace(string message = "")
+        {
+            if (Logger.Instance.IsEnabled)
+            {
+                Logger.Instance.Add(LogLevel.Trace, message, DateTime.Now);
+                Logger.Instance.SaveToFile(@$"C:\LDT\UpdaterLog_{FileNameDateTime:yyyyMMdd_HHmmss}.txt", false);
+            }
+        }
+
         static async Task Main(string[] args)
         {
+            //Enable this for logging output (and verify directory of log file exists)
+            //Logger.Instance.LogLevel = LogLevel.Trace;
+            //Logger.Instance.IsEnabled = true;
+
+            LogTrace("Arguments:");
+            foreach (var arg in args)
+            {
+                LogTrace($"\"{arg}\"");
+            }
+            LogTrace();
+
             var versionOfMyself = Assembly.GetEntryAssembly().GetName().Version;
 
             //Get own file path
             var currentFilePath = Environment.ProcessPath;
+            LogTrace($"{nameof(currentFilePath)} = '{currentFilePath}'");
 
             //Get current directory
             var currentDirectory = Path.GetDirectoryName(currentFilePath);
+            LogTrace($"{nameof(currentDirectory)} = '{currentDirectory}'");
 
             if (args.Length == 0)
             {
@@ -52,6 +78,7 @@ args = new string[3] { "--calling-app=\"C:/Code/LibreDiagnostics/LibreDiagnostic
             {
                 //Get calling application path
                 var callingApplication = args[0].Split('=')[1].Trim('"');
+                LogTrace($"{nameof(callingApplication)} = '{callingApplication}'");
 
                 var updater = new LDUpdater(Constants.Owner, Constants.Repository);
 
@@ -60,8 +87,11 @@ args = new string[3] { "--calling-app=\"C:/Code/LibreDiagnostics/LibreDiagnostic
                 //If no update is available, exit
                 if (!updateCheckResult.IsUpdateAvailable)
                 {
+                    LogTrace($"No update available.");
                     Environment.Exit(666);
                 }
+
+                LogTrace($"Update available.");
 
                 //Get required assemblies
                 var assemblies = AppDomain.CurrentDomain.GetAssemblies()
@@ -71,6 +101,7 @@ args = new string[3] { "--calling-app=\"C:/Code/LibreDiagnostics/LibreDiagnostic
 
                 //Get file name without extension
                 var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(currentFilePath);
+                LogTrace($"{nameof(fileNameWithoutExtension)} = '{fileNameWithoutExtension}'");
 
                 //Get required files, based on file name
                 var files = Directory
@@ -80,9 +111,11 @@ args = new string[3] { "--calling-app=\"C:/Code/LibreDiagnostics/LibreDiagnostic
 
                 //Create temp directory
                 var tempDir = Directory.CreateTempSubdirectory();
+                LogTrace($"{nameof(tempDir)} = '{tempDir}'");
 
                 //Target updater path
                 var targetUpdaterPath = Path.Combine(tempDir.FullName, Path.GetFileName(currentFilePath));
+                LogTrace($"{nameof(targetUpdaterPath)} = '{targetUpdaterPath}'");
 
                 //Copy self to temp directory
                 File.Copy(currentFilePath, targetUpdaterPath);
@@ -102,11 +135,16 @@ args = new string[3] { "--calling-app=\"C:/Code/LibreDiagnostics/LibreDiagnostic
                     File.Copy(file, destination, false); //Do not overwrite, only copy missing files
                 });
 
+                LogTrace($"Starting copied version of myself.");
+
                 //Start updater from temp directory
                 Process.Start(new ProcessStartInfo(targetUpdaterPath, [$"{LDUpdater.CallingApplicationArg}=\"{callingApplication}\"", LDUpdater.StartSelfUpdateArg, $"{LDUpdater.SourceDirectoryArg}=\"{currentDirectory}\""])
                 {
                     CreateNoWindow = true,
+                    WorkingDirectory = tempDir.FullName,
                 });
+
+                Environment.Exit(0);
             }
             //Start self-update process
             else if (args.Length == 3
@@ -116,6 +154,7 @@ args = new string[3] { "--calling-app=\"C:/Code/LibreDiagnostics/LibreDiagnostic
             {
                 //Get calling application path
                 var callingApplication = args[0].Split('=')[1].Trim('"');
+                LogTrace($"{nameof(callingApplication)} = '{callingApplication}'");
 
                 //Get source (target for update) directory
                 var sourceDirectory = args[2].Split('=')[1].Trim('"');
@@ -133,16 +172,22 @@ args = new string[3] { "--calling-app=\"C:/Code/LibreDiagnostics/LibreDiagnostic
                         throw new Exception("No file to download. Likely already up to date.");
                     }
 
+                    LogTrace($"{nameof(downloadedFile)} = '{downloadedFile}'");
+
                     //Apply update
                     updater.ApplyUpdate(sourceDirectory, downloadedFile, true);
 
+                    LogTrace($"Applied update.");
+
                     //Start updated application
-                    Process.Start(Path.Combine(currentDirectory, Path.GetFileName(callingApplication)));
+                    Process.Start(Path.Combine(sourceDirectory, Path.GetFileName(callingApplication)));
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Update failed: {e.Message}");
+                    LogTrace($"Update failed: {e.FullExceptionString()}");
                 }
+
+                LogTrace($"Update procedure done. Removing myself.");
 
                 //Remove myself
                 if (OperatingSystem.IsWindows())
