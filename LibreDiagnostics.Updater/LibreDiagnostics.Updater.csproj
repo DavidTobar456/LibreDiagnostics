@@ -12,6 +12,13 @@
     <Version>$(AssemblyVersion)</Version>
   </PropertyGroup>
 
+  <PropertyGroup>
+    <PublishSingleFile>true</PublishSingleFile>
+    <SelfContained>false</SelfContained>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+  </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\LibreDiagnostics.Tasks\LibreDiagnostics.Tasks.csproj" />
   </ItemGroup>
