@@ -241,7 +241,7 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Power draw.
+        ///   Looks up a localized string similar to Power.
         /// </summary>
         public static string CPUPowerLabel {
             get {
@@ -520,7 +520,7 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Power draw.
+        ///   Looks up a localized string similar to Power.
         /// </summary>
         public static string GPUPowerLabel {
             get {

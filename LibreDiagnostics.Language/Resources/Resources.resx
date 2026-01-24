@@ -772,12 +772,12 @@
     <value>CPU Power draw</value>
   </data>
   <data name="CPUPowerLabel" xml:space="preserve">
-    <value>Power draw</value>
+    <value>Power</value>
   </data>
   <data name="GPUPower" xml:space="preserve">
     <value>GPU Power draw</value>
   </data>
   <data name="GPUPowerLabel" xml:space="preserve">
-    <value>Power draw</value>
+    <value>Power</value>
   </data>
 </root>
