@@ -35,12 +35,12 @@ namespace LibreDiagnostics.Language
                 [
                     "de-DE",
                     DEFAULT,
-                    "es-ES",
-                    "fi-FI",
-                    "fr-FR",
-                    "it-IT",
+                    //"es-ES",
+                    //"fi-FI",
+                    //"fr-FR",
+                    //"it-IT",
                     "ja-JP",
-                    "ru-RU",
+                    //"ru-RU",
                     "zh-Hans-CN",
                     "zh-Hant-TW",
                 ];
