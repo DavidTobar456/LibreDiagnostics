@@ -7,6 +7,7 @@
 *
 */
 
+using System.Diagnostics;
 using System.Reflection;
 
 namespace LibreDiagnostics.Models.Globals
@@ -16,6 +17,10 @@ namespace LibreDiagnostics.Models.Globals
         #region Fields
 
         const string _SettingsFilename = "Settings.json";
+
+#if DEBUG
+        const string _SettingsFilenameDebug = "Settings.Debug.json";
+#endif
 
         #endregion
 
@@ -42,7 +47,16 @@ namespace LibreDiagnostics.Models.Globals
             {
                 if (_SettingsFile == null)
                 {
-                    _SettingsFile = Path.Combine(AppDataLocal, _SettingsFilename);
+#if DEBUG
+                    if (Debugger.IsAttached)
+                    {
+                        _SettingsFile = Path.Combine(AppDataLocal, _SettingsFilenameDebug);
+                    }
+                    else
+#endif
+                    {
+                        _SettingsFile = Path.Combine(AppDataLocal, _SettingsFilename);
+                    }
                 }
 
                 return _SettingsFile;

@@ -266,20 +266,22 @@ namespace LibreDiagnostics.Models.Configuration
 
             foreach (var hardwareMonitorConfig in hardwareMonitorConfigs)
             {
-                var defaultRecord = defaultConfig.SingleOrDefault(hmc => hmc.HardwareMonitorType == hardwareMonitorConfig.HardwareMonitorType, hardwareMonitorConfig);
+                var hmcRecord = hardwareMonitorConfigs.SingleOrDefault(hmc => hmc.HardwareMonitorType == hardwareMonitorConfig.HardwareMonitorType, hardwareMonitorConfig);
 
                 if (hardwareMonitorConfig.HardwareConfig == null)
                 {
-                    hardwareMonitorConfig.HardwareConfig = defaultRecord.HardwareConfig;
+                    hardwareMonitorConfig.HardwareConfig = hmcRecord.HardwareConfig;
                 }
 
                 if (hardwareMonitorConfig.MetricConfig == null)
                 {
-                    hardwareMonitorConfig.MetricConfig = defaultRecord.MetricConfig;
+                    hardwareMonitorConfig.MetricConfig = hmcRecord.MetricConfig;
                 }
                 else
                 {
-                    //Add missing metrics from defaults (new keys)
+                    var defaultRecord = defaultConfig.SingleOrDefault(hmc => hmc.HardwareMonitorType == hardwareMonitorConfig.HardwareMonitorType, hardwareMonitorConfig);
+
+                    //Add any new default metrics that are missing in the current config (preserves new keys)
                     foreach (var defaultMetric in defaultRecord.MetricConfig)
                     {
                         if (!hardwareMonitorConfig.MetricConfig.Any(m => m.HardwareMetricKey == defaultMetric.HardwareMetricKey))
@@ -288,10 +290,9 @@ namespace LibreDiagnostics.Models.Configuration
                         }
                     }
 
-                    //Apply default values to existing items
                     foreach (var metricConfig in hardwareMonitorConfig.MetricConfig)
                     {
-                        var mcRecord = defaultRecord.MetricConfig.SingleOrDefault(m => m.HardwareMetricKey == metricConfig.HardwareMetricKey, metricConfig);
+                        var mcRecord = hmcRecord.MetricConfig.SingleOrDefault(m => m.HardwareMetricKey == metricConfig.HardwareMetricKey, metricConfig);
 
                         if (!ReferenceEquals(metricConfig, mcRecord))
                         {
@@ -302,13 +303,13 @@ namespace LibreDiagnostics.Models.Configuration
 
                 if (hardwareMonitorConfig.HardwareConfigOptions == null)
                 {
-                    hardwareMonitorConfig.HardwareConfigOptions = defaultRecord.HardwareConfigOptions;
+                    hardwareMonitorConfig.HardwareConfigOptions = hmcRecord.HardwareConfigOptions;
                 }
                 else
                 {
                     foreach (var hardwareConfigOption in hardwareMonitorConfig.HardwareConfigOptions)
                     {
-                        var hcoRecord = defaultRecord.HardwareConfigOptions.SingleOrDefault(hc => hc.Key == hardwareConfigOption.Key, hardwareConfigOption);
+                        var hcoRecord = hmcRecord.HardwareConfigOptions.SingleOrDefault(hc => hc.Key == hardwareConfigOption.Key, hardwareConfigOption);
 
                         if (!ReferenceEquals(hardwareConfigOption, hcoRecord))
                         {
