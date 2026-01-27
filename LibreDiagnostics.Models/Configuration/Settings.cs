@@ -287,6 +287,14 @@ namespace LibreDiagnostics.Models.Configuration
             set { SetField(ref _HotKeyToggleAppBar, value); }
         }
 
+        HotKey _HotKeyOpenSettings = new(HotKeyID.OpenSettings);
+        [JsonProperty]
+        public HotKey HotKeyOpenSettings
+        {
+            get { return _HotKeyOpenSettings; }
+            set { SetField(ref _HotKeyOpenSettings, value); }
+        }
+
         #endregion
 
         #endregion

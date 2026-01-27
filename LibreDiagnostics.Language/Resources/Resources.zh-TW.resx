@@ -780,4 +780,10 @@
   <data name="GPUPowerLabel" xml:space="preserve">
     <value>耗電量</value>
   </data>
+  <data name="SettingsHotKeyOpenSettings" xml:space="preserve">
+    <value>開啟設定</value>
+  </data>
+  <data name="SettingsHotKeyOpenSettingsTooltip" xml:space="preserve">
+    <value>開啟設定視窗。</value>
+  </data>
 </root>

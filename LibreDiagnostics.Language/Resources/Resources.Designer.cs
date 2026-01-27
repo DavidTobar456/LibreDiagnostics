@@ -1330,6 +1330,24 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open settings.
+        /// </summary>
+        public static string SettingsHotKeyOpenSettings {
+            get {
+                return ResourceManager.GetString("SettingsHotKeyOpenSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opens settings window..
+        /// </summary>
+        public static string SettingsHotKeyOpenSettingsTooltip {
+            get {
+                return ResourceManager.GetString("SettingsHotKeyOpenSettingsTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restart app.
         /// </summary>
         public static string SettingsHotKeyRestartApp {

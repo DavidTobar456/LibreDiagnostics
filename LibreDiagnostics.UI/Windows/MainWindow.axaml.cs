@@ -291,7 +291,7 @@ namespace LibreDiagnostics.UI.Windows
             UpdateHotKey(settings.HotKeyCloseApp, Global.TrayIcon.CloseRequestedCommand);
 
             //Restart app
-            UpdateHotKey(settings.HotKeyCloseApp, Global.TrayIcon.RestartRequestedCommand);
+            UpdateHotKey(settings.HotKeyRestartApp, Global.TrayIcon.RestartRequestedCommand);
 
             //Toggle AppBar
             UpdateHotKey(settings.HotKeyToggleAppBar, new RelayCommand(() =>
@@ -303,6 +303,9 @@ namespace LibreDiagnostics.UI.Windows
 
                 ProcessAppBarRelevantChanges(new(old, Global.Settings));
             }));
+
+            //Open settings
+            UpdateHotKey(settings.HotKeyOpenSettings, new RelayCommand(MessageBro.DoOpenSettings));
         }
 
         void UpdateHotKey(HotKey hotKey, ICommand command)

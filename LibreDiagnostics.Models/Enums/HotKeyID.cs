@@ -14,5 +14,6 @@ namespace LibreDiagnostics.Models.Enums
         CloseApp = 1,
         RestartApp,
         ToggleAppBar,
+        OpenSettings,
     }
 }

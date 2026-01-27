@@ -419,7 +419,7 @@
                 </TabItem>
                 <!-- Hotkeys -->
                 <TabItem Header="{x:Static lang:Resources.SettingsHotkeysTab}">
-					<ctrl:GridEx ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto">
+					<ctrl:GridEx ColumnDefinitions="Auto,Auto" RowDefinitions="Auto,Auto,Auto,Auto">
                         <TextBlock Grid.Row="0" Grid.Column="0" Text="{x:Static lang:Resources.SettingsHotKeyCloseApp}"/>
 						<ctrlLocal:TextBoxHotKey Grid.Row="0" Grid.Column="1" Text="{Binding Settings.HotKeyCloseApp}"
                                                  ToolTip.Tip="{x:Static lang:Resources.SettingsHotKeyCloseAppTooltip}"/>
@@ -431,6 +431,10 @@
                         <TextBlock Grid.Row="2" Grid.Column="0" Text="{x:Static lang:Resources.SettingsHotKeyToggleAppBar}"/>
 						<ctrlLocal:TextBoxHotKey Grid.Row="2" Grid.Column="1" Text="{Binding Settings.HotKeyToggleAppBar}"
                                                  ToolTip.Tip="{x:Static lang:Resources.SettingsHotKeyToggleAppBarTooltip}"/>
+
+                        <TextBlock Grid.Row="3" Grid.Column="0" Text="{x:Static lang:Resources.SettingsHotKeyOpenSettings}"/>
+						<ctrlLocal:TextBoxHotKey Grid.Row="3" Grid.Column="1" Text="{Binding Settings.HotKeyOpenSettings}"
+                                                 ToolTip.Tip="{x:Static lang:Resources.SettingsHotKeyOpenSettingsTooltip}"/>
                     </ctrl:GridEx>
                 </TabItem>
             </TabControl>
