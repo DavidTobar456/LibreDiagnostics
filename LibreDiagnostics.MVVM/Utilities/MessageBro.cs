@@ -39,6 +39,11 @@ namespace LibreDiagnostics.MVVM.Utilities
             OpenSettings?.Invoke();
         }
 
+        public static async Task<string> DoSaveFile()
+        {
+            return await SaveFile?.Invoke();
+        }
+
         public static void DoShutdownApplication()
         {
             ShutdownApplication?.Invoke();
@@ -58,6 +63,7 @@ namespace LibreDiagnostics.MVVM.Utilities
         public static event Func<string, string, DialogButtons, DialogButtonType> ShowMessage;
         public static event ShowMessageTimeoutHandler ShowMessageTimeout;
         public static event Action OpenSettings;
+        public static event Func<Task<string>> SaveFile;
         public static event Action ShutdownApplication;
         public static event Func<List<TextValuePair<int>>> GetScreens;
 

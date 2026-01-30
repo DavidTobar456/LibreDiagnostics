@@ -53,6 +53,11 @@ namespace LibreDiagnostics.UI.Models
                     Header = Resources.ButtonSettings,
                     Command = SettingsRequestedCommand,
                 },
+                new NativeMenuItem
+                {
+                    Header = Resources.ButtonLHMReport,
+                    Command = LHMReportRequestedCommand,
+                },
                 new NativeMenuItemSeparator(),
                 new NativeMenuItem
                 {
@@ -173,6 +178,21 @@ namespace LibreDiagnostics.UI.Models
         void SettingsRequested()
         {
             MessageBro.DoOpenSettings();
+        }
+
+        [RelayCommand]
+        async Task LHMReportRequested()
+        {
+            var report = Global.HardwareManager?.GetReport();
+
+            var filePath = await MessageBro.DoSaveFile();
+
+            if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(report))
+            {
+                return;
+            }
+
+            File.WriteAllText(filePath, report);
         }
 
         [RelayCommand]

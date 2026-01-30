@@ -9,9 +9,11 @@
 
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
+using Avalonia.Platform.Storage;
 using BlackSharp.MVVM.Dialogs.Enums;
 using BlackSharp.UI.Avalonia.Windows.Dialogs;
 using BlackSharp.UI.Avalonia.Windows.Dialogs.Enums;
+using LibreDiagnostics.Language.Resources;
 using LibreDiagnostics.Models.Events;
 using LibreDiagnostics.Models.Helper;
 using LibreDiagnostics.MVVM.Utilities;
@@ -30,6 +32,7 @@ namespace LibreDiagnostics.UI.Utilities
             MessageBro.ShowMessageTimeout += ShowMessageTimeout;
             MessageBro.OpenSettings += OpenSettings;
             MessageBro.ShutdownApplication += ShutdownApplication;
+            MessageBro.SaveFile += SaveFile;
             MessageBro.GetScreens += GetScreens;
 
             EventDistributor.ShowDriveDetailsEvent += ShowDriveDetails;
@@ -81,6 +84,25 @@ namespace LibreDiagnostics.UI.Utilities
                 Console.WriteLine("Warning: doing a hard shutdown of application.");
                 Environment.Exit(0);
             }
+        }
+
+        static async Task<string> SaveFile()
+        {
+            if (Avalonia.Application.Current.ApplicationLifetime is IClassicDesktopStyleApplicationLifetime wnd
+             && wnd.MainWindow != null)
+            {
+                var options = new FilePickerSaveOptions()
+                {
+                    Title = Resources.SaveFileTitle,
+                    ShowOverwritePrompt = true,
+                };
+
+                var result = await wnd.MainWindow.StorageProvider.SaveFilePickerAsync(options);
+
+                return result.Path.LocalPath;
+            }
+
+            return null;
         }
 
         static List<TextValuePair<int>> GetScreens()

@@ -795,4 +795,10 @@
   <data name="UpdateFailedMessage" xml:space="preserve">
     <value>更新失败。\n您是否已连接到互联网？\n\n{0}</value>
   </data>
+  <data name="ButtonLHMReport" xml:space="preserve">
+    <value>LHM 报告</value>
+  </data>
+  <data name="SaveFileTitle" xml:space="preserve">
+    <value>保存文件</value>
+  </data>
 </root>

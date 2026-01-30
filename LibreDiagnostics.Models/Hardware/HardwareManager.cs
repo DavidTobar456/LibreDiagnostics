@@ -123,6 +123,15 @@ namespace LibreDiagnostics.Models.Hardware
             }
         }
 
+        /// <summary>
+        /// <inheritdoc cref="Computer.GetReport"/>
+        /// </summary>
+        /// <returns><inheritdoc cref="Computer.GetReport"/></returns>
+        public string GetReport()
+        {
+            return _Computer?.GetReport();
+        }
+
         #endregion
 
         #region Private

@@ -106,6 +106,15 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to LHM Report.
+        /// </summary>
+        public static string ButtonLHMReport {
+            get {
+                return ResourceManager.GetString("ButtonLHMReport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restart.
         /// </summary>
         public static string ButtonRestart {
@@ -912,6 +921,15 @@ namespace LibreDiagnostics.Language.Resources {
         public static string RAMWindowTitle {
             get {
                 return ResourceManager.GetString("RAMWindowTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save file.
+        /// </summary>
+        public static string SaveFileTitle {
+            get {
+                return ResourceManager.GetString("SaveFileTitle", resourceCulture);
             }
         }
         

@@ -14,12 +14,13 @@ namespace LibreDiagnostics.Models.Interfaces
 {
     public interface ITrayIcon
     {
-        IRelayCommand      SettingsRequestedCommand { get; }
+        IRelayCommand      SettingsRequestedCommand  { get; }
+        IAsyncRelayCommand LHMReportRequestedCommand { get; }
         IRelayCommand      RestartRequestedCommand   { get; }
-        IRelayCommand      DonateRequestedCommand   { get; }
-        IRelayCommand      GithubRequestedCommand   { get; }
-        IAsyncRelayCommand UpdateRequestedCommand   { get; }
-        IRelayCommand      CloseRequestedCommand    { get; }
+        IRelayCommand      DonateRequestedCommand    { get; }
+        IRelayCommand      GithubRequestedCommand    { get; }
+        IAsyncRelayCommand UpdateRequestedCommand    { get; }
+        IRelayCommand      CloseRequestedCommand     { get; }
 
         void ChangeTrayIconIcon(TrayIconID trayIconID);
     }
