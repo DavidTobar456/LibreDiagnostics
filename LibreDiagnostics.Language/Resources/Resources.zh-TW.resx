@@ -786,4 +786,13 @@
   <data name="SettingsHotKeyOpenSettingsTooltip" xml:space="preserve">
     <value>開啟設定視窗。</value>
   </data>
+  <data name="ButtonUpdateAvailable" xml:space="preserve">
+    <value>更新可用</value>
+  </data>
+  <data name="UpdateFailedTitle" xml:space="preserve">
+    <value>更新失敗</value>
+  </data>
+  <data name="UpdateFailedMessage" xml:space="preserve">
+    <value>更新失敗。\n您的網路連線正常嗎？\n\n{0}</value>
+  </data>
 </root>

@@ -20,7 +20,6 @@ using LibreDiagnostics.MVVM.Utilities;
 using LibreDiagnostics.Tasks.Github;
 using System.Diagnostics;
 using System.Reflection;
-using LDUpdater = LibreDiagnostics.Tasks.Github.Updater;
 using OS = BlackSharp.Core.Platform.OperatingSystem;
 
 namespace LibreDiagnostics.UI
@@ -44,7 +43,7 @@ namespace LibreDiagnostics.UI
         /// Initializes and starts the application using the specified command-line arguments.
         /// </summary>
         /// <param name="args">A list of command-line arguments to configure the applications startup behavior. Cannot be null.</param>
-        public static void Start(IList<string> args)
+        public static async Task Start(IList<string> args)
         {
             //Handle exceptions if not debugging
             if (!Debugger.IsAttached)
@@ -77,10 +76,16 @@ namespace LibreDiagnostics.UI
 
             if (!Design.IsDesignMode)
             {
+                var updateCheckResult = await CheckUpdateAvailable();
+
                 if (Global.Settings.AutoUpdate)
                 {
                     //Wait for the update
-                    TryUpdate(false).Wait();
+                    await TryUpdate(updateCheckResult, false);
+                }
+                else
+                {
+                    Global.IsUpdateAvailable = updateCheckResult?.IsUpdateAvailable == true;
                 }
             }
 
@@ -100,73 +105,102 @@ namespace LibreDiagnostics.UI
 
         #region Internal
 
-        internal static async Task TryUpdate(bool askForConfirmation)
+        internal static async Task<Updater.UpdateCheckResult> CheckUpdateAvailable(bool ignoreErrors = true)
         {
+            //Prevent updates while debugging
+            if (Debugger.IsAttached)
+            {
+                Debug.WriteLine($"{nameof(CheckUpdateAvailable)} was called. Not executing update as debugger is attached. Please do manually or disable.");
+                return null;
+            }
+
             try
             {
-                //Prevent updates while debugging
-                if (Debugger.IsAttached)
+                //Create updater
+                var updater = new Updater(Constants.Owner, Constants.Repository);
+
+                //Get running version
+                var version = Assembly.GetEntryAssembly()?.GetName().Version;
+
+                //Check if an update is available
+                if (version != null)
                 {
-                    Debug.WriteLine($"{nameof(TryUpdate)} was called. Not executing update as debugger is attached. Please do manually or disable.");
+                    var updateCheckResult = await updater.IsUpdateAvailable(version);
+
+                    return updateCheckResult;
+                }
+            }
+            catch
+            {
+                if (!ignoreErrors)
+                {
+                    throw;
+                }
+            }
+
+            return null;
+        }
+
+        internal static async Task TryUpdate(Updater.UpdateCheckResult updateCheckResult, bool askForConfirmation)
+        {
+            //Prevent updates while debugging
+            if (Debugger.IsAttached)
+            {
+                Debug.WriteLine($"{nameof(TryUpdate)} was called. Not executing update as debugger is attached. Please do manually or disable.");
+                return;
+            }
+
+            //Check if an update is available
+            if (updateCheckResult?.IsUpdateAvailable == false)
+            {
+                return;
+            }
+
+            try
+            {
+                //Create updater
+                var updater = new Updater(Constants.Owner, Constants.Repository);
+
+                //Ask user for confirmation if needed
+                if (askForConfirmation)
+                {
+                    //Format message to include release notes
+                    var message = string.Format(Resources.UpdateAvailableMessage.Replace(@"\n", Environment.NewLine), updateCheckResult.ReleaseNotes);
+
+                    //Ask user for confirmation with a timeout
+                    var result = MessageBro.DoShowMessageTimeout(Resources.UpdateAvailableTitle, message, DialogButtons.YesNo, TimeSpan.FromSeconds(UpdateConfirmationTimeoutSeconds), out var timeouted);
+
+                    //If user declined or timeouted, abort update
+                    if (timeouted || result == DialogButtonType.No)
+                    {
+                        return;
+                    }
+                }
+
+                //Construct arguments
+                List<string> args = [$"{Updater.CallingApplicationArg}=\"{Environment.ProcessPath}\"", Updater.StartUpdateArg];
+
+                //Start updater
+                if (OS.IsWindows())
+                {
+                    Process.Start(new ProcessStartInfo(UpdaterWindows, args)
+                    {
+                        CreateNoWindow = true,
+                    });
+                }
+                else if (OS.IsLinux())
+                {
+                    Process.Start(new ProcessStartInfo(UpdaterLinux, args)
+                    {
+                        CreateNoWindow = true,
+                    });
                 }
                 else
                 {
-                    //Create updater
-                    var updater = new Updater(Constants.Owner, Constants.Repository);
-
-                    //Get running version
-                    var version = Assembly.GetEntryAssembly()?.GetName().Version;
-
-                    //Check if an update is available
-                    if (version != null)
-                    {
-                        var updateCheckResult = await updater.IsUpdateAvailable(version);
-
-                        if (updateCheckResult.IsUpdateAvailable)
-                        {
-                            //Ask user for confirmation if needed
-                            if (askForConfirmation)
-                            {
-                                //Format message to include release notes
-                                var message = string.Format(Resources.UpdateAvailableMessage.Replace(@"\n", Environment.NewLine), updateCheckResult.ReleaseNotes);
-
-                                //Ask user for confirmation with a timeout
-                                var result = MessageBro.DoShowMessageTimeout(Resources.UpdateAvailableTitle, message, DialogButtons.YesNo, TimeSpan.FromSeconds(UpdateConfirmationTimeoutSeconds), out var timeouted);
-
-                                //If user declined or timeouted, abort update
-                                if (timeouted || result == DialogButtonType.No)
-                                {
-                                    return;
-                                }
-                            }
-
-                            //Construct arguments
-                            List<string> args = [$"{LDUpdater.CallingApplicationArg}=\"{Environment.ProcessPath}\"", LDUpdater.StartUpdateArg];
-
-                            //Start updater
-                            if (OS.IsWindows())
-                            {
-                                Process.Start(new ProcessStartInfo(UpdaterWindows, args)
-                                {
-                                    CreateNoWindow = true,
-                                });
-                            }
-                            else if (OS.IsLinux())
-                            {
-                                Process.Start(new ProcessStartInfo(UpdaterLinux, args)
-                                {
-                                    CreateNoWindow = true,
-                                });
-                            }
-                            else
-                            {
-                                Logger.Instance.Add(LogLevel.Warn, $"{nameof(TryUpdate)}: OS unsupported", DateTime.Now);
-                            }
-
-                            Environment.Exit(666);
-                        }
-                    }
+                    Logger.Instance.Add(LogLevel.Warn, $"{nameof(TryUpdate)}: OS unsupported", DateTime.Now);
                 }
+
+                Environment.Exit(666);
             }
             catch (Exception e)
             {

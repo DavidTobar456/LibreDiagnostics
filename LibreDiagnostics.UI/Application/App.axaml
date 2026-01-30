@@ -24,7 +24,7 @@
 
     <TrayIcon.Icons>
 		<TrayIcons>
-			<TrayIcon Icon="avares://LibreDiagnostics.UI/Assets/Icon.ico"/>
+			<TrayIcon/>
         </TrayIcons>
     </TrayIcon.Icons>
 </Application>

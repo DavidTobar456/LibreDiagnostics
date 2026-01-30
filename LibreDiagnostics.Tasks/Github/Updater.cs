@@ -8,7 +8,9 @@
 */
 
 using BlackSharp.Core.Logging;
-using System.IO.Compression;
+using SharpCompress.Archives;
+using SharpCompress.Common;
+using SharpCompress.IO;
 using System.Text.Json;
 
 namespace LibreDiagnostics.Tasks.Github
@@ -56,7 +58,6 @@ namespace LibreDiagnostics.Tasks.Github
         /// <remarks>This method retrieves the latest release information from a remote API and compares it to the provided version.<br/>
         /// Network connectivity is required for this operation.</remarks>
         /// <param name="currentVersion">The current version of the application to compare against the latest available release. Cannot be null.</param>
-        /// <param name="releaseNotes">The release notes of the latest version if available; otherwise, null.</param>
         /// <returns>A task that represents the asynchronous operation.<br/>
         /// The task result is <see langword="true"/> if a newer version is available; otherwise, <see langword="false"/>.</returns>
         public async Task<UpdateCheckResult> IsUpdateAvailable(Version currentVersion)
@@ -97,9 +98,10 @@ namespace LibreDiagnostics.Tasks.Github
         /// Ensure that the caller has appropriate permissions to write to the temporary directory.</remarks>
         /// <param name="currentVersion">The current version of the application.<br/>
         /// The method will only download an update if a newer version is available.</param>
+        /// <param name="progress">An optional progress reporter to receive download progress updates as a percentage.</param>
         /// <returns>The full file path to the downloaded update asset if a newer version is available; otherwise, null if no update is found.</returns>
         /// <exception cref="Exception">Thrown if a new release is available but no downloadable asset is provided for that release.</exception>
-        public async Task<string> DownloadUpdate(Version currentVersion)
+        public async Task<string> DownloadUpdate(Version currentVersion, IProgress<double> progress = null)
         {
             using var client = CreateHttpClient();
             using var cts = new CancellationTokenSource(Timeout);
@@ -145,7 +147,7 @@ namespace LibreDiagnostics.Tasks.Github
             var tempFilePath = Path.Combine(Path.GetTempPath(), Path.GetFileName(assetUrl));
 
             //Download file
-            await DownloadFileAsync(client, assetUrl, tempFilePath);
+            await DownloadFileAsync(client, assetUrl, tempFilePath, progress);
 
             //Return downloaded file path
             return tempFilePath;
@@ -160,9 +162,10 @@ namespace LibreDiagnostics.Tasks.Github
         /// <param name="appPath">The path to the directory where the current application is installed.<br/>
         /// All existing files in this directory will be deleted and replaced by the update.</param>
         /// <param name="updateFilePath">The path to the update package file, typically a ZIP archive containing the updated application files.</param>
+        /// <param name="progress">An optional progress reporter to receive download progress updates as a percentage.</param>
         /// <param name="removeUpdateFile">Specifies whether to delete the update package file after the update is applied. Set to <see
         /// langword="true"/> to remove the file; otherwise, it will be retained.</param>
-        public void ApplyUpdate(string appPath, string updateFilePath, bool removeUpdateFile = true)
+        public async Task ApplyUpdate(string appPath, string updateFilePath, IProgress<double> progress = null, bool removeUpdateFile = true)
         {
             bool success = false;
             Exception lastException = null;
@@ -173,12 +176,43 @@ namespace LibreDiagnostics.Tasks.Github
                 try
                 {
                     //Clear original files
-                    Directory.Delete(appPath, true);
+                    if (Directory.Exists(appPath))
+                    {
+                        Directory.Delete(appPath, true);
+                    }
 
                     Logger.Instance.Add(LogLevel.Trace, $"Removed directory '{appPath}'.", DateTime.Now);
 
                     //Extract update
-                    ZipFile.ExtractToDirectory(updateFilePath, appPath, true);
+                    using var zipFile = File.OpenRead(updateFilePath);
+                    using var stream = SharpCompressStream.Create(zipFile);
+                    using var archive = ArchiveFactory.Open(stream);
+
+                    var prog = new Progress<ProgressReport>(pr => progress?.Report(pr.PercentComplete.GetValueOrDefault()));
+                    await archive.WriteToDirectoryAsync(appPath, progress: prog);
+
+                    //Check if extraction path contains only one folder (the main folder of the archive)
+                    //If yes, move all files from that folder to the extraction path and delete the folder
+                    var entries = Directory.GetFileSystemEntries(appPath);
+
+                    //Only one entry and it's a directory
+                    if (entries.Length == 1 && Directory.Exists(entries[0]))
+                    {
+                        var entry = entries[0];
+
+                        //Move all files from that directory to the extraction path
+                        var extractedData = Directory.GetFileSystemEntries(entry);
+
+                        foreach (var file in extractedData)
+                        {
+                            var destFile = Path.Combine(appPath, Path.GetFileName(file));
+                            File.Move(file, destFile);
+                        }
+
+                        //Delete the now empty directory
+                        Directory.Delete(entry, true);
+                    }
+
                     Logger.Instance.Add(LogLevel.Trace, $"Extracted files from '{updateFilePath}' to directory '{appPath}'.", DateTime.Now);
 
                     success = true;
@@ -198,14 +232,8 @@ namespace LibreDiagnostics.Tasks.Github
 
             if (!success && lastException != null)
             {
-                throw lastException;
+                throw new Exception($"{nameof(ApplyUpdate)} failed.", lastException);
             }
-
-            //SharpCompress (for later):
-            //using var file = File.OpenRead(updateFilePath);
-            //using var stream = SharpCompressStream.Create(file);
-            //using var archive = ArchiveFactory.Open(stream);
-            //archive.ExtractToDirectory(appPath); //Has progress reporting: could add dialog, or something else, to show progress
 
             if (removeUpdateFile)
             {
@@ -232,13 +260,39 @@ namespace LibreDiagnostics.Tasks.Github
             };
         }
 
-        async Task DownloadFileAsync(HttpClient client, string url, string path)
+        async Task DownloadFileAsync(HttpClient client, string url, string path, IProgress<double> progress = null)
         {
-            using var resp = await client.GetAsync(url);
+            const int BufferSize = 4096; //Default size of FileStream
+
+            using var resp = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
             resp.EnsureSuccessStatusCode();
 
-            await using var fs = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
-            await resp.Content.CopyToAsync(fs);
+            var contentLength = resp.Content.Headers.ContentLength ?? -1;
+            await using var input = await resp.Content.ReadAsStreamAsync();
+            await using var output = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None, BufferSize, true);
+
+            var buffer = new byte[BufferSize];
+            long totalRead = 0;
+            int read;
+
+            while ((read = await input.ReadAsync(buffer, 0, buffer.Length)) > 0)
+            {
+                await output.WriteAsync(buffer, 0, read);
+                totalRead += read;
+
+                if (contentLength > 0 && progress != null)
+                {
+                    double percent = (double)totalRead / contentLength * 100.0;
+                    progress.Report(percent);
+                }
+            }
+
+            await output.FlushAsync();
+
+            if (contentLength > 0 && progress != null)
+            {
+                progress.Report(100.0);
+            }
         }
 
         #endregion

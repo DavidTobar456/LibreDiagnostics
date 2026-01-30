@@ -12,7 +12,8 @@ A desktop utility for real-time hardware monitoring and diagnostics.
 
 ## Preview of app
 
-Please click on an image to show its full size.
+Please click on an image to show its full size.<br/>
+Note that the screenshots may not always represent the latest version of the app.
 
 <a href="Screenshots/Preview01.jpg">
     <img src="Screenshots/Preview01.jpg" width="125"/>

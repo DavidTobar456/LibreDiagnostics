@@ -142,6 +142,15 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update available.
+        /// </summary>
+        public static string ButtonUpdateAvailable {
+            get {
+                return ResourceManager.GetString("ButtonUpdateAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Time.
         /// </summary>
         public static string Clock {
@@ -2064,6 +2073,24 @@ namespace LibreDiagnostics.Language.Resources {
         public static string UpdateAvailableTitle {
             get {
                 return ResourceManager.GetString("UpdateAvailableTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update failed.\nAre you connected to the internet ?\n\n{0}.
+        /// </summary>
+        public static string UpdateFailedMessage {
+            get {
+                return ResourceManager.GetString("UpdateFailedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update failed.
+        /// </summary>
+        public static string UpdateFailedTitle {
+            get {
+                return ResourceManager.GetString("UpdateFailedTitle", resourceCulture);
             }
         }
     }

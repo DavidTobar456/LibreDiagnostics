@@ -9,14 +9,15 @@
 
 using LibreDiagnostics.UI;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace LibreDiagnostics
 {
     internal sealed class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
-            Client.Start(args?.ToList() ?? new());
+            await Client.Start(args?.ToList() ?? new());
         }
 
         //For Avalonia Designer; do not remove, even if it shows "unused"

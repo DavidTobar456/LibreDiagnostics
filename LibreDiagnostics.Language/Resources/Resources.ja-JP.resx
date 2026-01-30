@@ -786,4 +786,13 @@
   <data name="SettingsHotKeyOpenSettingsTooltip" xml:space="preserve">
     <value>設定ウィンドウを開きます。</value>
   </data>
+  <data name="ButtonUpdateAvailable" xml:space="preserve">
+    <value>アップデートが利用可能</value>
+  </data>
+  <data name="UpdateFailedTitle" xml:space="preserve">
+    <value>アップデートに失敗しました</value>
+  </data>
+  <data name="UpdateFailedMessage" xml:space="preserve">
+    <value>アップデートに失敗しました。\nインターネットに接続されていますか？\n\n{0}</value>
+  </data>
 </root>

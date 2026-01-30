@@ -786,4 +786,13 @@
   <data name="SettingsHotKeyOpenSettingsTooltip" xml:space="preserve">
     <value>Opens settings window.</value>
   </data>
+  <data name="ButtonUpdateAvailable" xml:space="preserve">
+    <value>Update available</value>
+  </data>
+  <data name="UpdateFailedTitle" xml:space="preserve">
+    <value>Update failed</value>
+  </data>
+  <data name="UpdateFailedMessage" xml:space="preserve">
+    <value>Update failed.\nAre you connected to the internet ?\n\n{0}</value>
+  </data>
 </root>

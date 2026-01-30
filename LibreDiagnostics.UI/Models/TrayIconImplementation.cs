@@ -10,9 +10,15 @@
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
+using Avalonia.Platform;
+using BlackSharp.Core.Extensions;
+using BlackSharp.Core.Logging;
+using BlackSharp.MVVM.Dialogs.Enums;
 using CommunityToolkit.Mvvm.Input;
 using LibreDiagnostics.Language.Resources;
 using LibreDiagnostics.Models.Configuration;
+using LibreDiagnostics.Models.Enums;
+using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.Models.Interfaces;
 using LibreDiagnostics.MVVM.Utilities;
 using System.Diagnostics;
@@ -27,11 +33,17 @@ namespace LibreDiagnostics.UI.Models
 
         public TrayIconImplementation(Settings settings)
         {
-            var icon = Application.Current?.GetValue(TrayIcon.IconsProperty)?.FirstOrDefault();
+            var icon = GetTrayIcon();
             if (icon == null)
             {
                 return;
             }
+
+            var updateMenu = new NativeMenuItem
+            {
+                Header = Resources.ButtonUpdate,
+                Command = UpdateRequestedCommand,
+            };
 
             //Manually add menu
             icon.Menu = new NativeMenu
@@ -52,11 +64,7 @@ namespace LibreDiagnostics.UI.Models
                     Header = Resources.ButtonGithub,
                     Command = GithubRequestedCommand,
                 },
-                new NativeMenuItem
-                {
-                    Header = Resources.ButtonUpdate,
-                    Command = UpdateRequestedCommand,
-                },
+                updateMenu,
                 new NativeMenuItemSeparator(),
                 new NativeMenuItem
                 {
@@ -84,11 +92,66 @@ namespace LibreDiagnostics.UI.Models
             //Add tooltip
             var version = Assembly.GetEntryAssembly()?.GetName().Version;
             icon.ToolTipText = $"{Resources.AppName} v{version.ToString(3)}";
+
+            //Set icon
+            if (!Global.IsUpdateAvailable)
+            {
+                ChangeTrayIconIcon(TrayIconID.Default);
+            }
+            else
+            {
+                ChangeTrayIconIcon(TrayIconID.UpdateAvailable);
+
+                //Update menu to show an update is available
+                updateMenu.Header = Resources.ButtonUpdateAvailable;
+            }
+        }
+
+        #endregion
+
+        #region Fields
+
+        const string DefaultTrayIconIcon         = @"avares://LibreDiagnostics.UI/Assets/Icon.ico";
+        const string UpdateAvailableTrayIconIcon = @"avares://LibreDiagnostics.UI/Assets/Icon_Update.ico";
+
+        #endregion
+
+        #region Public
+
+        public void ChangeTrayIconIcon(TrayIconID trayIconID)
+        {
+            var icon = GetTrayIcon();
+            if (icon == null)
+            {
+                return;
+            }
+
+            switch (trayIconID)
+            {
+                case TrayIconID.Default:
+                    icon.Icon = LoadIcon(DefaultTrayIconIcon);
+                    break;
+                case TrayIconID.UpdateAvailable:
+                    icon.Icon = LoadIcon(UpdateAvailableTrayIconIcon);
+                    break;
+            }
         }
 
         #endregion
 
         #region Private
+
+        TrayIcon GetTrayIcon()
+        {
+            return Application.Current?.GetValue(TrayIcon.IconsProperty)?.FirstOrDefault();
+        }
+
+        WindowIcon LoadIcon(string resourceUri)
+        {
+            var uri = new Uri(resourceUri);
+            using var stream = AssetLoader.Open(uri);
+            return new WindowIcon(stream);
+        }
 
         void OpenInBrowser(string url)
         {
@@ -134,8 +197,30 @@ namespace LibreDiagnostics.UI.Models
         [RelayCommand]
         async Task UpdateRequested()
         {
-            //Require confirmation
-            await Client.TryUpdate(true);
+            var result = DialogButtonType.Invalid;
+
+            do
+            {
+                try
+                {
+                    var updateCheckResult = await Client.CheckUpdateAvailable(false);
+
+                    //Require confirmation
+                    await Client.TryUpdate(updateCheckResult, true);
+                }
+                catch (Exception e)
+                {
+                    var fullExceptionString = e.FullExceptionString();
+
+                    Logger.Instance.Add(LogLevel.Error, fullExceptionString, DateTime.Now);
+
+                    //Format message to include exception string
+                    var message = string.Format(Resources.UpdateFailedMessage.Replace(@"\n", Environment.NewLine), fullExceptionString);
+
+                    result = MessageBro.DoShowMessage(Resources.UpdateFailedTitle, message, DialogButtons.RetryCancel);
+                }
+            }
+            while (result == DialogButtonType.Retry);
         }
 
         [RelayCommand]

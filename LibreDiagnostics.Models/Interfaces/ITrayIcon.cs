@@ -8,6 +8,7 @@
 */
 
 using CommunityToolkit.Mvvm.Input;
+using LibreDiagnostics.Models.Enums;
 
 namespace LibreDiagnostics.Models.Interfaces
 {
@@ -19,5 +20,7 @@ namespace LibreDiagnostics.Models.Interfaces
         IRelayCommand      GithubRequestedCommand   { get; }
         IAsyncRelayCommand UpdateRequestedCommand   { get; }
         IRelayCommand      CloseRequestedCommand    { get; }
+
+        void ChangeTrayIconIcon(TrayIconID trayIconID);
     }
 }
