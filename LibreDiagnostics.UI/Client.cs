@@ -15,6 +15,7 @@ using BlackSharp.MVVM.Dialogs;
 using BlackSharp.MVVM.Dialogs.Enums;
 using LibreDiagnostics.Language.Resources;
 using LibreDiagnostics.Models.Configuration;
+using LibreDiagnostics.Models.Enums;
 using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.Models.Logging;
 using LibreDiagnostics.MVVM.Utilities;
@@ -96,9 +97,11 @@ namespace LibreDiagnostics.UI
         {
             if (!Design.IsDesignMode)
             {
+                Updater.UpdateCheckResult updateCheckResult = null;
+
                 if (Global.Settings.AutoUpdate)
                 {
-                    var updateCheckResult = await CheckUpdateAvailable();
+                    updateCheckResult = await CheckUpdateAvailable();
 
                     //Wait for the update
                     await TryUpdate(updateCheckResult, false);
@@ -108,13 +111,15 @@ namespace LibreDiagnostics.UI
                     //If it's time to remind the user, check for update and show notification
                     if (Global.Settings.NextUpdateReminder == null || Global.Settings.NextUpdateReminder <= DateTime.Now)
                     {
-                        var updateCheckResult = await CheckUpdateAvailable();
-                        Global.IsUpdateAvailable = updateCheckResult?.IsUpdateAvailable == true;
+                        updateCheckResult = await CheckUpdateAvailable();
 
-                        if (!Global.IsUpdateAvailable)
+                        if (updateCheckResult?.IsUpdateAvailable == false)
                         {
                             return;
                         }
+
+                        //Update tray icon and menu to show an update is available
+                        Global.TrayIcon.ChangeTrayIconIcon(TrayIconID.UpdateAvailable);
 
                         //Format message to include release notes
                         var message = string.Format(Resources.UpdateAvailableMessage.Replace(@"\n", Environment.NewLine), updateCheckResult.ReleaseNotes);

@@ -74,13 +74,6 @@ namespace LibreDiagnostics.Models.Globals
             set { SetField(ref _TrayIcon, value); }
         }
 
-        static bool _IsUpdateAvailable;
-        public static bool IsUpdateAvailable
-        {
-            get { return _IsUpdateAvailable; }
-            set { SetField(ref _IsUpdateAvailable, value); }
-        }
-
         static ProcessInformation _ProcessInformation = new();
         public static ProcessInformation ProcessInformation
         {

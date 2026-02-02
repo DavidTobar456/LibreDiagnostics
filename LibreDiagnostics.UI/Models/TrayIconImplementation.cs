@@ -40,7 +40,7 @@ namespace LibreDiagnostics.UI.Models
                 return;
             }
 
-            var updateMenu = new NativeMenuItem
+            _UpdateMenu = new NativeMenuItem
             {
                 Header = Resources.ButtonUpdate,
                 Command = UpdateRequestedCommand,
@@ -72,7 +72,7 @@ namespace LibreDiagnostics.UI.Models
                     Header = Resources.ButtonGithub,
                     Command = GithubRequestedCommand,
                 },
-                updateMenu,
+                _UpdateMenu,
                 new NativeMenuItemSeparator(),
                 new NativeMenuItem
                 {
@@ -101,18 +101,7 @@ namespace LibreDiagnostics.UI.Models
             var version = Assembly.GetEntryAssembly()?.GetName().Version;
             icon.ToolTipText = $"{Resources.AppName} v{version.ToString(3)}";
 
-            //Set icon
-            if (!Global.IsUpdateAvailable)
-            {
-                ChangeTrayIconIcon(TrayIconID.Default);
-            }
-            else
-            {
-                ChangeTrayIconIcon(TrayIconID.UpdateAvailable);
-
-                //Update menu to show an update is available
-                updateMenu.Header = Resources.ButtonUpdateAvailable;
-            }
+            ChangeTrayIconIcon(TrayIconID.Default);
         }
 
         #endregion
@@ -121,6 +110,8 @@ namespace LibreDiagnostics.UI.Models
 
         const string DefaultTrayIconIcon         = @"avares://LibreDiagnostics.UI/Assets/Icon.ico";
         const string UpdateAvailableTrayIconIcon = @"avares://LibreDiagnostics.UI/Assets/Icon_Update.ico";
+
+        NativeMenuItem _UpdateMenu = null;
 
         DateTime? _LastClickTime;
 
@@ -143,6 +134,9 @@ namespace LibreDiagnostics.UI.Models
                     break;
                 case TrayIconID.UpdateAvailable:
                     icon.Icon = LoadIcon(UpdateAvailableTrayIconIcon);
+
+                    //Update menu to show an update is available
+                    _UpdateMenu.Header = Resources.ButtonUpdateAvailable;
                     break;
             }
         }
