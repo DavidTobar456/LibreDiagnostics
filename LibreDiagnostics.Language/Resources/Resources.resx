@@ -801,4 +801,22 @@
   <data name="SaveFileTitle" xml:space="preserve">
     <value>Save file</value>
   </data>
+  <data name="ButtonReminderOneWeek" xml:space="preserve">
+    <value>Remind me in 1 week</value>
+  </data>
+  <data name="ButtonReminderOneMonth" xml:space="preserve">
+    <value>Remind me in 1 month</value>
+  </data>
+  <data name="RAMHighLimit" xml:space="preserve">
+    <value>High temperature limit</value>
+  </data>
+  <data name="RAMHighLimitTooltip" xml:space="preserve">
+    <value>High temperature limit of this RAM module.</value>
+  </data>
+  <data name="RAMCriticalLimit" xml:space="preserve">
+    <value>Critical temperature limit</value>
+  </data>
+  <data name="RAMCriticalLimitTooltip" xml:space="preserve">
+    <value>Critical temperature limit of this RAM module.</value>
+  </data>
 </root>

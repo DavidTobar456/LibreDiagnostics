@@ -11,6 +11,7 @@ using Avalonia;
 using Avalonia.Controls;
 using BlackSharp.Core.Extensions;
 using BlackSharp.Core.Logging;
+using BlackSharp.MVVM.Dialogs;
 using BlackSharp.MVVM.Dialogs.Enums;
 using LibreDiagnostics.Language.Resources;
 using LibreDiagnostics.Models.Configuration;
@@ -31,7 +32,8 @@ namespace LibreDiagnostics.UI
     {
         #region Fields
 
-        const int UpdateConfirmationTimeoutSeconds = 30;
+        const int UpdateConfirmationTimeoutSeconds = 60;
+
         const string UpdaterWindows = $"{nameof(LibreDiagnostics)}.Updater.exe";
         const string UpdaterLinux = $"{nameof(LibreDiagnostics)}.Updater";
 
@@ -74,21 +76,6 @@ namespace LibreDiagnostics.UI
             //Reload settings
             Global.Settings = Settings.Reload();
 
-            if (!Design.IsDesignMode)
-            {
-                var updateCheckResult = await CheckUpdateAvailable();
-
-                if (Global.Settings.AutoUpdate)
-                {
-                    //Wait for the update
-                    await TryUpdate(updateCheckResult, false);
-                }
-                else
-                {
-                    Global.IsUpdateAvailable = updateCheckResult?.IsUpdateAvailable == true;
-                }
-            }
-
             //Set icon paths for hardware monitors
             SetIconData();
 
@@ -104,6 +91,72 @@ namespace LibreDiagnostics.UI
         #endregion
 
         #region Internal
+
+        internal static async void CheckForUpdates()
+        {
+            if (!Design.IsDesignMode)
+            {
+                if (Global.Settings.AutoUpdate)
+                {
+                    var updateCheckResult = await CheckUpdateAvailable();
+
+                    //Wait for the update
+                    await TryUpdate(updateCheckResult, false);
+                }
+                else
+                {
+                    //If it's time to remind the user, check for update and show notification
+                    if (Global.Settings.NextUpdateReminder == null || Global.Settings.NextUpdateReminder <= DateTime.Now)
+                    {
+                        var updateCheckResult = await CheckUpdateAvailable();
+                        Global.IsUpdateAvailable = updateCheckResult?.IsUpdateAvailable == true;
+
+                        if (!Global.IsUpdateAvailable)
+                        {
+                            return;
+                        }
+
+                        //Format message to include release notes
+                        var message = string.Format(Resources.UpdateAvailableMessage.Replace(@"\n", Environment.NewLine), updateCheckResult.ReleaseNotes);
+
+                        var reminderButtons = new List<DialogButton>
+                        {
+                            new DialogButton
+                            {
+                                Content = Resources.ButtonUpdate,
+                                ButtonType = DialogButtonType.Custom,
+                                Command = new(async () => await TryUpdate(updateCheckResult, false)),
+                                IsCancel = true,
+                            },
+                            new DialogButton
+                            {
+                                Content = Resources.ButtonReminderOneWeek,
+                                ButtonType = DialogButtonType.Custom,
+                                Command = new(() => SetUpdateReminder(DateTime.Now.AddDays(7))),
+                                IsCancel = true,
+                            },
+                            new DialogButton
+                            {
+                                Content = Resources.ButtonReminderOneMonth,
+                                ButtonType = DialogButtonType.Custom,
+                                Command = new(() => SetUpdateReminder(DateTime.Now.AddMonths(1))),
+                                IsCancel = true,
+                            },
+                        };
+
+                        //Ask user for confirmation with a timeout
+                        //Result is not needed as commands handle everything
+                        MessageBro.DoShowMessageTimeout(
+                            $"{Resources.AppName} {Resources.UpdateAvailableTitle}",
+                            message,
+                            DialogButtons.Custom,
+                            reminderButtons,
+                            TimeSpan.FromSeconds(UpdateConfirmationTimeoutSeconds),
+                            out var timeouted);
+                    }
+                }
+            }
+        }
 
         internal static async Task<Updater.UpdateCheckResult> CheckUpdateAvailable(bool ignoreErrors = true)
         {
@@ -221,6 +274,12 @@ namespace LibreDiagnostics.UI
             // yet and stuff might break.
             App.BuildAvaloniaApp()
                .StartWithClassicDesktopLifetime([.. args]);
+        }
+
+        static void SetUpdateReminder(DateTime nextUpdateReminder)
+        {
+            Global.Settings.NextUpdateReminder = nextUpdateReminder;
+            Global.Settings.Save(false);
         }
 
         static void SetIconData()

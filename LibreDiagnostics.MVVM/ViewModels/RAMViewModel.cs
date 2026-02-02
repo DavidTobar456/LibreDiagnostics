@@ -51,6 +51,20 @@ namespace LibreDiagnostics.MVVM.ViewModels
             set { SetField(ref _Capacity, value); }
         }
 
+        ISensor _HighLimit;
+        public ISensor HighLimit
+        {
+            get { return _HighLimit; }
+            set { SetField(ref _HighLimit, value); }
+        }
+
+        ISensor _CriticalHighLimit;
+        public ISensor CriticalHighLimit
+        {
+            get { return _CriticalHighLimit; }
+            set { SetField(ref _CriticalHighLimit, value); }
+        }
+
         ObservableCollectionEx<ISensor> _Timings;
         public ObservableCollectionEx<ISensor> Timings
         {
@@ -69,6 +83,20 @@ namespace LibreDiagnostics.MVVM.ViewModels
             Name = _Hardware.Name;
 
             Capacity = _Hardware.Sensors.Where(s => s.SensorType == SensorType.Data && s.Name.Contains("Capacity", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+            HighLimit = _Hardware.Sensors.Where(s =>
+                s.SensorType == SensorType.Temperature
+             && s.Name.Contains("High", StringComparison.OrdinalIgnoreCase)
+             && !s.Name.Contains("Critical", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+            CriticalHighLimit = _Hardware.Sensors.Where(s =>
+                s.SensorType == SensorType.Temperature
+             &&
+                (
+                     (s.Name.Contains("Critical", StringComparison.OrdinalIgnoreCase) && s.Name.Contains("High", StringComparison.OrdinalIgnoreCase))
+                  || (s.Name.Contains("Critical", StringComparison.OrdinalIgnoreCase) && !s.Name.Contains("Low", StringComparison.OrdinalIgnoreCase))
+                )
+            ).FirstOrDefault();
 
             Timings = new(_Hardware.Sensors.Where(s => s.SensorType == SensorType.Timing));
         }

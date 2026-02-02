@@ -778,7 +778,7 @@
     <value>GPU Stromverbrauch</value>
   </data>
   <data name="GPUPowerLabel" xml:space="preserve">
-    <value>Stromverbrauch</value>
+    <value>Strom</value>
   </data>
   <data name="SettingsHotKeyOpenSettings" xml:space="preserve">
     <value>Einstellungen öffnen</value>
@@ -800,5 +800,23 @@
   </data>
   <data name="SaveFileTitle" xml:space="preserve">
     <value>Datei speichern</value>
+  </data>
+  <data name="ButtonReminderOneWeek" xml:space="preserve">
+    <value>In 1 Woche erinnern</value>
+  </data>
+  <data name="ButtonReminderOneMonth" xml:space="preserve">
+    <value>In 1 Monat erinnern</value>
+  </data>
+  <data name="RAMHighLimit" xml:space="preserve">
+    <value>Temp Limit Hoch</value>
+  </data>
+  <data name="RAMHighLimitTooltip" xml:space="preserve">
+    <value>Hohe Temperaturgrenze dieses Arbeitsspeichermoduls.</value>
+  </data>
+  <data name="RAMCriticalLimit" xml:space="preserve">
+    <value>Temp Limit Kritisch</value>
+  </data>
+  <data name="RAMCriticalLimitTooltip" xml:space="preserve">
+    <value>Kritische Temperaturgrenze dieses Arbeitsspeichermoduls.</value>
   </data>
 </root>

@@ -115,6 +115,24 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remind me in 1 month.
+        /// </summary>
+        public static string ButtonReminderOneMonth {
+            get {
+                return ResourceManager.GetString("ButtonReminderOneMonth", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remind me in 1 week.
+        /// </summary>
+        public static string ButtonReminderOneWeek {
+            get {
+                return ResourceManager.GetString("ButtonReminderOneWeek", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Restart.
         /// </summary>
         public static string ButtonRestart {
@@ -772,6 +790,24 @@ namespace LibreDiagnostics.Language.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Critical temperature limit.
+        /// </summary>
+        public static string RAMCriticalLimit {
+            get {
+                return ResourceManager.GetString("RAMCriticalLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Critical temperature limit of this RAM module..
+        /// </summary>
+        public static string RAMCriticalLimitTooltip {
+            get {
+                return ResourceManager.GetString("RAMCriticalLimitTooltip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Free.
         /// </summary>
         public static string RAMFree {
@@ -786,6 +822,24 @@ namespace LibreDiagnostics.Language.Resources {
         public static string RAMFreeLabel {
             get {
                 return ResourceManager.GetString("RAMFreeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High temperature limit.
+        /// </summary>
+        public static string RAMHighLimit {
+            get {
+                return ResourceManager.GetString("RAMHighLimit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to High temperature limit of this RAM module..
+        /// </summary>
+        public static string RAMHighLimitTooltip {
+            get {
+                return ResourceManager.GetString("RAMHighLimitTooltip", resourceCulture);
             }
         }
         

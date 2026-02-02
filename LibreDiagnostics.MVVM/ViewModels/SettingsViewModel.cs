@@ -39,31 +39,7 @@ namespace LibreDiagnostics.MVVM.ViewModels
 
             CommonInit();
 
-            foreach (var item in Settings.HardwareMonitorConfigs)
-            {
-                var hwList = new List<HardwareConfig>();
-
-                foreach (var hw in Global.HardwareManager.GetHardware(item.HardwareMonitorType))
-                {
-                    var hwCfg = item.HardwareConfig.FirstOrDefault(hc => hc.ID == hw.ID, hw);
-
-                    hwCfg.ActualName = hw.ActualName;
-
-                    if (string.IsNullOrEmpty(hwCfg.Name))
-                    {
-                        hwCfg.Name = hw.ActualName;
-                    }
-
-                    hwList.Add(hwCfg);
-                }
-
-                item.HardwareOC = new
-                (
-                    from hw in hwList
-                    orderby hw.Order ascending, hw.Name ascending
-                    select hw
-                );
-            }
+            HardwareMonitorConfig.SyncHardwareConfigsWithDetectedHardware(Settings);
         }
 
         #endregion

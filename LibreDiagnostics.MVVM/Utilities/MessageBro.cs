@@ -7,6 +7,7 @@
 *
 */
 
+using BlackSharp.MVVM.Dialogs;
 using BlackSharp.MVVM.Dialogs.Enums;
 using LibreDiagnostics.Models.Helper;
 
@@ -27,11 +28,19 @@ namespace LibreDiagnostics.MVVM.Utilities
         /// </summary>
         /// <param name="title">The title text to display in the message dialog. Cannot be null.</param>
         /// <param name="message">The message content to display in the dialog. Cannot be null.</param>
+        /// <param name="buttons">The standard dialog buttons to display in the dialog.</param>
+        /// <param name="dialogButtons">The custom dialog buttons to display in the dialog. Can be null.</param>
         /// <param name="timeout">The maximum duration to wait for user interaction before automatically closing the dialog.</param>
-        /// <returns>true if the message dialog has timeouted due to no user interaction; otherwise, false.</returns>
+        /// <param name="timeouted">Outputs whether the dialog timed out due to no user interaction.</param>
+        /// <returns>The type of button that was clicked by the user, or a default value if the dialog timed out.</returns>
+        public static DialogButtonType DoShowMessageTimeout(string title, string message, DialogButtons buttons, IList<DialogButton> dialogButtons, TimeSpan? timeout, out bool timeouted)
+        {
+            return ShowMessageTimeout.Invoke(title, message, buttons, dialogButtons, timeout, out timeouted);
+        }
+
         public static DialogButtonType DoShowMessageTimeout(string title, string message, DialogButtons buttons, TimeSpan? timeout, out bool timeouted)
         {
-            return ShowMessageTimeout.Invoke(title, message, buttons, timeout, out timeouted);
+            return DoShowMessageTimeout(title, message, buttons, null, timeout, out timeouted);
         }
 
         public static void DoOpenSettings()
@@ -49,6 +58,11 @@ namespace LibreDiagnostics.MVVM.Utilities
             ShutdownApplication?.Invoke();
         }
 
+        public static void DoCheckForUpdate()
+        {
+            CheckForUpdate?.Invoke();
+        }
+
         public static List<TextValuePair<int>> DoGetScreens()
         {
             return GetScreens?.Invoke() ?? new();
@@ -58,7 +72,7 @@ namespace LibreDiagnostics.MVVM.Utilities
 
         #region Events
 
-        public delegate DialogButtonType ShowMessageTimeoutHandler(string title, string message, DialogButtons buttons, TimeSpan? timeout, out bool timeouted);
+        public delegate DialogButtonType ShowMessageTimeoutHandler(string title, string message, DialogButtons buttons, IList<DialogButton> dialogButtons, TimeSpan? timeout, out bool timeouted);
 
         public static event Func<string, string, DialogButtons, DialogButtonType> ShowMessage;
         public static event ShowMessageTimeoutHandler ShowMessageTimeout;
@@ -66,6 +80,7 @@ namespace LibreDiagnostics.MVVM.Utilities
         public static event Func<Task<string>> SaveFile;
         public static event Action ShutdownApplication;
         public static event Func<List<TextValuePair<int>>> GetScreens;
+        public static event Action CheckForUpdate;
 
         #endregion
     }

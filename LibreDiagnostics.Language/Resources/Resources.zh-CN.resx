@@ -801,4 +801,22 @@
   <data name="SaveFileTitle" xml:space="preserve">
     <value>保存文件</value>
   </data>
+  <data name="ButtonReminderOneWeek" xml:space="preserve">
+    <value>1周后提醒我</value>
+  </data>
+  <data name="ButtonReminderOneMonth" xml:space="preserve">
+    <value>1个月后提醒我</value>
+  </data>
+  <data name="RAMHighLimit" xml:space="preserve">
+    <value>高温极限</value>
+  </data>
+  <data name="RAMHighLimitTooltip" xml:space="preserve">
+    <value>该内存模块的耐高温极限。</value>
+  </data>
+  <data name="RAMCriticalLimit" xml:space="preserve">
+    <value>临界温度极限</value>
+  </data>
+  <data name="RAMCriticalLimitTooltip" xml:space="preserve">
+    <value>该内存模块的临界温度极限。</value>
+  </data>
 </root>

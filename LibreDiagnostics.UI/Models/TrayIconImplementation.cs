@@ -21,6 +21,7 @@ using LibreDiagnostics.Models.Enums;
 using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.Models.Interfaces;
 using LibreDiagnostics.MVVM.Utilities;
+using LibreDiagnostics.UI.Platform.Windows.Interop;
 using System.Diagnostics;
 using System.Reflection;
 using OS = BlackSharp.Core.Platform.OperatingSystem;
@@ -44,6 +45,8 @@ namespace LibreDiagnostics.UI.Models
                 Header = Resources.ButtonUpdate,
                 Command = UpdateRequestedCommand,
             };
+
+            icon.Clicked += TrayIconClicked;
 
             //Manually add menu
             icon.Menu = new NativeMenu
@@ -119,6 +122,8 @@ namespace LibreDiagnostics.UI.Models
         const string DefaultTrayIconIcon         = @"avares://LibreDiagnostics.UI/Assets/Icon.ico";
         const string UpdateAvailableTrayIconIcon = @"avares://LibreDiagnostics.UI/Assets/Icon_Update.ico";
 
+        DateTime? _LastClickTime;
+
         #endregion
 
         #region Public
@@ -158,6 +163,35 @@ namespace LibreDiagnostics.UI.Models
             return new WindowIcon(stream);
         }
 
+        void TrayIconClicked(object sender, EventArgs e)
+        {
+            var now = DateTime.Now;
+
+            if (_LastClickTime == null)
+            {
+                _LastClickTime = now;
+                return;
+            }
+
+            var delta = (now - _LastClickTime).Value;
+
+            //Check if time between clicks is too long
+            if (delta.TotalMilliseconds > GetDoubleClickTime())
+            {
+                _LastClickTime = now;
+                return;
+            }
+            else //Double click
+            {
+                _LastClickTime = null;
+
+                if (SettingsRequestedCommand.CanExecute(null))
+                {
+                    SettingsRequestedCommand.Execute(null);
+                }
+            }
+        }
+
         void OpenInBrowser(string url)
         {
             if (OS.IsWindows())
@@ -167,6 +201,19 @@ namespace LibreDiagnostics.UI.Models
             else if (OS.IsLinux())
             {
                 Process.Start("xdg-open", url);
+            }
+        }
+
+        uint GetDoubleClickTime()
+        {
+            if (OS.IsWindows())
+            {
+                return User32.GetDoubleClickTime();
+            }
+            else
+            {
+                //Default value for other OS
+                return 500;
             }
         }
 
@@ -183,11 +230,16 @@ namespace LibreDiagnostics.UI.Models
         [RelayCommand]
         async Task LHMReportRequested()
         {
-            var report = Global.HardwareManager?.GetReport();
-
             var filePath = await MessageBro.DoSaveFile();
 
-            if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(report))
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
+
+            var report = Global.HardwareManager?.GetReport();
+
+            if (string.IsNullOrEmpty(report))
             {
                 return;
             }

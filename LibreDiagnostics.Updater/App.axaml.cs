@@ -45,6 +45,10 @@ namespace LibreDiagnostics.Updater
             base.OnFrameworkInitializationCompleted();
         }
 
+        #endregion
+
+        #region Private
+
         private void DisableAvaloniaDataAnnotationValidation()
         {
             // Get an array of plugins to remove

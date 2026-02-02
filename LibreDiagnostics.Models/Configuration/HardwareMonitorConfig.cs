@@ -12,6 +12,7 @@ using BlackSharp.Core.Interfaces;
 using BlackSharp.Core.Reflection;
 using BlackSharp.MVVM.ComponentModel;
 using LibreDiagnostics.Models.Enums;
+using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.Models.Helper;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -317,6 +318,35 @@ namespace LibreDiagnostics.Models.Configuration
                         }
                     }
                 }
+            }
+        }
+
+        public static void SyncHardwareConfigsWithDetectedHardware(Settings settings)
+        {
+            foreach (var item in settings.HardwareMonitorConfigs)
+            {
+                var hwList = new List<HardwareConfig>();
+
+                foreach (var hw in Global.HardwareManager.GetHardware(item.HardwareMonitorType))
+                {
+                    var hwCfg = item.HardwareConfig.FirstOrDefault(hc => hc.ID == hw.ID, hw);
+
+                    hwCfg.ActualName = hw.ActualName;
+
+                    if (string.IsNullOrEmpty(hwCfg.Name))
+                    {
+                        hwCfg.Name = hw.ActualName;
+                    }
+
+                    hwList.Add(hwCfg);
+                }
+
+                item.HardwareOC = new
+                (
+                    from hw in hwList
+                    orderby hw.Order ascending, hw.Name ascending
+                    select hw
+                );
             }
         }
 

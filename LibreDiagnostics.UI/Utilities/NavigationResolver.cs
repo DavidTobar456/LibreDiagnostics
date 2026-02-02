@@ -10,6 +10,7 @@
 using Avalonia.Controls;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Platform.Storage;
+using BlackSharp.MVVM.Dialogs;
 using BlackSharp.MVVM.Dialogs.Enums;
 using BlackSharp.UI.Avalonia.Windows.Dialogs;
 using BlackSharp.UI.Avalonia.Windows.Dialogs.Enums;
@@ -34,6 +35,7 @@ namespace LibreDiagnostics.UI.Utilities
             MessageBro.ShutdownApplication += ShutdownApplication;
             MessageBro.SaveFile += SaveFile;
             MessageBro.GetScreens += GetScreens;
+            MessageBro.CheckForUpdate += CheckForUpdate;
 
             EventDistributor.ShowDriveDetailsEvent += ShowDriveDetails;
             EventDistributor.ShowRAMDetailsEvent += ShowRAMDetails;
@@ -50,10 +52,10 @@ namespace LibreDiagnostics.UI.Utilities
             return msgBox.Result;
         }
 
-        static DialogButtonType ShowMessageTimeout(string title, string message, DialogButtons buttons, TimeSpan? timeout, out bool timeouted)
+        static DialogButtonType ShowMessageTimeout(string title, string message, DialogButtons buttons, IList<DialogButton> dialogButtons, TimeSpan? timeout, out bool timeouted)
         {
             var msgBox = new TimeoutMessageBox(timeout, DialogType.Information, DialogSize.Medium);
-            msgBox.ShowDialog(title, message, buttons);
+            msgBox.ShowDialog(title, message, buttons, dialogButtons);
 
             timeouted = msgBox.Timeouted;
             return msgBox.Result;
@@ -99,7 +101,7 @@ namespace LibreDiagnostics.UI.Utilities
 
                 var result = await wnd.MainWindow.StorageProvider.SaveFilePickerAsync(options);
 
-                return result.Path.LocalPath;
+                return result?.Path?.LocalPath;
             }
 
             return null;
@@ -133,6 +135,11 @@ namespace LibreDiagnostics.UI.Utilities
             }
 
             return list;
+        }
+
+        static void CheckForUpdate()
+        {
+            Client.CheckForUpdates();
         }
 
         static void ShowDriveDetails(IHardware hardware)
