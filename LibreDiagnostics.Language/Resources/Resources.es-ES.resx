@@ -646,19 +646,19 @@
     <value>Value (Hex)</value>
   </data>
   <data name="StorageName" xml:space="preserve">
-    <value>Name</value>
+    <value>Nombre</value>
   </data>
   <data name="StorageNameTooltip" xml:space="preserve">
-    <value>Name of storage device.</value>
+    <value>Nombre del dispositivo de almacenamiento.</value>
   </data>
   <data name="UpdateAvailableTitle" xml:space="preserve">
-    <value>New version available</value>
+    <value>Nueva versión disponible</value>
   </data>
   <data name="UpdateAvailableMessage" xml:space="preserve">
     <value>A new version is available for download.\nWould you like to proceed with the update ?\n\nRelease notes:\n{0}</value>
   </data>
   <data name="ButtonApply" xml:space="preserve">
-    <value>Apply</value>
+    <value>Aplicar</value>
   </data>
   <data name="SettingsThrottleInterval" xml:space="preserve">
     <value>Update throttle</value>
