@@ -271,14 +271,28 @@ namespace LibreDiagnostics.UI
 
         #region Private
 
-        [STAThread]
         static void StartApp(IList<string> args)
         {
-            // Initialization code. Don't use any Avalonia, third-party APIs or any
-            // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
-            // yet and stuff might break.
-            App.BuildAvaloniaApp()
-               .StartWithClassicDesktopLifetime([.. args]);
+            //Fix possible COMException by starting Avalonia explicitly in a new STA thread
+            var uiThread = new Thread(() =>
+            {
+                // Initialization code. Don't use any Avalonia, third-party APIs or any
+                // SynchronizationContext-reliant code before AppMain is called: things aren't initialized
+                // yet and stuff might break.
+                App.BuildAvaloniaApp()
+                   .StartWithClassicDesktopLifetime([.. args]);
+            });
+
+            if (OS.IsWindows())
+            {
+#pragma warning disable CA1416 // Platform compatibility warning
+                uiThread.SetApartmentState(ApartmentState.STA);
+#pragma warning restore CA1416 // Platform compatibility warning
+            }
+
+            uiThread.Name = $"{nameof(LibreDiagnostics)}-UIThread";
+            uiThread.Start();
+            uiThread.Join();
         }
 
         static void SetUpdateReminder(DateTime nextUpdateReminder)
