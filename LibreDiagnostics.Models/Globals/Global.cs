@@ -30,6 +30,13 @@ namespace LibreDiagnostics.Models.Globals
 
         #region Properties
 
+        static bool _IsReady;
+        public static bool IsReady
+        {
+            get { return _IsReady; }
+            set { SetField(ref _IsReady, value); }
+        }
+
         static Settings _Settings;
         public static Settings Settings
         {
@@ -72,13 +79,6 @@ namespace LibreDiagnostics.Models.Globals
         {
             get { return _TrayIcon; }
             set { SetField(ref _TrayIcon, value); }
-        }
-
-        static bool _IsUpdateAvailable;
-        public static bool IsUpdateAvailable
-        {
-            get { return _IsUpdateAvailable; }
-            set { SetField(ref _IsUpdateAvailable, value); }
         }
 
         static ProcessInformation _ProcessInformation = new();

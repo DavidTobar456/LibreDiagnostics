@@ -47,6 +47,8 @@ namespace LibreDiagnostics.MVVM.ViewModels
 
             //Start monitoring
             StartMonitoring();
+
+            MessageBro.DoCheckForUpdate();
         }
 
         #endregion

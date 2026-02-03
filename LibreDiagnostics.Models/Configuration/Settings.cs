@@ -33,6 +33,13 @@ namespace LibreDiagnostics.Models.Configuration
             set { SetField(ref _InitialStart, value); }
         }
 
+        DateTime? _NextUpdateReminder;
+        public DateTime? NextUpdateReminder
+        {
+            get { return _NextUpdateReminder; }
+            set { SetField(ref _NextUpdateReminder, value); }
+        }
+
         #endregion
 
         #region General
@@ -373,26 +380,29 @@ namespace LibreDiagnostics.Models.Configuration
             return new Settings();
         }
 
-        public void Save()
+        public void Save(bool applyHardwareChanges = true)
         {
-            for (int i = 0; i < HardwareMonitorConfigs.Count; ++i)
+            if (applyHardwareChanges)
             {
-                var config = HardwareMonitorConfigs[i];
-                for (int j = 0; j < config.HardwareOC.Count; ++j)
+                for (int i = 0; i < HardwareMonitorConfigs.Count; ++i)
                 {
-                    var hardware = config.HardwareOC[j];
-                    hardware.Order = (byte)j;
+                    var config = HardwareMonitorConfigs[i];
+                    for (int j = 0; j < config.HardwareOC.Count; ++j)
+                    {
+                        var hardware = config.HardwareOC[j];
+                        hardware.Order = (byte)j;
+                    }
+
+                    config.HardwareConfig = new(config.HardwareOC);
+
+                    for (int j = 0; j < config.HardwareConfig.Count; ++j)
+                    {
+                        var metric = config.HardwareConfig[j];
+                        metric.Order = (byte)j;
+                    }
+
+                    config.Order = (byte)i;
                 }
-
-                config.HardwareConfig = new(config.HardwareOC);
-
-                for (int j = 0; j < config.HardwareConfig.Count; ++j)
-                {
-                    var metric = config.HardwareConfig[j];
-                    metric.Order = (byte)j;
-                }
-
-                config.Order = (byte)i;
             }
 
             if (!Directory.Exists(Paths.AppDataLocal))

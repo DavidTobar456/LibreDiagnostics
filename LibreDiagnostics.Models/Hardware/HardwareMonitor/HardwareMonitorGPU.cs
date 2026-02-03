@@ -63,6 +63,12 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
                 ISensor _coreLoad = Hardware.Sensors.Where(s => s.SensorType == SensorType.Load && s.Name.Contains("Core")).FirstOrDefault() ??
                     Hardware.Sensors.Where(s => s.SensorType == SensorType.Load && s.Index == 0).FirstOrDefault();
 
+                //Slightly different sensor for Intel GPUs
+                if (_coreLoad == null && Hardware.HardwareType == HardwareType.GpuIntel)
+                {
+                    _coreLoad = Hardware.Sensors.Where(s => s.SensorType == SensorType.Load && s.Name.Contains("D3D 3D")).FirstOrDefault();
+                }
+
                 if (_coreLoad != null)
                 {
                     sensorList.Add(new MetricGPU(_coreLoad, HardwareMetricKey.GPUCoreLoad, DataType.Percent));
@@ -71,8 +77,8 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
 
             //VRAM Load
             {
-                ISensor memoryUsed = Hardware.Sensors.Where(s => (s.SensorType == SensorType.Data || s.SensorType == SensorType.SmallData) && s.Name == "GPU Memory Used").FirstOrDefault();
-                ISensor memoryTotal = Hardware.Sensors.Where(s => (s.SensorType == SensorType.Data || s.SensorType == SensorType.SmallData) && s.Name == "GPU Memory Total").FirstOrDefault();
+                ISensor memoryUsed = Hardware.Sensors.Where(s => (s.SensorType == SensorType.Data || s.SensorType == SensorType.SmallData) && s.Name.Contains("Memory Used", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                ISensor memoryTotal = Hardware.Sensors.Where(s => (s.SensorType == SensorType.Data || s.SensorType == SensorType.SmallData) && s.Name.Contains("Memory Total", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
 
                 if (memoryUsed != null && memoryTotal != null)
                 {
@@ -123,6 +129,12 @@ namespace LibreDiagnostics.Models.Hardware.HardwareMonitor
             //GPU Power
             {
                 var powerSensor = Hardware.Sensors.Where(s => s.SensorType == SensorType.Power && s.Name.Contains("Package", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+                //Slightly different sensor for Intel GPUs
+                if (powerSensor == null && Hardware.HardwareType == HardwareType.GpuIntel)
+                {
+                    powerSensor = Hardware.Sensors.Where(s => s.SensorType == SensorType.Power && s.Name.Contains("Power", StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+                }
 
                 if (powerSensor != null)
                 {

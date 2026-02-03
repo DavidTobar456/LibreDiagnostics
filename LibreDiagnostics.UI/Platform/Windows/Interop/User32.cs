@@ -48,5 +48,8 @@ namespace LibreDiagnostics.UI.Platform.Windows.Interop
 
         [DllImport(DLL_NAME)]
         public static extern int RegisterWindowMessage(string msg);
+
+        [DllImport(DLL_NAME)]
+        public static extern uint GetDoubleClickTime();
     }
 }

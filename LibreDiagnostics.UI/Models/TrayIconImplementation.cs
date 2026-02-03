@@ -21,6 +21,7 @@ using LibreDiagnostics.Models.Enums;
 using LibreDiagnostics.Models.Globals;
 using LibreDiagnostics.Models.Interfaces;
 using LibreDiagnostics.MVVM.Utilities;
+using LibreDiagnostics.UI.Platform.Windows.Interop;
 using System.Diagnostics;
 using System.Reflection;
 using OS = BlackSharp.Core.Platform.OperatingSystem;
@@ -39,11 +40,13 @@ namespace LibreDiagnostics.UI.Models
                 return;
             }
 
-            var updateMenu = new NativeMenuItem
+            _UpdateMenu = new NativeMenuItem
             {
                 Header = Resources.ButtonUpdate,
                 Command = UpdateRequestedCommand,
             };
+
+            icon.Clicked += TrayIconClicked;
 
             //Manually add menu
             icon.Menu = new NativeMenu
@@ -69,7 +72,7 @@ namespace LibreDiagnostics.UI.Models
                     Header = Resources.ButtonGithub,
                     Command = GithubRequestedCommand,
                 },
-                updateMenu,
+                _UpdateMenu,
                 new NativeMenuItemSeparator(),
                 new NativeMenuItem
                 {
@@ -98,18 +101,7 @@ namespace LibreDiagnostics.UI.Models
             var version = Assembly.GetEntryAssembly()?.GetName().Version;
             icon.ToolTipText = $"{Resources.AppName} v{version.ToString(3)}";
 
-            //Set icon
-            if (!Global.IsUpdateAvailable)
-            {
-                ChangeTrayIconIcon(TrayIconID.Default);
-            }
-            else
-            {
-                ChangeTrayIconIcon(TrayIconID.UpdateAvailable);
-
-                //Update menu to show an update is available
-                updateMenu.Header = Resources.ButtonUpdateAvailable;
-            }
+            ChangeTrayIconIcon(TrayIconID.Default);
         }
 
         #endregion
@@ -118,6 +110,10 @@ namespace LibreDiagnostics.UI.Models
 
         const string DefaultTrayIconIcon         = @"avares://LibreDiagnostics.UI/Assets/Icon.ico";
         const string UpdateAvailableTrayIconIcon = @"avares://LibreDiagnostics.UI/Assets/Icon_Update.ico";
+
+        NativeMenuItem _UpdateMenu = null;
+
+        DateTime? _LastClickTime;
 
         #endregion
 
@@ -138,6 +134,9 @@ namespace LibreDiagnostics.UI.Models
                     break;
                 case TrayIconID.UpdateAvailable:
                     icon.Icon = LoadIcon(UpdateAvailableTrayIconIcon);
+
+                    //Update menu to show an update is available
+                    _UpdateMenu.Header = Resources.ButtonUpdateAvailable;
                     break;
             }
         }
@@ -158,6 +157,35 @@ namespace LibreDiagnostics.UI.Models
             return new WindowIcon(stream);
         }
 
+        void TrayIconClicked(object sender, EventArgs e)
+        {
+            var now = DateTime.Now;
+
+            if (_LastClickTime == null)
+            {
+                _LastClickTime = now;
+                return;
+            }
+
+            var delta = (now - _LastClickTime).Value;
+
+            //Check if time between clicks is too long
+            if (delta.TotalMilliseconds > GetDoubleClickTime())
+            {
+                _LastClickTime = now;
+                return;
+            }
+            else //Double click
+            {
+                _LastClickTime = null;
+
+                if (SettingsRequestedCommand.CanExecute(null))
+                {
+                    SettingsRequestedCommand.Execute(null);
+                }
+            }
+        }
+
         void OpenInBrowser(string url)
         {
             if (OS.IsWindows())
@@ -170,24 +198,45 @@ namespace LibreDiagnostics.UI.Models
             }
         }
 
+        uint GetDoubleClickTime()
+        {
+            if (OS.IsWindows())
+            {
+                return User32.GetDoubleClickTime();
+            }
+            else
+            {
+                //Default value for other OS
+                return 500;
+            }
+        }
+
         #endregion
 
         #region Commands
 
-        [RelayCommand]
+        [RelayCommand()]
         void SettingsRequested()
         {
-            MessageBro.DoOpenSettings();
+            if (Global.IsReady)
+            {
+                MessageBro.DoOpenSettings();
+            }
         }
 
         [RelayCommand]
         async Task LHMReportRequested()
         {
-            var report = Global.HardwareManager?.GetReport();
-
             var filePath = await MessageBro.DoSaveFile();
 
-            if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(report))
+            if (string.IsNullOrEmpty(filePath))
+            {
+                return;
+            }
+
+            var report = Global.HardwareManager?.GetReport();
+
+            if (string.IsNullOrEmpty(report))
             {
                 return;
             }
