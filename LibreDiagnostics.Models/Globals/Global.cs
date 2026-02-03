@@ -30,6 +30,13 @@ namespace LibreDiagnostics.Models.Globals
 
         #region Properties
 
+        static bool _IsReady;
+        public static bool IsReady
+        {
+            get { return _IsReady; }
+            set { SetField(ref _IsReady, value); }
+        }
+
         static Settings _Settings;
         public static Settings Settings
         {

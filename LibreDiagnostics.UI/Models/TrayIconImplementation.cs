@@ -215,10 +215,13 @@ namespace LibreDiagnostics.UI.Models
 
         #region Commands
 
-        [RelayCommand]
+        [RelayCommand()]
         void SettingsRequested()
         {
-            MessageBro.DoOpenSettings();
+            if (Global.IsReady)
+            {
+                MessageBro.DoOpenSettings();
+            }
         }
 
         [RelayCommand]

@@ -73,6 +73,8 @@ namespace LibreDiagnostics.UI
             }
 
             base.OnFrameworkInitializationCompleted();
+
+            Global.IsReady = true;
         }
 
         #endregion
