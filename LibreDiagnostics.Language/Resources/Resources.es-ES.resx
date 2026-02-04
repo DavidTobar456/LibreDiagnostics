@@ -316,7 +316,7 @@
     <value>La aplicación se reiniciará para cambiar el idioma.</value>
   </data>
   <data name="LanguageChangedTitle" xml:space="preserve">
-    <value>Se ha cambiado el idioma.</value>
+    <value>Se ha cambiado el idioma</value>
   </data>
   <data name="SettingsAdvancedTab" xml:space="preserve">
     <value>Avanzado</value>
@@ -364,7 +364,7 @@
     <value>Color del fondo.</value>
   </data>
   <data name="SettingsBackgroundOpacity" xml:space="preserve">
-    <value>Opacidad.</value>
+    <value>Opacidad</value>
   </data>
   <data name="SettingsBackgroundOpacityTooltip" xml:space="preserve">
     <value>Opacidad del fondo.</value>
@@ -601,7 +601,7 @@
     <value>Arrastre una fila para cambiar su orden.</value>
   </data>
   <data name="SettingsAppWidth" xml:space="preserve">
-    <value>Ancho de la aplicación.</value>
+    <value>Ancho de la aplicación</value>
   </data>
   <data name="SettingsAppWidthTooltip" xml:space="preserve">
     <value>Ancho de la aplicación.</value>
@@ -676,13 +676,13 @@
     <value>Estilo de fuente de los textos.</value>
   </data>
   <data name="StorageTotalReads" xml:space="preserve">
-    <value>Lecturas totales en GB.</value>
+    <value>Lecturas totales en GB</value>
   </data>
   <data name="StorageTotalReadsTooltip" xml:space="preserve">
     <value>Número total de lecturas del dispositivo de almacenamiento en gigabytes.</value>
   </data>
   <data name="StorageTotalWrites" xml:space="preserve">
-    <value>Escrituras totales en GB.</value>
+    <value>Escrituras totales en GB</value>
   </data>
   <data name="StorageTotalWritesTooltip" xml:space="preserve">
     <value>Número total de escrituras del dispositivo de almacenamiento en gigabytes.</value>
@@ -733,7 +733,7 @@
     <value>Cambiar barra de aplicaciones</value>
   </data>
   <data name="SettingsHotKeyCloseAppTooltip" xml:space="preserve">
-    <value>Cierra la aplicación</value>
+    <value>Cierra la aplicación.</value>
   </data>
   <data name="SettingsHotKeyRestartAppTooltip" xml:space="preserve">
     <value>Reinicia la aplicación.</value>
@@ -769,13 +769,13 @@
     <value>Muestra la fecha y hora.</value>
   </data>
   <data name="CPUPower" xml:space="preserve">
-    <value>Consumo energético del CPU.</value>
+    <value>Consumo energético del CPU</value>
   </data>
   <data name="CPUPowerLabel" xml:space="preserve">
     <value>Potencia</value>
   </data>
   <data name="GPUPower" xml:space="preserve">
-    <value>Consumo energético del GPU.</value>
+    <value>Consumo energético del GPU</value>
   </data>
   <data name="GPUPowerLabel" xml:space="preserve">
     <value>Potencia</value>
