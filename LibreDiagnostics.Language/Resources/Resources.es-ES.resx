@@ -631,7 +631,7 @@
     <value>Atributos S.M.A.R.T.</value>
   </data>
   <data name="StorageAttributeHeaderTooltip" xml:space="preserve">
-    <value>Self-Monitoring, Analysis and Reporting Technology (SMART / S.M.A.R.T.)</value>
+    <value>Tecnología de Automonitorización, Análisis e Informes (SMART / S.M.A.R.T.)</value>
   </data>
   <data name="StorageAttributeID" xml:space="preserve">
     <value>ID</value>
